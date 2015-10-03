@@ -3,10 +3,10 @@
 
 int main(void){
 	int h = 4;
-	int min = 11;
+	int m = 11;
 	int code = 62;
 
-	int time = (h*60)+min;
+	int time = (h*60)+m;
 	double ResPrice;
 	if ((code >= 10) && (code <= 999)){
 		switch (code){
