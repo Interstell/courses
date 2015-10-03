@@ -1,16 +1,11 @@
 #include <math.h>
 
 int isExp2(int modmin){
-	double x = modmin;
-	while (x>0){
-		if (x == 2){
-			return 1;
-		}
-		if (x < 2){
-			return 0;
-		}
-		x = x / 2;
+	double b = (log(modmin) / log(2)) - (int)(log(modmin) / log(2));
+	if (b==0){
+		return 1;
 	}
+	else return 0;
 }
 int NumOfNeg(int a, int b, int c){
 	int result = 0;
