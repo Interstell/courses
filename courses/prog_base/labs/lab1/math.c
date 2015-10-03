@@ -8,7 +8,7 @@ double calc(double x, double y, double z) {
 	a1 = y / ((n0 + 1)*abs(x + y));
 	a2 = sqrt(abs(cos(y) / sin(x) + n1));
 	a = a0 + a1 + a2;
-	if (isfinite(a)){
+	if ((isfinite(a))&&(z!=0)){
 		return a;
 	}
 	else {
