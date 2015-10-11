@@ -6,6 +6,7 @@ double long2double(long long num){
 	char binary[64] = "";
 	long long numCopy;
 	const float FLOAT_NEGATIVE_INFINITY = ((float)(-1e308 * 10)); //found in Google
+	if (num == 0) return 0;
 	signflag = (num > 0) ? 1 : -1;
 	for (charNum = 63; charNum >= 0; charNum--){
 		numCopy = num;
@@ -24,6 +25,7 @@ double long2double(long long num){
 			expSum = expSum + pow(2, exp);
 		}
 	}
+	
 	if ((expSum == 0) && (fraction == 1) && (binary[0] =='0')){  //+0
 		result = +0;
 	}
