@@ -41,7 +41,7 @@ double long2double(long long num){
 		return nan("");
 	}
 	else if ((expSum == 2047) && (fraction != 0) && (binary[0] == '1')){ //-NaN
-		return INFINITY/INFINITY;  //may not work correctly, depending on the system \_(-_-)_/; taken from StackOveflow after long googling. 
+		return -nan("");  //may not work correctly, depending on the system \_(-_-)_/; taken from StackOveflow after long googling. 
 	}
 	else if ((expSum == 0) && (fraction != 1)){      //denormalized
 		result = signflag*fraction*pow(2, -1022);
