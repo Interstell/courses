@@ -6,10 +6,7 @@ double long2double(long long num){
 	char binary[64] = "";
 	long long numCopy;
 	const float FLOAT_NEGATIVE_INFINITY = ((float)(-1e308 * 10)); //found in Google
-	if (num < 0){
-		num = ~num;
-		signflag = -1;
-	}
+	signflag = (num > 0) ? 1 : -1;
 	for (charNum = 63; charNum >= 0; charNum--){
 		numCopy = num;
 		numCopy = numCopy >> 1;
@@ -27,11 +24,7 @@ double long2double(long long num){
 			expSum = expSum + pow(2, exp);
 		}
 	}
-	if ((expSum == 0) && (fraction != 0)){      //denormalized
-		result = (1+fraction)*pow(2, -1022);
-		result = (signflag == -1) ? result*(-1) : result;
-	}
-	else if ((expSum == 0) && (fraction == 1) && (binary[0] =='0')){  //+0
+	if ((expSum == 0) && (fraction == 1) && (binary[0] =='0')){  //+0
 		result = +0;
 	}
 	else if ((expSum == 0) && (fraction == 1) && (binary[0] == '1')){  //-0
@@ -49,9 +42,11 @@ double long2double(long long num){
 	else if ((expSum == 2047) && (fraction != 1) && (binary[0] == '1')){ //-NaN
 		return INFINITY/INFINITY;  //may not work correctly, depending on the system \_(-_-)_/; taken from StackOveflow after long googling. 
 	}
+	else if ((expSum == 0) && (fraction != 1)){      //denormalized
+		result = signflag*fraction*pow(2, -1022);
+	}
 	else {
-		result = (1+fraction)*pow(2, expSum - 1023); //normalized
-		result = (signflag == -1) ? result*(-1) : result;
+		result = signflag*(1+fraction)*pow(2, expSum - 1023); //normalized
 	}
 	
 	return result;
