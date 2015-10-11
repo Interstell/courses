@@ -25,23 +25,25 @@ double long2double(long long num){
 			expSum = expSum + pow(2, exp);
 		}
 	}
-	
-	if ((expSum == 0) && (fraction == 1) && (binary[0] =='0')){  //+0
+	expSum = 0;
+	fraction = 0;
+	binary[0] = '1';
+	if ((expSum == 0) && (fraction == 0) && (binary[0] =='0')){  //+0
 		result = +0;
 	}
-	else if ((expSum == 0) && (fraction == 1) && (binary[0] == '1')){  //-0
-		result = -0;
+	else if ((expSum == 0) && (fraction == 0) && (binary[0] == '1')){  //-0
+		result=-0.0;
 	}
-	else if ((expSum == 2047) && (fraction == 1) && (binary[0] == '0')){ //+inf
+	else if ((expSum == 2047) && (fraction == 0) && (binary[0] == '0')){ //+inf
 		result = INFINITY;
 	}
-	else if ((expSum == 2047) && (fraction == 1) && (binary[0] == '1')){ //-inf
+	else if ((expSum == 2047) && (fraction == 0) && (binary[0] == '1')){ //-inf
 		return FLOAT_NEGATIVE_INFINITY;
 	}
-	else if ((expSum == 2047) && (fraction != 1) && (binary[0] == '0')){ //+NaN
+	else if ((expSum == 2047) && (fraction != 0) && (binary[0] == '0')){ //+NaN
 		return nan("");
 	}
-	else if ((expSum == 2047) && (fraction != 1) && (binary[0] == '1')){ //-NaN
+	else if ((expSum == 2047) && (fraction != 0) && (binary[0] == '1')){ //-NaN
 		return INFINITY/INFINITY;  //may not work correctly, depending on the system \_(-_-)_/; taken from StackOveflow after long googling. 
 	}
 	else if ((expSum == 0) && (fraction != 1)){      //denormalized
