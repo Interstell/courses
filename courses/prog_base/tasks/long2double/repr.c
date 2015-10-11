@@ -25,9 +25,6 @@ double long2double(long long num){
 			expSum = expSum + pow(2, exp);
 		}
 	}
-	expSum = 0;
-	fraction = 0;
-	binary[0] = '1';
 	if ((expSum == 0) && (fraction == 0) && (binary[0] =='0')){  //+0
 		result = +0;
 	}
