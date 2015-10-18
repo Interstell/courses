@@ -75,7 +75,6 @@ int run(int moves[], int movesLen, int res[], int resLen){
 			}
 			break;
 		case CONTINUE:
-			//WHAT TO DO?
 			break;
 		case REPEAT:
 			repeatFlag = 1;
