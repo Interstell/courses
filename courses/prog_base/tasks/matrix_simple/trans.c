@@ -1,5 +1,7 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 void fillRand(int mat[4][4]){
-	srand(time(NULL));
 	int i, j, n = 4;
 	for (i = 0; i < n; i++){
 		for (j = 0; j < n; j++){
