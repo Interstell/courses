@@ -18,14 +18,14 @@ int checkRand2(int arr[], int size){
 	}
 	return 1;
 }
-float mean(int arr[], int size){
+float meanValue(int arr[], int size){
 	int i, sum = 0;
 	for (i = 0; i < size; i++){
 		sum += arr[i];
 	}
 	return sum / (float)size;
 }
-int max(int arr[], int size){
+int maxValue(int arr[], int size){
 	int i;
 	int maxval = arr[0];
 	for (i = 0; i < size; i++){
@@ -37,7 +37,7 @@ int max(int arr[], int size){
 }
 int meanIndex(int arr[], int size){
 	int i, resIndex = 0;
-	float meanval = mean(arr, size);
+	float meanval = meanValue(arr, size);
 	double mindelta=256.0,delta;
 	for (i = 0; i < size; i++){
 		delta = abs(meanval - arr[i]);
