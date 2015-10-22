@@ -4,7 +4,8 @@
 #endif
 void fillRand2(int arr[], int size){
 	int i;
-	srand(time(NULL));
+	time_t t;
+	srand((unsigned) time(&t));
 	for (i = 0; i < size; i++){
 		arr[i] = rand() % 511-255;
 	}
