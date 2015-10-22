@@ -1,5 +1,5 @@
 int run(int moves[], int movesLen, int res[], int resLen){
-	enum op{ POP = 1, CONTINUE, REPEAT, BREAK,EMPTY };
+	enum op{ POP = -100, CONTINUE, REPEAT, BREAK,EMPTY };
 	struct AUTOMATA{
 		enum op cmd;
 		int move;
