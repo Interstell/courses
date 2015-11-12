@@ -30,7 +30,7 @@ COORD diag(COORD pos, enum direct direction){
 		SetConsoleCursorPosition(hConsole, pos);
 		SetConsoleTextAttribute(hConsole, getColor(pos.X));
 		printf("*");
-		if (toJump == 0){ //because my console jumps down on the 1st symbol in the down right corner
+		if (toJump == 0){ /*because my console jumps down on the 1st symbol in the down right corner*/
 			toJump = 1;
 			SetConsoleCursorPosition(hConsole, jumper);
 			printf("");
