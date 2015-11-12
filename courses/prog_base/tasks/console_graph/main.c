@@ -42,7 +42,7 @@ void printAxes(COORD centre, int shiftX, int shiftY){
 COORD printDot(COORD center, int x, int y){
 	COORD pos;
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hConsole, BACKGROUND_GREEN | BACKGROUND_INTENSITY);
+	SetConsoleTextAttribute(hConsole, BACKGROUND_BLUE | BACKGROUND_INTENSITY);
 	pos.X = center.X + x;
 	pos.Y = center.Y - y;
 	if ((pos.X >= 0) && (pos.X <= 79) && (pos.Y >= 0) && (pos.Y <= 24)){
@@ -87,6 +87,7 @@ int func2(int x, int zoomX, int zoomY){
 	return (pow(zoomX*x*0.1*0.5,2) - 3)*(0.05*zoomY);
 }
 int func1(int x, int zoomX, int zoomY){
+	zoomX = zoomX + (zoomX - 10)*0.01;
 	return (tan(pow(zoomX*x*0.1, 2)) + pow(sin(2 *x*zoomX*0.1), 2))*(0.5*0.1*zoomY);
 }
 void printLegend(void){
