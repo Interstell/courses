@@ -27,11 +27,11 @@ void printAxes(COORD centre, int shiftX, int shiftY, int zoom){
 		for (pos.X = 79; pos.X >= 0; pos.X--){
 			SetConsoleCursorPosition(hConsole, pos);
 			if (zoom <= 10){
-				if ((pos.X - shiftX + 2) % (6 - (int)((zoom - 10)*0.1)) == 0) printf("+");
+				if ((pos.X - shiftX + 2) % (6 - (int)((zoom - 10)*0.2)) == 0) printf("+");
 				else printf("-");
 			}
 			else {
-				if ((pos.X - shiftX + 2) % (6 - (int)((zoom - 10)*0.1)) == 0) printf("+");
+				if ((pos.X - shiftX + 2) % (6 - (int)((zoom - 10)*0.2)) == 0) printf("+");
 				else printf("-");
 			}
 		}
@@ -41,11 +41,11 @@ void printAxes(COORD centre, int shiftX, int shiftY, int zoom){
 		for (pos.Y = 24; pos.Y >= 0; pos.Y--){
 			SetConsoleCursorPosition(hConsole, pos);
 			if (zoom <= 10){
-				if ((pos.Y - shiftY + 3) % (5 - (int)((zoom - 10)*0.1)) == 0) printf("+");
+				if ((pos.Y - shiftY + 3) % (5 - (int)((zoom - 10)*0.2)) == 0) printf("+");
 				else printf("|");
 			}
 			else {
-				if ((pos.Y - shiftY + 3) % (5 + (int)((zoom - 10)*0.1)) == 0) printf("+");
+				if ((pos.Y - shiftY + 3) % (5 + (int)((zoom - 10)*0.2)) == 0) printf("+");
 				else printf("|");
 			}
 		}
@@ -67,7 +67,7 @@ COORD printConnector(COORD prevDot, COORD newDot){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, BACKGROUND_BLUE | BACKGROUND_INTENSITY);
 	if (abs(newDot.Y - prevDot.Y) > 1){
-		if (newDot.Y > prevDot.Y){ //вниз
+		if (newDot.Y > prevDot.Y){ 
 			prevDot.X += newDot.X - prevDot.X;
 			while (prevDot.Y != newDot.Y){
 				if ((prevDot.X >= 0) && (prevDot.X <= 79) && (prevDot.Y >= 0) && (prevDot.Y <= 24)){
@@ -94,10 +94,10 @@ COORD printConnector(COORD prevDot, COORD newDot){
 }
 int func2(int x, int zoom){
 	if (zoom < 0) zoom = 0;
-	return (pow(zoom*x*0.1*0.5,2) - 3)*(0.05*zoom)*(-1)*(2);
+	return (-pow(zoom*x*0.1,2) + 3)*(0.1*zoom);
 }
 int func1(int x, int zoom){
-	return (tan(pow(zoom*x*0.1, 2)) + pow(sin(2 *x*zoom*0.1), 2))*(0.5*0.1*zoom);
+	return (tan(pow(zoom*x*0.1, 2)) + pow(sin(2 *x*zoom*0.1), 2))*(0.1*zoom);
 }
 void printLegend(funcNum){
 	COORD legend;
@@ -161,7 +161,7 @@ void printIntro(void){
 }
 int main(void){
 	COORD centre = { 40, 12 };
-	int btnInput, shiftX=0, shiftY=0, funcNum=1, zoom=10;
+	int btnInput, shiftX=0, shiftY=0, funcNum=2, zoom=10;
 	printIntro();
 	getch();
 	refreshScreen(centre, zoom, 0, 0, funcNum);
