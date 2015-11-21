@@ -2,17 +2,6 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <math.h>
-void fillBg(void){
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	COORD pos;
-	SetConsoleTextAttribute(hConsole, BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE | BACKGROUND_INTENSITY);
-	for (pos.X = 79; pos.X >= 0; pos.X--){
-		for (pos.Y = 24; pos.Y >= 0; pos.Y--){
-			SetConsoleCursorPosition(hConsole, pos);
-			printf(" ");
-		}
-	}
-}
 COORD getNewCentre(COORD centre, int x, int y){
 	centre.X += x;
 	centre.Y -= y;
@@ -120,7 +109,9 @@ void printLegend(funcNum){
 }
 void refreshScreen(COORD centre, int zoom, int shiftX, int shiftY, int funcNum){
 	COORD prevDot, newDot, legend;
-	fillBg();
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE | BACKGROUND_INTENSITY);
+	system("cls");
 	printAxes(centre, shiftX, shiftY, zoom);
 	if (funcNum == 1) prevDot = printDot(centre, -60, func1(-60, zoom));
 	else prevDot = printDot(centre, -60, func2(-60, zoom));
@@ -135,7 +126,8 @@ void refreshScreen(COORD centre, int zoom, int shiftX, int shiftY, int funcNum){
 void printIntro(void){
 	COORD pos;
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	fillBg();
+	SetConsoleTextAttribute(hConsole, BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE | BACKGROUND_INTENSITY);
+	system("cls");
 	SetConsoleTextAttribute(hConsole, BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_INTENSITY | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 	for (pos.X=20; pos.X < 60; pos.X++){
 		for (pos.Y=9; pos.Y < 17; pos.Y++){
@@ -163,7 +155,7 @@ int main(void){
 	COORD centre = { 40, 12 };
 	int btnInput, shiftX=0, shiftY=0, funcNum=2, zoom=10;
 	printIntro();
-	getch();
+	btnInput=getch();
 	refreshScreen(centre, zoom, 0, 0, funcNum);
 	while (1){
 		btnInput = getch();
@@ -181,22 +173,23 @@ int main(void){
 			funcNum = (funcNum == 1) ? 2 : 1;
 			refreshScreen(centre, zoom, 0, 0, funcNum);
 			break;
-		case 230: // W - up
+		//case 230: // W - up
+		case 'w':
 			centre = getNewCentre(centre, 0, 1);
 			shiftY++;
 			refreshScreen(centre, zoom, shiftX, shiftY, funcNum);
 			break;
-		case 235: // S - down
+		case 's': // S - down
 			centre = getNewCentre(centre, 0, -1);
 			shiftY--;
 			refreshScreen(centre, zoom, shiftX, shiftY, funcNum);
 			break;
-		case 162: // D - right
+		case 'd': // D - right
 			centre = getNewCentre(centre, 1, 0);
 			shiftX++;
 			refreshScreen(centre, zoom, shiftX, shiftY, funcNum);
 			break;
-		case 228: // A - left
+		case 'a': // A - left
 			centre = getNewCentre(centre, -1, 0);
 			shiftX--;
 			refreshScreen(centre, zoom, shiftX, shiftY, funcNum);
