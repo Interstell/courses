@@ -4,7 +4,7 @@
 #include <math.h>
 
 struct CITY{
-	char name[50];
+	char name[52]; //thanks tproger.ru for explanation
 	int population;
 	double ltd; //latitude
 	double lng; //longtitude
@@ -43,7 +43,7 @@ void change(struct CITY *cities, const char* newValue){
 }
 int main(void){
 	struct CITY cities[5] = { "Kyiv", 2799000, 50.43, 30.52, "Borispol", 60102, 50.35, 30.95, "Brovary", 100374, 50.5, 30.77, "Bucha", 42279, 50.37, 30.21, "Bila Tserkva", 206990, 49.78, 30.12 };
-	int size = sizeof(cities) / (50+sizeof(int)+2*sizeof(double));
+	int size = sizeof(cities) / (52+sizeof(int)+2*sizeof(double));
 	char newName[50];
 	int indexToChange = 1, result = 0;
 	print(size, cities);
