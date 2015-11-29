@@ -3,7 +3,13 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
-
+#ifdef min
+#undef min
+#define min(a,b)    (((a) < (b)) ? (a) : (b))
+#endif
+#ifndef min
+#define min(a,b)    (((a) < (b)) ? (a) : (b))
+#endif
 int main(void){
 	char* input=(char*)malloc(1000*sizeof(char));
 	char* cmp = (char*)malloc(3 * sizeof(char));
