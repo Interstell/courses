@@ -13,11 +13,11 @@
 #include "snake.h"
 #include "stats.h"
 
-const int WINDOW_WIDTH = 80;
-const int WINDOW_HEIGHT = 25;
-const int AppleColors[5] = { 26, 91, 112, 155, 185 };
-const int AppleLevels[] = { 8, 20, 40, 70, 110, 150 };
-const int SpeedLevels[9] = { 70, 65, 60, 55, 50, 45, 40, 30, 20 };
+static const int WINDOW_WIDTH = 80;
+static const int WINDOW_HEIGHT = 25;
+static const int AppleColors[5] = { 26, 91, 112, 155, 185 };
+static const int AppleLevels[] = { 8, 20, 40, 70, 110, 150 };
+static const int SpeedLevels[9] = { 70, 65, 60, 55, 50, 45, 40, 30, 20 };
 enum VECTOR { DOWN, UP, LEFT, RIGHT };
 enum COLORS { BACKGROUND = 10, BODY = 46, HEAD = 202, HEADER = 138, SCORE = 142, INTRO = 27, INTRO_H = 30 };
 struct BODY {
