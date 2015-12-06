@@ -4,7 +4,7 @@
 #include <math.h>
 #include <string.h>
 #include <ctype.h>
-
+//Small comment just to reload Github
 int charToNumber(char c){
 	if (c >= 48 && c <= 57) return c - 48;
 	else return c - 55;
