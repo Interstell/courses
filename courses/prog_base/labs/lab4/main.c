@@ -41,6 +41,13 @@ void printVerticalLine(int x, int y1, int y2, char symbol, int color){
 		printf("%c", symbol);
 	}
 }
+void printHorizLine(int y, int x1, int x2, char symbol, int color){
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+	for (int i = x1; i < x2; i++){
+		JumpTo(i, y);
+		printf("%c", symbol);
+	}
+}
 void deleteDoctor(struct DOCTOR doctors[], int numOfDandP[], int n){
 	doctors[n].Surname[0] = 123;
 	sortDoctors(doctors, numOfDandP[0]);
@@ -140,6 +147,7 @@ int RunMainMenu(void){
 	static int selected = 0;
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 255);
 	PrintMenu(commands, selected, 5, 5, size);
+	printVerticalLine(3, 5, 5 + size, '|', 250);
 	while (1){
 		int button = _getch();
 		if (button == 13 || button == 'd') return selected;
@@ -649,6 +657,12 @@ void printStat(struct DOCTOR doctors[], struct PATIENT patients[], int numOfDand
 	}
 	printRect(30, 5, 100, 45, 32, SELECTED);
 }
+int isConnected(int arr[], int limit, int n){
+	for (int i = 0; i < limit; i++){
+		if (arr[i] == n) return 1;
+	}
+	return 0;
+}
 void printBottle(int x, int y){
 	int strongColors[] = { 32, 64, 96, 16, 48 };
 	int weakColors[] = { 160, 192, 224, 144, 176 };
@@ -691,6 +705,14 @@ void printBottle(int x, int y){
 	printVerticalLine(x + 6, y + 7, y + 8, 32, weakG);
 	printVerticalLine(x + 6, y + 8, y + 12, 32, weak);
 }
+void printHeader(){
+	printRect(0, 0, 119, 4, ' ', 192);
+	printHorizLine(2, 0, 120, ' ', 255);
+	printVerticalLine(60, 0, 5, 32, 255);
+	JumpTo(48, 2);
+	setColor(HEADER);
+	printf("Hospital Managing Terminal");
+}
 
 
 int main(void){
@@ -716,6 +738,7 @@ int main(void){
 	ChangeSize();
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 255);
 	system("cls");
+	printHeader();
 	int patient = 0, toChange, doctor = 0, toChange2;
 	while (1){
 		int res = RunMainMenu();
@@ -782,11 +805,13 @@ int main(void){
 				int pts = runPatientsMenu(patients, patientsSorted, numOfDandP[1], 63, 5, 100, 5);
 				if (pts == -1) continue;
 				else {
-					patients[pts].Doctors[patients[pts].nOfDoctors] = doctors[doc].dId;
-					patients[pts].nOfDoctors += 1;
-					doctors[doc].Patients[doctors[doc].nOfPatients] = patients[pts].pId;
-					doctors[doc].nOfPatients += 1;
-					printRect(27, 5, 120, 15, ' ', NORMAL);
+					if (!isConnected(patients[pts].Doctors, patients[pts].nOfDoctors, doctors[doc].dId)){
+						patients[pts].Doctors[patients[pts].nOfDoctors] = doctors[doc].dId;
+						patients[pts].nOfDoctors += 1;
+						doctors[doc].Patients[doctors[doc].nOfPatients] = patients[pts].pId;
+						doctors[doc].nOfPatients += 1;
+					}
+					printRect(25, 5, 120, 15, ' ', NORMAL);
 					break;
 				}
 			}
@@ -799,11 +824,13 @@ int main(void){
 				int doc = runDoctorsMenu(doctors, doctorsSorted, numOfDandP[0], 63, 5, 100, 5);
 				if (doc == -1) continue;
 				else {
-					patients[pts].Doctors[patients[pts].nOfDoctors] = doctors[doc].dId;
-					patients[pts].nOfDoctors += 1;
-					doctors[doc].Patients[doctors[doc].nOfPatients] = patients[pts].pId;
-					doctors[doc].nOfPatients += 1;
-					printRect(27, 5, 120, 15, ' ', NORMAL);
+					if (!isConnected(patients[pts].Doctors, patients[pts].nOfDoctors, doctors[doc].dId)){
+						patients[pts].Doctors[patients[pts].nOfDoctors] = doctors[doc].dId;
+						patients[pts].nOfDoctors += 1;
+						doctors[doc].Patients[doctors[doc].nOfPatients] = patients[pts].pId;
+						doctors[doc].nOfPatients += 1;
+					}
+					printRect(25, 5, 120, 15, ' ', NORMAL);
 					break;
 				}
 			}
