@@ -4,7 +4,7 @@
 #include <math.h>
 #include <string.h>
 #include <ctype.h>
-//Small comment just to reload Github
+
 int charToNumber(char c){
 	if (c >= 48 && c <= 57) return c - 48;
 	else return c - 55;
@@ -87,11 +87,17 @@ void DecimalToDest(double decimal, unsigned int destBase, char* res){
 		}
 	}
 }
+void cleanStr(char* str, int len){
+	for (int i = len - 1; i >= 0; i--){
+		str[i] = '\0';
+	}
+}
 char* ns_convert(char* number, unsigned int sourceBase, unsigned int destBase){
 	static char res[300] = "";
 	char integral[300]="";
 	char fractional[300]="";
 	double decimal;
+	cleanStr(res, strlen(res));
 	if (!IsValid(number, sourceBase)) return "\0";
 	Split(number, integral, fractional);
 	decimal = StrToDecimal(integral, fractional, sourceBase);
