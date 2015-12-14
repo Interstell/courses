@@ -2,9 +2,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+void cleanStr(char* str, int len){
+	for (int i = len - 1; i >= 0; i--){
+		str[i] = '\0';
+	}
+}
 char *morseToSymbol(char *code){
 	static char res[1];
 	static int bracket = 0;
+	cleanStr(res, strlen(res));
 	if (strcmp(code, ".-") == 0) res[0] = 'A';
 	else if (strcmp(code, "-...") == 0) res[0] = 'B';
 	else if (strcmp(code, "-.-.") == 0) res[0] = 'C';
@@ -38,6 +45,16 @@ char *morseToSymbol(char *code){
 	else if (strcmp(code, ".----.") == 0) res[0] = '\'';
 	else if (strcmp(code, "-....-") == 0) res[0] = '-';
 	else if (strcmp(code, "-..-.") == 0) res[0] = '/';
+	else if (strcmp(code, ".----") == 0) res[0] = '1';
+	else if (strcmp(code, "..---") == 0) res[0] = '2';
+	else if (strcmp(code, "...--") == 0) res[0] = '3';
+	else if (strcmp(code, "....-") == 0) res[0] = '4';
+	else if (strcmp(code, ".....") == 0) res[0] = '5';
+	else if (strcmp(code, "-....") == 0) res[0] = '6';
+	else if (strcmp(code, "--...") == 0) res[0] = '7';
+	else if (strcmp(code, "---..") == 0) res[0] = '8';
+	else if (strcmp(code, "----.") == 0) res[0] = '9';
+	else if (strcmp(code, "-----") == 0) res[0] = '0';
 	else if (strcmp(code, "-.--.-") == 0){
 		res[0] = (!bracket) ? '(' : ')';
 		bracket = !bracket;
@@ -54,7 +71,8 @@ char *morse_decode(char *message, const char *signal){
 	int i,j, foundOne = 0, writePos = 0;
 	int unitLength = 0, currSequenceLength=0;
 	char currBin = '1';
-
+	cleanStr(input, strlen(input));
+	cleanStr(result, strlen(result));
 	//first read and deleting zeros in the beginning
 	for (i = 0; i < strlen(signal); i++){
 		if (*(signal + i) == '1'){
