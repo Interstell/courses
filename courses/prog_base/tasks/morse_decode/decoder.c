@@ -126,7 +126,7 @@ char *morse_decode(char *message, const char *signal){
 					for (j = strlen(code) - 1; j >= 0; j--){
 						code[j] = '\0';
 					}
-					for (j = 1; j <= currSequenceLength / 7; j++){
+					for (j = 1; j <= currSequenceLength % (7 * unitLength) + 1; j++){
 						strcat(result, " ");
 					}
 				}
