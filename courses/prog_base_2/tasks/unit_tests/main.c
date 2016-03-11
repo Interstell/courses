@@ -12,18 +12,21 @@
 static void create_void_zeroCount(void **state){
 	text_t text = text_create();
 	assert_int_equal(text_getSentenceAmount(text), 0);
+	text_remove(text);
 }
 
 static void addSentenceToEnd_oneString_countOne(void **state){
 	text_t text = text_create();
 	text_addSentenceToEnd(text, "TEST");
 	assert_int_equal(text_getSentenceAmount(text), 1);
+	text_remove(text);
 }
 
 static void addSentenceToEnd__nullSentencePointer__putsNULL_POINTERtoStatus(void** state){
 	text_t text = text_create();
 	text_addSentenceToEnd(text, NULL);
 	assert_int_equal(text_getStatus(text), NULL_POINTER);
+	text_remove(text);
 }
 
 static void addSentenceByIndex_hasTwoAddedSentencesAddingOneNewSentenceToZeroIndex_testIfWasAdded(void** state){
@@ -32,6 +35,7 @@ static void addSentenceByIndex_hasTwoAddedSentencesAddingOneNewSentenceToZeroInd
 	text_addSentenceToEnd(text, "TEST2");
 	text_addSentenceByIndex(text, "TEST0", 0);
 	assert_string_equal(text_getSentence(text, 0), "TEST0");
+	text_remove(text);
 }
 
 static void addSentenceByIndex_hasTwoAddedSentencesAddingOneNewSentenceToIndexOne_testIfWasAdded(void **state){
@@ -40,24 +44,28 @@ static void addSentenceByIndex_hasTwoAddedSentencesAddingOneNewSentenceToIndexOn
 	text_addSentenceToEnd(text, "TEST2");
 	text_addSentenceByIndex(text, "TESTMIDDLE", 1);
 	assert_string_equal(text_getSentence(text, 1), "TESTMIDDLE");
+	text_remove(text);
 }
 
 static void addSentenceByIndex__NonExistingIndex__putsINDEX_OUT_OF_BOUNDtoStatus(void **state){
 	text_t text = text_create(); 
 	text_addSentenceByIndex(text, "NONEXISTINGINDEX", 100500);
 	assert_int_equal(text_getStatus(text), INDEX_OUT_OF_BOUND);
+	text_remove(text);
 }
 
 static void addSentenceByIndex__nullSentencePointer__putsNULL_POINTERtoStatus(void** state){
 	text_t text = text_create();
 	text_addSentenceByIndex(text, NULL, 0);
 	assert_int_equal(text_getStatus(text), NULL_POINTER);
+	text_remove(text);
 }
 
 static void setSentenceByIndex__NonExistingIndex__putsINDEX_OUT_OF_BOUNDtoStatus(void **state){
 	text_t text = text_create();
 	text_setSentenceByIndex(text, "NONEXISTINGINDEX", -100500);
 	assert_int_equal(text_getStatus(text), INDEX_OUT_OF_BOUND);
+	text_remove(text);
 }
 
 static void setSentenceByIndex__nullSentencePointer__putsNULL_POINTERtoStatus(void** state){
@@ -65,6 +73,7 @@ static void setSentenceByIndex__nullSentencePointer__putsNULL_POINTERtoStatus(vo
 	text_addSentenceToEnd(text, "TEST1");
 	text_setSentenceByIndex(text, NULL, 0);
 	assert_int_equal(text_getStatus(text), NULL_POINTER);
+	text_remove(text);
 }
 
 static void setSentenceByIndex_hasOneAddedSentenceSettingNewSentenceInstead_testIfHasChanged(void **state){
@@ -72,6 +81,7 @@ static void setSentenceByIndex_hasOneAddedSentenceSettingNewSentenceInstead_test
 	text_addSentenceToEnd(text, "TEST1");
 	text_setSentenceByIndex(text, "REPLACED", 0);
 	assert_string_equal(text_getSentence(text, 0), "REPLACED");
+	text_remove(text);
 }
 
 static void deleteSentenceByIndex_hasOneAddedSentenceDeletingIt_zeroCount(void **state){
@@ -79,18 +89,21 @@ static void deleteSentenceByIndex_hasOneAddedSentenceDeletingIt_zeroCount(void *
 	text_addSentenceToEnd(text, "TEST1");
 	text_deleteSentenceByIndex(text, 0);
 	assert_int_equal(text_getSentenceAmount(text), 0);
+	text_remove(text);
 }
 
 static void deleteSentenceByIndex__DeletingNonExistingIndex__putsINDEX_OUT_OF_BOUNDtoStatus(void **state){
 	text_t text = text_create();
 	text_deleteSentenceByIndex(text, -100500);
 	assert_int_equal(text_getStatus(text), INDEX_OUT_OF_BOUND);
+	text_remove(text);
 }
 
 static void getSentence_hasOneAddedSentence_returnsAddedSentence(void **state){
 	text_t text = text_create();
 	text_addSentenceToEnd(text, "TESTSTR");
 	assert_string_equal(text_getSentence(text, 0), "TESTSTR");
+	text_remove(text);
 }
 
 static void getText_hasThreeAddedSentences_returnsText(void** state){
@@ -99,6 +112,7 @@ static void getText_hasThreeAddedSentences_returnsText(void** state){
 	text_addSentenceToEnd(text, "TEST2");
 	text_addSentenceToEnd(text, "TEST3");
 	assert_string_equal(text_getText(text), "TEST1. TEST2. TEST3. ");
+	text_remove(text);
 }
 
 static void getSentenceAmount_hasThreeAddedSentences_returnsCount(void **state){
@@ -107,6 +121,7 @@ static void getSentenceAmount_hasThreeAddedSentences_returnsCount(void **state){
 	text_addSentenceToEnd(text, "TEST2");
 	text_addSentenceToEnd(text, "TEST3");
 	assert_int_equal(text_getSentenceAmount(text), 3);
+	text_remove(text);
 }
 
 static void getWordsAmountInText_hasSomeAddedSentences_returnsWordsCount(void **state){
@@ -115,24 +130,28 @@ static void getWordsAmountInText_hasSomeAddedSentences_returnsWordsCount(void **
 	text_addSentenceToEnd(text, "asd+sd");
 	text_addSentenceToEnd(text, "ababa gala&maga");
 	assert_int_equal(text_getWordsAmountInText(text), 7);
+	text_remove(text);
 }
 
 static void getStatus__callingNULL_POINTERerror__returnStatus(void **state){
 	text_t text = text_create();
 	text_addSentenceByIndex(text, NULL, 0);
 	assert_int_equal(text_getStatus(text), NULL_POINTER);
+	text_remove(text);
 }
 
 static void getStatus__callingINDEX_OUT_OF_BOUNDerror__returnStatus(void **state){
 	text_t text = text_create();
 	text_addSentenceByIndex(text, "TEST", 100500);
 	assert_int_equal(text_getStatus(text), INDEX_OUT_OF_BOUND);
+	text_remove(text);
 }
 
 static void getStatus__addingNon_NULLsentenceToProperIndexToGetOKstatus__returnStatus(void** state){
 	text_t text = text_create();
 	text_addSentenceToEnd(text, "TEST");
 	assert_int_equal(text_getStatus(text), OK);
+	text_remove(text);
 }
 
 void runTests(void){
