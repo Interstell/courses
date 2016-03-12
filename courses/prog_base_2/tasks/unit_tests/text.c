@@ -36,7 +36,7 @@ void text_addSentenceToEnd(text_t self, char* sentence){
 }
 
 char* text_getSentence(text_t self, int index){
-	if (index > self->amountOfSentences - 1){
+	if (index > self->amountOfSentences - 1 || index < 0){
 		self->status = INDEX_OUT_OF_BOUND;
 		return "NULL";
 	}
