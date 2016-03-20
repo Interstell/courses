@@ -4,7 +4,7 @@
 
 
 int main(void){
-	char bigStr[] = "abcd123as321dj123aj321jk321da123ash321da";
+	char bigStr[] = "...321....0123...3210321.123.";
 	char smallStr[] = "123";
 	puts("Substrings marked with color:");
 	check(bigStr, smallStr, containsCB1, reversedCB1);
