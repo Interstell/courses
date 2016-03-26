@@ -103,6 +103,10 @@ int main(void) {
 		}
 	}
 
+	for (int i = 0; i < size; i++)
+		free(array[i]);
+	free(array);
+
 	puts("Server response:\n");
 	printf("%s\r\n", buffer);
 
