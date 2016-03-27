@@ -1,65 +1,39 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <windows.h>
-#include "mutex.h"
-#include "thread.h"
+#include "header.h"
+#include "producer.h"
+#include "consumer.h"
 
-#define SLEEP_TIME 1
-
-typedef struct data_s{
-	int arr[4];
-	int curInsertPos;
-	mutex_t *mutex;
-} data_t;
-
-
-void * producerFunc(void* args){
-	data_t * data = (data_t *)args;
-	while (1){
-		mutex_lock(data->mutex);
-		data->arr[(data->curInsertPos)++] = rand()%10;
-		if (data->curInsertPos == 4) data->curInsertPos = 0;
-		mutex_unlock(data->mutex);
-		Sleep(SLEEP_TIME);
-	}
-	return NULL;
+data_t* data_initialize(void){
+	data_t* data = (data_t*)malloc(sizeof(struct data_s));
+	data->curInsertPos = 0;
+	data->mutex = mutex_new();
+	return data;
 }
 
-void * consumerFunc(void* args){
-	data_t * data = (data_t *)args;
-	while (1){
-		mutex_lock(data->mutex);
-		if (data->arr[0] == data->arr[1] - 1
-			&& data->arr[1] == data->arr[2] - 1
-			&& data->arr[2] == data->arr[3] - 1
-			&& data->arr[3] - 3 == data->arr[0]){
-			for (int i = 0; i < 4; i++)
-				printf("%d ", data->arr[i]);
-			printf("\n");
-		}
-		mutex_unlock(data->mutex);
-		Sleep(SLEEP_TIME);
-	}
-	return NULL;
+void data_delete(data_t* data){
+	mutex_free(data->mutex);
+	free(data);
 }
 
 int main(void){
+	
+	// ATTENTION! IF YOU THINK IT IS TOO QUICK - change "SLEEP_TIME" FOR "1" in "header.h"
+	// But it may become too slow :(
+	// It will work, but really slow.  \_(0_0)_/ 
+
 	srand((unsigned)time(NULL));
-	data_t data;
-	data.curInsertPos = 0;
-	data.mutex = mutex_new();
-	thread_t* producer1 = thread_create_args(producerFunc, &data);
-	thread_t* producer2 = thread_create_args(producerFunc, &data);
-	thread_t* consumer1 = thread_create_args(consumerFunc, &data);
-	thread_t* consumer2 = thread_create_args(consumerFunc, &data);
-	thread_join(consumer2);
-	thread_free(producer1);
-	thread_free(producer2);
-	thread_free(consumer1);
-	thread_free(consumer2);
-	mutex_free(data.mutex);
+	data_t * data = data_initialize();
+	producer_t producer1 = producer_new(data);
+	producer_t producer2 = producer_new(data);
+	consumer_t consumer1 = consumer_new(data);
+	consumer_t consumer2 = consumer_new(data);
+	consumer_wait(consumer2);
+	producer_delete(producer1);
+	producer_delete(producer2);
+	consumer_delete(consumer1);
+	consumer_delete(consumer2);
+	data_delete(data);
+
 	return EXIT_SUCCESS;
 }
