@@ -5,7 +5,7 @@
 #include "mutex.h"
 #include "thread.h"
 
-#define SLEEP_TIME 0
+#define SLEEP_TIME 1
 
 typedef struct data_s{
 	int arr[4];

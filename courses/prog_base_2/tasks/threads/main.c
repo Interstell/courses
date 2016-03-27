@@ -18,9 +18,9 @@ void data_delete(data_t* data){
 
 int main(void){
 	
-	// ATTENTION! IF YOU THINK IT IS TOO QUICK - change "SLEEP_TIME" FOR "1" in "header.h"
-	// But it may become too slow :(
-	// It will work, but really slow.  \_(0_0)_/ 
+	// ATTENTION! IF YOU THINK IT IS TOO SLOW - change "SLEEP_TIME" FOR "0" in "header.h"
+	// Or just wait a bit, it really works.  \_(0_0)_/
+	// With "SLEEP_TIME"==0 it is too quick.
 
 	srand((unsigned)time(NULL));
 	data_t * data = data_initialize();
