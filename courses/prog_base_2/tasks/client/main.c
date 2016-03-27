@@ -167,6 +167,7 @@ int main(void) {
 
 	printf("\nServer response:\n\n%s\n", buffer);
 
+	closesocket(recvSocket);
 
 	getchar();
 	return EXIT_SUCCESS;
