@@ -140,7 +140,6 @@ int main(void) {
 	// Connect
 	connectToServer(recvSocket, recvSockAddr);
 
-	char request[200];
 	// Send request
 	sendInitialRequest(recvSocket, host_name);
 
