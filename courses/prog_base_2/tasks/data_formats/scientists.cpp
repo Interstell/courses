@@ -11,11 +11,7 @@ struct scientist_s{
 	char birthDate[20];
 	char scienceDomain[30];
 	int numOfAcademicDegrees;
-	struct degree_s{
-		char degreeName[50];
-		char achievingDate[20];
-		char thesisName[70];
-	} degrees[MAX_NUM_OF_DEGREES];
+	degree_t degrees[MAX_NUM_OF_DEGREES];
 	double quotationIndex;
 	double HirschIndex;
 	int scientificStudies;
@@ -98,3 +94,50 @@ void scientists_printByIndex(scientists_t self, int index){
 	printf("Num of scientific studies: %d\n", self->scientists[index]->scientificStudies);
 	printf("Num of patents: %d\n", self->scientists[index]->patents);
 }
+
+char * scientists_getFirstName(scientists_t self, int index){
+	return self->scientists[index]->firstName;
+}
+
+char * scientists_getSurname(scientists_t self, int index){
+	return self->scientists[index]->surname;
+}
+
+char * scientists_getFathersName(scientists_t self, int index){
+	return self->scientists[index]->fathersName;
+}
+
+char * scientists_getBirthDate(scientists_t self, int index){
+	return self->scientists[index]->birthDate;
+}
+
+char * scientists_getScienceDomain(scientists_t self, int index){
+	return self->scientists[index]->scienceDomain;
+}
+
+int scientists_getAmountOfDegrees(scientists_t self, int index){
+	return self->scientists[index]->numOfAcademicDegrees;
+}
+
+degree_t* scientists_getAcademicDegrees(scientists_t self, int index){
+	return self->scientists[index]->degrees;
+}
+
+double scientists_getQuotationIndex(scientists_t self, int index){
+	return self->scientists[index]->quotationIndex;
+}
+
+double scientists_getHirschIndex(scientists_t self, int index){
+	return self->scientists[index]->HirschIndex;
+}
+
+int scientists_getNumOfScientificStudies(scientists_t self, int index){
+	return self->scientists[index]->scientificStudies;
+}
+
+int scientists_getNumOfPatents(scientists_t self, int index){
+	return self->scientists[index]->patents;
+}
+
+
+

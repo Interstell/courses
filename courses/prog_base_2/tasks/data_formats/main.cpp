@@ -7,6 +7,7 @@ int main(void){
 
 	for (int i = 0; i < scientists_amount(sc); i++){
 		scientists_printByIndex(sc, i);
+		puts("");
 	}
 
 	scientists_delete(sc);
