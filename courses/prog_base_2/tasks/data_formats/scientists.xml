@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<scientists>
+	<scientist degree = "Doctor">
+		<firstName>Petro</firstName>
+		<surname>Legeza</surname>
+		<fathersName>Viktorovich</fathersName>
+		<birthDate>1955-02-20</birthDate>
+		<scienceDomain>Physics</scienceDomain>
+		<academicDegrees>
+			<degree name ="Doctor of Technical sciences">
+				<achievingDate>2006-06-18</achievingDate>
+				<thesisName>Methods of vibration reducing in trains</thesisName>
+			</degree>
+			<degree name = "Candidate of Technical sciences">
+				<achievingDate>2004-09-01</achievingDate>
+				<thesisName>Something really complicated</thesisName>
+			</degree>
+		</academicDegrees>
+		<quotationIndex>3.6</quotationIndex>
+		<HirschIndex>5.2</HirschIndex>
+		<scientificStudies>240</scientificStudies>
+		<patents>30</patents>
+	</scientist>
+	<scientist degree = "Doctor">
+		<firstName>Vladymyr</firstName>
+		<surname>Levenshteyn</surname>
+		<fathersName>Yosypovich</fathersName>
+		<birthDate>1935-05-20</birthDate>
+		<scienceDomain>Applied Mathematics</scienceDomain>
+		<academicDegrees>
+			<degree name ="Doctor of Physico-mathematical sciences">
+				<achievingDate>1983-03-22</achievingDate>
+				<thesisName>Optimizational tasks of coding and testing</thesisName>
+			</degree>
+			<degree name ="Candidate of Physico-mathematical sciences">
+				<achievingDate>1968-03-02</achievingDate>
+				<thesisName>Edit distance</thesisName>
+			</degree>
+		</academicDegrees>
+		<quotationIndex>8.5</quotationIndex>
+		<HirschIndex>9.32</HirschIndex>
+		<scientificStudies>117</scientificStudies>
+		<patents>10</patents>
+	</scientist>
+	<scientist degree = "Doctor">
+		<firstName>Volodymyr</firstName>
+		<surname>Vronskiy</surname>
+		<fathersName>Volodymyrovich</fathersName>
+		<birthDate>1986-31-03</birthDate>
+		<scienceDomain>Biology</scienceDomain>
+		<academicDegrees>
+			<degree name = "Candidate of Biological sciences">
+				<achievingDate>2009-04-18</achievingDate>
+				<thesisName>The origin of human</thesisName>
+			</degree>
+		</academicDegrees>
+		<quotationIndex>2.18</quotationIndex>
+		<HirschIndex>4.2</HirschIndex>
+		<scientificStudies>10</scientificStudies>
+		<patents>0</patents>
+	</scientist>
+</scientists>

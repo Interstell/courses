@@ -1,0 +1,66 @@
+[
+   {
+      "firstName":"Petro",
+      "surname":"Legeza",
+      "fathersName":"Viktorovich",
+      "birthDate":"1955-02-20",
+      "scienceDomain":"Physics",
+      "academicDegrees":[
+         {
+            "degree":"Doctor of Technical sciences",
+            "achievingDate":"2006-06-18",
+            "thesisName":"Methods of vibration reducing in trains"
+         },
+         {
+            "degree":"Candidate of Technical sciences",
+            "achievingDate":"2004-09-01",
+            "thesisName":"Something really complicated"
+         }
+      ],
+      "quotationIndex":3.6,
+      "HirschIndex":5.2,
+      "scientificStudies":240,
+      "patents":30
+   },
+   {
+      "firstName":"Volodymyr",
+      "surname":"Levenshteyn",
+      "fathersName":"Yosypovich",
+      "birthDate":"1935-05-20",
+      "scienceDomain":"Applied Mathematics",
+      "academicDegrees":[
+         {
+            "degree":"Doctor of Physico-mathematical sciences",
+            "achievingDate":"1983-03-22",
+            "thesisName":"Optimizational tasks of coding and testing"
+         },
+         {
+            "degree":"Candidate of Physico-mathematical sciences",
+            "achievingDate":"1968-03-02",
+            "thesisName":"Edit distance"
+         }
+      ],
+      "quotationIndex":8.5,
+      "HirschIndex":9.32,
+      "scientificStudies":117,
+      "patents":10
+   },
+   {
+      "firstName":"Volodymyr",
+      "surname":"Vronskiy",
+      "fathersName":"Volodymyrovich",
+      "birthDate":"1986-31-03",
+      "scienceDomain":"Biology",
+      "academicDegrees":[
+         {
+            "degree":"Candidate of Biological sciences",
+            "achievingDate":"2009-04-18",
+            "thesisName":"The origin of human"
+         }
+      ],
+      "quotationIndex":2.18,
+      "HirschIndex":4.2,
+      "scientificStudies":10,
+      "patents":0
+   }
+]
