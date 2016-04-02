@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1459572848 source:d:\Универ\2 семестр\ОП\lab\lab2\lab2 static\stack.c
+	"stack.h"
+
+1459597206 d:\Универ\2 семестр\ОП\lab\lab2\lab2 static\stack.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+

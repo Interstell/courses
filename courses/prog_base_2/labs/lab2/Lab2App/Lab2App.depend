@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1459547878 source:d:\Универ\2 семестр\ОП\lab\lab2\lab2app\app.c
+	"app.h"
+
+1459546036 d:\Универ\2 семестр\ОП\lab\lab2\lab2app\app.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+	<time.h>
+	"stack.h"
+
+1459597456 d:\Универ\2 семестр\ОП\lab\lab2\lab2app\stack.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1459597411 source:d:\Универ\2 семестр\ОП\lab\lab2\lab2app\main.c
+	"app.h"
+

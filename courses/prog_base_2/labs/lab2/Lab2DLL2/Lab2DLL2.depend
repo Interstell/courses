@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1459545241 source:d:\Универ\2 семестр\ОП\lab\lab2\lab2dll2\main.cpp
+	"main.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1459545122 d:\Универ\2 семестр\ОП\lab\lab2\lab2dll2\main.h
+	<windows.h>
+	"stack.h"
+
+1459544633 d:\Универ\2 семестр\ОП\lab\lab2\lab2dll2\stack.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
