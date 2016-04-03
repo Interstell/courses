@@ -1,67 +1,27 @@
-#include <SFML/Graphics.hpp>
-#include <stdio.h>
-#include <iostream>
+#include "player.hpp"
+#include "map.h"
+#include "view.h"
 
-using namespace sf;
-
-enum DIRECTION {RIGHT, LEFT, DOWN, UP};
-
-class Player{
-public:
-	float x, y, w, h, dx, dy, speed;
-	enum DIRECTION dir;
-	String File;
-	Image image;
-	Texture texture;
-	Sprite sprite;
-	
-	Player(String F, float X, float Y, float W, float H){
-		dx = 0; dy = 0; speed = 0; dir = (enum DIRECTION)0;
-		File = F;
-		w = W;
-		h = H;
-		image.loadFromFile("images/" + File);
-		image.createMaskFromColor(Color(41, 33, 59));
-		texture.loadFromImage(image);
-		sprite.setTexture(texture);
-		x = X;
-		y = Y;
-		sprite.setTextureRect(IntRect(0, 0, w, h));
-	}
-	
-	void update(float time){
-		switch (dir){
-		case RIGHT:
-			dx = speed; 
-			dy = 0;
-			break;
-		case LEFT:
-			dx = -speed;
-			dy = 0;
-			break;
-		case DOWN:
-			dx = 0;
-			dy = speed;
-			break;
-		case UP:
-			dx = 0;
-			dy = -speed;
-			break;
-		}
-		x += dx*time;
-		y += dy*time;
-		speed = 0;
-		sprite.setPosition(x, y);
-	}
-	
-private:
-};
-
+// *******ATTENTION PLEASE******
+//	This code is a part of educational guide on SFML library. 
+//	I decided to start from learning and passing it in order to know all the opportunities this library offer
+//	in order to work quicker with my real project.
+//	I named variables and methods as the guide's author did, so they code WILL seem unreadable
+//	Obviously, my own project will not contain such awful sh*t without camelCase and pool of magic constants.
+//	Thank's for reading.
+// *******ATTENTION PLEASE******
 
 int main()
 {
 	RenderWindow window(VideoMode(640, 480), "Learning SFML");
-	
+	view.reset(sf::FloatRect(0, 0, 640, 480));
+	Image map_image;
+	map_image.loadFromFile("images/map.png");
+	Texture map;
+	map.loadFromImage(map_image);
+	Sprite s_map;
+	s_map.setTexture(map);
+
 	float CurrentFrame = 0;
 	Clock clock;
 	
@@ -78,38 +38,56 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
-		if (Keyboard::isKeyPressed(Keyboard::Left) || Keyboard::isKeyPressed(Keyboard::A)) { 
+		if (Keyboard::isKeyPressed(Keyboard::Left)) { 
 			p.dir = LEFT;
 			p.speed = 0.1;
 			CurrentFrame += time*0.005;
 			if (CurrentFrame >=3) CurrentFrame -= 3;
 			p.sprite.setTextureRect(IntRect(96 * (int)CurrentFrame, 96, 96, 96));
+			getplayercoordinateforview(p.getplayercoordinateX(), p.getplayercoordinateY());
 		}
-		if (Keyboard::isKeyPressed(Keyboard::Right) || Keyboard::isKeyPressed(Keyboard::D)) { 
+		if (Keyboard::isKeyPressed(Keyboard::Right)) { 
 			p.dir = RIGHT;
 			p.speed = 0.1;
 			CurrentFrame += time*0.005;
 			if (CurrentFrame >= 3) CurrentFrame -= 3;
 			p.sprite.setTextureRect(IntRect(96 * (int)CurrentFrame, 96 * 2, 96, 96));
+			getplayercoordinateforview(p.getplayercoordinateX(), p.getplayercoordinateY());
 		}
-		if (Keyboard::isKeyPressed(Keyboard::Up) || Keyboard::isKeyPressed(Keyboard::W)) { 
+		if (Keyboard::isKeyPressed(Keyboard::Up)) { 
 			p.dir = UP;
 			p.speed = 0.1;
 			CurrentFrame += time*0.005;
 			if (CurrentFrame >= 3) CurrentFrame -= 3;
 			p.sprite.setTextureRect(IntRect(96 * (int)CurrentFrame, 96 * 3, 96, 96));
+			getplayercoordinateforview(p.getplayercoordinateX(), p.getplayercoordinateY());
 		}
-		if (Keyboard::isKeyPressed(Keyboard::Down) || Keyboard::isKeyPressed(Keyboard::S)) { 
+		if (Keyboard::isKeyPressed(Keyboard::Down)) { 
 			p.dir = DOWN;
 			p.speed = 0.1;
 			CurrentFrame += time*0.005;
 			if (CurrentFrame >= 3) CurrentFrame -= 3;
 			p.sprite.setTextureRect(IntRect(96 * (int)CurrentFrame, 0, 96, 96));
+			getplayercoordinateforview(p.getplayercoordinateX(), p.getplayercoordinateY());
 		}
 
 		p.update(time);
-		window.clear();
+		viewmap(time);
+			
+		window.clear(Color(128, 106, 89));
+		for (int i = 0; i < HEIGHT_MAP; i++)
+			for (int j = 0; j < WIDTH_MAP; j++)
+			{
+				if (TileMap[i][j] == ' ')  s_map.setTextureRect(IntRect(0, 0, 32, 32)); 
+				if (TileMap[i][j] == 's')  s_map.setTextureRect(IntRect(32, 0, 32, 32));
+				if ((TileMap[i][j] == '0')) s_map.setTextureRect(IntRect(64, 0, 32, 32));
+
+				s_map.setPosition(j * 32, i * 32);
+
+				window.draw(s_map);
+			}
 		window.draw(p.sprite);
+		window.setView(view);
 		window.display();
 	}
 
