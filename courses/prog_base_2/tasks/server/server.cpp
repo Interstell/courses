@@ -34,6 +34,9 @@ int main() {
 			else if (strcmp(request.uri, "/scientists") == 0){
 				server_sendJson(client, root);
 			}
+			else if (strcmp(request.uri, "/scientists/new") == 0){
+				server_sendInputPage(client);
+			}
 			else if (strstr(request.uri, "/scientists/") != NULL){
 				int id;
 				int isNumber = sscanf(request.uri, "/scientists/%d", &id);
@@ -65,6 +68,11 @@ int main() {
 			char* queryPointer = strstr(request.uri, "/scientists?");
 			if (queryPointer != NULL){
 				json_t* newSc = server_createNewSc(root, queryPointer + strlen("/scientists?"), server_getCurrentFreeId(root));
+				server_sendJson(client, newSc);
+			}
+			else if (strcmp(request.uri, "/scientists") == 0){
+				char* browserQueryPointer = strstr(buf, "\r\n\r\n");
+				json_t* newSc = server_createNewSc(root, browserQueryPointer + strlen("\r\n\r\n"), server_getCurrentFreeId(root));
 				server_sendJson(client, newSc);
 			}
 			else server_send405(client);

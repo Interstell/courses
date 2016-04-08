@@ -31,3 +31,4 @@ json_t* server_deleteScientistById(json_t* root, int scId);
 void server_sendHtml(socket_t* client, char* pageText);
 int server_getCurrentFreeId(json_t* root);
 json_t* server_createNewSc(json_t* root, char* query, int id);
+void server_sendInputPage(socket_t* client);

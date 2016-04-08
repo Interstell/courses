@@ -44,7 +44,7 @@ void server_sendHtml(socket_t* client, char* pageText){
 }
 
 void server_sendHomepage(socket_t * client) {
-	server_sendHtml(client, "<!DOCTYPE html><html><head><title>Scientists JSON Navigator</title></head><body><h1 style=\"color: green; font-family: Verdana\">Hello, Visitor!</h1><h3><p>To get the list of <i>scientists</i> go to <a href=\"/scientists\">/scientists</a></p></h3><h4>If you wanna look at the coolest <b><i>404</i></b> page ever, go <a href = \"/404\">here</a>. It is clickable.</h4><p style=\"font-size:70%\">(c)Urukov Dmitry KPI 2016</p></body></html>");
+	server_sendHtml(client, "<!DOCTYPE html><html><head><title>Scientists JSON Navigator</title></head><body><h1 style=\"color: green; font-family: Verdana\">Hello, Visitor!</h1><h3><p>To get the list of <i>scientists</i> go to <a href=\"/scientists\">/scientists</a>.</p></h3><h3>To <b>create</b> a new scientist via Web-form go <a href=\"/scientists/new\">here</a>.</h3><h4>If you wanna look at the coolest <b><i>404</i></b> page ever, go <a href = \"/404\">here</a>. It is clickable.</h4><p style=\"font-size:70%\">(c)Urukov Dmitry KPI 2016</p></body></html>");
 	
 }
 
@@ -107,6 +107,9 @@ json_t* server_createNewSc(json_t* root, char* query, int id){
 	char* queries[ARG_NUM];
 	for (int i = 0; i < ARG_NUM; i++){
 		queries[i] = (char*)malloc(ARG_LENGTH*sizeof(char));
+	}
+	for (int i = 0; i < strlen(query); i++){
+		if (query[i] == '+') query[i] = ' ';
 	}
 	char * pch = strtok(query, "&");
 	int argCount = 0;
@@ -179,4 +182,13 @@ json_t* server_createNewSc(json_t* root, char* query, int id){
 	}
 	json_array_append(root, newSc);
 	return newSc;
+}
+
+void server_sendInputPage(socket_t* client){
+	char page[2000];
+	FILE* finput = fopen("input.html", "r");
+	int len = fread(page, sizeof(char), sizeof(page)/sizeof(char), finput);
+	page[len] = '\0';
+	server_sendHtml(client, page);
+	fclose(finput);
 }
