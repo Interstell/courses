@@ -1,0 +1,38 @@
+[
+   {
+      "id":1,
+      "firstName":"Petro",
+      "surname":"Legeza",
+      "fathersName":"Viktorovich",
+      "birthDate":"1955-02-20",
+      "domain":"Physics",
+      "degree":"Doctor of Technical sciences",
+      "thesis":"Methods of vibration reducing in trains",
+      "qIndex":3.6,
+      "patents":42
+   },
+   {
+      "id":2,
+      "firstName":"Volodymyr",
+      "surname":"Vronskiy",
+      "fathersName":"Volodymyrovich",
+      "birthDate":"1986-31-03",
+      "domain":"Biology",
+      "degree":"Candidate of Biological sciences",
+      "thesis":"The origin of human",
+      "qIndex":2.18,
+      "patents":4
+   },
+   {
+      "id":3,
+      "firstName":"Volodymyr",
+      "surname":"Levenshteyn",
+      "fathersName":"Yosypovich",
+      "birthDate":"1935-05-20",
+      "domain":"Applied Mathematics",
+      "degree":"Doctor of Physico-mathematical sciences",
+      "thesis":"Optimizational tasks of coding and testing",
+      "qIndex":4.15,
+      "patents":10
+   }
+]
