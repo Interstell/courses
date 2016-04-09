@@ -34,11 +34,11 @@ server_request_t server_request_parse(char * request) {
 void server_sendHtml(socket_t* client, char* pageText){
 	char homeBuf[1024];
 	sprintf(homeBuf,
-		"HTTP/1.1 %d OK\n"
+		"HTTP/1.1 %s\n"
 		"Content-Type: text/html\n"
 		"Content-Length: %d\n"
 		"Connection: keep-alive\r\n\r\n"
-		"\n%s", (strstr(pageText,"404 NOT FOUND</title>") == NULL)?200:404,strlen(pageText), pageText);
+		"\n%s", (strstr(pageText, "404 NOT FOUND</title>") == NULL) ? "200 OK" : "404", strlen(pageText), pageText);
 	socket_write_string(client, homeBuf);
 	socket_close(client);
 }
@@ -181,7 +181,8 @@ json_t* server_createNewSc(json_t* root, char* query, int id){
 		return error;
 	}
 	json_array_append(root, newSc);
-	return newSc;
+	json_t* response = json_pack("{s:s,s:o}", "status", "OK", "scientist", newSc);
+	return response;
 }
 
 void server_sendInputPage(socket_t* client){

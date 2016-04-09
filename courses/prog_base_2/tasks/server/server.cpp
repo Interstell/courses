@@ -80,6 +80,7 @@ int main() {
 		else if (strcmp(request.method, "KEEPALIVE") == 0){
 			//just catching, doing nothing
 		}
+		else server_send405(client);
 		socket_free(client);
 		/*
 		//UNCOMMENT IF YOU WANT TO SAVE JSON STATE AFTER SERVER WORK
