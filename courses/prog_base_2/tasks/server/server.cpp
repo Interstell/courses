@@ -2,7 +2,7 @@
 
 // NOTE! NO C++ code here, ".cpp" and ".hpp" are only because of Jansson lib.
 
-// NOTE! Compiling requires linking "jansson_d.lib". If you have launched ".vcxproj", it is already linked.
+// NOTE! Compiling requires linking "jansson_d.lib" for Debug & "jansson.lib" for Release. If you have launched ".vcxproj", it is already linked.
 
 // HTML Main page is on localhost:5000
 // Data is taken from "scientists.json"

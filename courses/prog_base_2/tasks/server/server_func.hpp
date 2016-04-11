@@ -3,7 +3,7 @@
 extern "C"{
 #include "socket.h"
 }
-#include "jansson\jansson.h"
+#include <jansson\jansson.h>
 
 #include <stdio.h>
 #include <stdlib.h>
