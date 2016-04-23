@@ -1,0 +1,10 @@
+CREATE TABLE `scientists` (
+	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`Surname`	TEXT NOT NULL,
+	`Name`	TEXT NOT NULL,
+	`Fathers`	TEXT,
+	`BirthDate`	TEXT,
+	`Quotation_index`	REAL,
+	`Science_works`	INTEGER,
+	`Books`	INTEGER DEFAULT 0
+);
