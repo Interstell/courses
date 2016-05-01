@@ -64,7 +64,8 @@ void Gui::setView(int x, int y){
 }
 
 void Gui::moveOnMouse(Player& player, float time){
-	player.setSpeed(0.3);
+	//player.setSpeed(0.3);
+	player.setSpeed(0);
 	Vector2i pixelPos = Mouse::getPosition(window);
 	Vector2f mousePos = window.mapPixelToCoords(pixelPos);
 	Vector2f alignVector(mousePos.x - player.getCoord().x, mousePos.y - player.getCoord().y);
