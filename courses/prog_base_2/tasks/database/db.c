@@ -51,13 +51,13 @@ int db_getCountOfScientists(database_t self){
 	int result;
 	if (SQLITE_OK != status) {
 		self->status = DB_ERROR;
-		return;
+		return -1;
 	}
 	while (1) {
 		int status = sqlite3_step(self->stmt);
 		if (SQLITE_ERROR == status) {
 			self->status = DB_ERROR;
-			return;
+			return -1;
 		}
 		else if (SQLITE_ROW == status){
 			result = sqlite3_column_int(self->stmt, 0);
@@ -102,14 +102,16 @@ char* db_getStatus(database_t self){
 }
 
 scientist_t db_getScientistById(database_t self, int id){
-	char sqlQuery[100];
+	char sqlQuery[100] = "SELECT * FROM scientists WHERE ID = @id";
 	scientist_t sc = NULL;
-	sprintf(sqlQuery, "SELECT * FROM scientists WHERE ID = %d", id);
 	int status = sqlite3_prepare_v2(self->db, sqlQuery, strlen(sqlQuery), &self->stmt, NULL);
 	if (SQLITE_OK != status) {
 		self->status = DB_ERROR;
 		return NULL;
 	}
+
+	sqlite3_bind_int(self->stmt, 1, id);
+	
 	while (1) {
 		int status = sqlite3_step(self->stmt);
 		if (SQLITE_ERROR == status) {
@@ -146,7 +148,7 @@ int db_getLastInsertedRowId(database_t self){
 		int status = sqlite3_step(self->stmt);
 		if (SQLITE_ERROR == status) {
 			self->status = DB_ERROR;
-			return;
+			return -1;
 		}
 		else if (SQLITE_ROW == status){
 			resIndex = sqlite3_column_int(self->stmt, 0);
@@ -159,26 +161,61 @@ int db_getLastInsertedRowId(database_t self){
 	return resIndex;
 }
 int db_insertScientist(database_t self, scientist_t sc){
-	char sqlQuery[500];
+	char sqlQuery[500] = "INSERT INTO scientists(Surname, Name, Fathers, BirthDate, Quotation_index, Science_works, Books) VALUES(@Surname, @Name, @Fathers, @BirthDate, @Q_index, @Sc_works, @Books);";
 	int resIndex = -1;
-	sprintf(sqlQuery, "INSERT INTO scientists(Surname, Name, Fathers, BirthDate, Quotation_index, Science_works, Books) VALUES('%s', '%s', '%s', '%s', %f, %d, %d);",
-		sc->Surname,
-		sc->Name,
-		sc->Fathers,
-		sc->BirthDate,
-		sc->Quotation_index,
-		sc->Science_works,
-		sc->Books);
-	db_executeSqlWithoutParam(self, sqlQuery);
+
+	int status = sqlite3_prepare_v2(self->db, sqlQuery, strlen(sqlQuery), &self->stmt, NULL);
+	if (SQLITE_OK != status) {
+		self->status = DB_ERROR;
+		return -1;
+	}
+
+	sqlite3_bind_text(self->stmt, 1, sc->Surname, strlen(sc->Surname), SQLITE_TRANSIENT);
+	sqlite3_bind_text(self->stmt, 2, sc->Name, strlen(sc->Name), SQLITE_TRANSIENT);
+	sqlite3_bind_text(self->stmt, 3, sc->Fathers, strlen(sc->Fathers), SQLITE_TRANSIENT);
+	sqlite3_bind_text(self->stmt, 4, sc->BirthDate, strlen(sc->BirthDate), SQLITE_TRANSIENT);
+	sqlite3_bind_double(self->stmt, 5, sc->Quotation_index);
+	sqlite3_bind_int(self->stmt, 6, sc->Science_works);
+	sqlite3_bind_int(self->stmt, 7, sc->Books);
+
+	while (1) {
+		int status = sqlite3_step(self->stmt);
+		if (SQLITE_ERROR == status) {
+			self->status = DB_ERROR;
+			return -1;
+		}
+		else if (SQLITE_DONE == status) {
+			break;
+		}
+	}
+
 	resIndex = db_getLastInsertedRowId(self);
 	self->status = DB_OK;
 	return resIndex;
 }
 
 void db_deleteScientistById(database_t self, int id){
-	char sqlQuery[100];
-	sprintf(sqlQuery, "DELETE FROM scientists WHERE ID = %d", id);
-	db_executeSqlWithoutParam(self, sqlQuery);
+	char sqlQuery[150] = "DELETE FROM scientists WHERE ID = @id";
+
+	int status = sqlite3_prepare_v2(self->db, sqlQuery, strlen(sqlQuery), &self->stmt, NULL);
+	if (SQLITE_OK != status) {
+		self->status = DB_ERROR;
+		return;
+	}
+
+	sqlite3_bind_int(self->stmt, 1, id);
+	
+	while (1) {
+		int status = sqlite3_step(self->stmt);
+		if (SQLITE_ERROR == status) {
+			self->status = DB_ERROR;
+			return;
+		}
+		else if (SQLITE_DONE == status) {
+			break;
+		}
+	}
+	self->status = DB_OK;
 }
 
 void db_createScientistsTable(database_t self){
@@ -190,17 +227,34 @@ void db_createScientistsTable(database_t self){
 }
 
 void db_updateScientistById(database_t self, scientist_t sc, int id){
-	char sqlQuery[500];
-	sprintf(sqlQuery, "UPDATE scientists SET Surname = '%s', Name = '%s', Fathers = '%s', BirthDate = '%s', Quotation_index = %f, Science_works = %d, Books = %d  WHERE ID = %d;",
-		sc->Surname,
-		sc->Name,
-		sc->Fathers,
-		sc->BirthDate,
-		sc->Quotation_index,
-		sc->Science_works,
-		sc->Books,
-		id);
-	db_executeSqlWithoutParam(self, sqlQuery);
+	char sqlQuery[500] = "UPDATE scientists SET Surname = @Surname, Name = @Name, Fathers = @Fathers, BirthDate = @BirthDate, Quotation_index = @Q_index, Science_works = @Sc_works, Books = @Books WHERE ID = @id;";
+
+	int status = sqlite3_prepare_v2(self->db, sqlQuery, strlen(sqlQuery), &self->stmt, NULL);
+	if (SQLITE_OK != status) {
+		self->status = DB_ERROR;
+		return;
+	}
+
+	sqlite3_bind_text(self->stmt, 1, sc->Surname, strlen(sc->Surname), SQLITE_TRANSIENT);
+	sqlite3_bind_text(self->stmt, 2, sc->Name, strlen(sc->Name), SQLITE_TRANSIENT);
+	sqlite3_bind_text(self->stmt, 3, sc->Fathers, strlen(sc->Fathers), SQLITE_TRANSIENT);
+	sqlite3_bind_text(self->stmt, 4, sc->BirthDate, strlen(sc->BirthDate), SQLITE_TRANSIENT);
+	sqlite3_bind_double(self->stmt, 5, sc->Quotation_index);
+	sqlite3_bind_int(self->stmt, 6, sc->Science_works);
+	sqlite3_bind_int(self->stmt, 7, sc->Books);
+	sqlite3_bind_int(self->stmt, 8, id);
+	
+	while (1) {
+		int status = sqlite3_step(self->stmt);
+		if (SQLITE_ERROR == status) {
+			self->status = DB_ERROR;
+			return;
+		}
+		else if (SQLITE_DONE == status) {
+			break;
+		}
+	}
+	self->status = DB_OK;
 }
 
 void db_getScientistsTask(database_t self, int K_ScWorks, int P_Books){

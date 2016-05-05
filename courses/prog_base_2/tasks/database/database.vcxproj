@@ -82,7 +82,6 @@
   <ItemGroup>
     <ClCompile Include="db.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="sample.c" />
     <ClCompile Include="scientist.c" />
   </ItemGroup>
   <ItemGroup>

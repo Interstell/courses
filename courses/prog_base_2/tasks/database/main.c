@@ -3,7 +3,7 @@
 
 int main(void) {
 	database_t db = db_new();
-	db_openDB(db, "scientists.db"); //db is created, but empty
+	db_openDB(db, "scientists.db"); //db is already created, but empty
 	
 	db_createScientistsTable(db);
 	scientist_t sc;
