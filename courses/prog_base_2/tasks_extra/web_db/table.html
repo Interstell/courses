@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>{{table_title}} | Database Web Client</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script src="script.js"></script>
+</head>
+
+<body>
+
+<a href = "/"><h1 align="center" id="main_header">Database Web Client </h1></a>
+<p>
+<div id="content_table">
+<h2 style="font-family:Tahoma">Records in <i>{{table_name}}</i>:</h3>
+{{status}}
+<table id="table_table">
+	<tr>
+{{headers}}
+	<td id="edit_form_box" style="visibility:hidden" rowspan="{{rows_num}}">
+		<form id="edit_form" action="/new" method="POST">
+		<span id="form_header_text">Insert new record:</span><br><br>
+{{inputs}}
+		<br>
+		<input type="hidden" name="__TABLENAME" value="{{table_name_hidden}}">
+		<input id="submit_btn" type="submit" value="Insert">
+		</form>
+	</td>
+	</tr>
+{{rows}}
+  </table>
+  <div style="visibility:hidden" id="columns_num">{{columns_num}}</div>
+  <div style="visibility:hidden" id="last_id">{{last_id}}</div>
+</div>
+</body>
+</html>
