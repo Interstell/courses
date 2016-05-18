@@ -67,7 +67,12 @@ void queueSet_endlessIOLoop(queueSet_t self){
 					}
 				}
 				else{
-					//TODO "повне переповнення"
+					//removing last elements
+					int enqueueMain = queue_remove(queue);
+					int enqueueAnother = queue_remove(anotherQueue);
+					for (int i = 0; i < self->numOfListeners; i++){
+						if (self->listeners[i]->fullOverflow) self->listeners[i]->fullOverflow(self->listeners[i], queueNum, enqueueMain, enqueueAnother);
+					}
 				}
 				
 			}
@@ -86,7 +91,20 @@ void queueSet_endlessIOLoop(queueSet_t self){
 				}
 			}
 			else{
-				//TODO "повна обробка"
+				//normalizing to three elem/queue
+				int num11 = abs(getRandomInt());
+				int num12 = abs(getRandomInt());
+				int num13 = abs(getRandomInt());
+				int num22 = abs(getRandomInt());
+				int num23 = abs(getRandomInt());
+				queue_add(queue, num11);
+				queue_add(queue, num12);
+				queue_add(queue, num13);
+				queue_add(anotherQueue, num22);
+				queue_add(anotherQueue, num23);
+				for (int i = 0; i < self->numOfListeners; i++){
+					if (self->listeners[i]->fullProcessing) self->listeners[i]->fullProcessing(self->listeners[i], queueNum, num11, num12, num13, num22, num23);
+				}
 			}
 						
 		}

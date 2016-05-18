@@ -27,13 +27,13 @@
     <ClCompile Include="queue_test.c">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="callbacks.c">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="gui.c">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="listener.c">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="notify.c">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,9 +44,6 @@
     <ClInclude Include="queueset.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="callbacks.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="gui.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
@@ -54,6 +51,9 @@
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="headers.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="notify.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

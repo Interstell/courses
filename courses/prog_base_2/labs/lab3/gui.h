@@ -2,9 +2,9 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <windows.h>
 
-#define SCREEN_WIDTH 80
+#define SCREEN_WIDTH 100
 #define SCREEN_HEIGHT 40
-#define SLEEP_TIME 1500
+#define SLEEP_TIME 300
 
 enum COLORS{
 	WHITE = 15,

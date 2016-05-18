@@ -26,7 +26,7 @@ void listener_delete(listener_t self){
 	free(self);
 }
 
-void listener_setCallbacks(listener_t self, addPrint_cb addPrint, removePrint_cb removePrint, addPrint_transfer_cb addPrint_transfer, removePrint_transfer_cb removePrint_transfer, fullProcessing_cb fullProcessing, fullOverflow_cb fullOverflow){
+void listener_setNotifiers(listener_t self, notify_addPrint_cb addPrint, notify_removePrint_cb removePrint, notify_addTransfer_cb addPrint_transfer, notify_removeTransfer_cb removePrint_transfer, notify_fullProcessing_cb fullProcessing, notify_fullOverflow_cb fullOverflow){
 	self->addPrint = addPrint;
 	self->removePrint = removePrint;
 	self->addPrint_transfer = addPrint_transfer;

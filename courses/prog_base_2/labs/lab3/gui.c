@@ -13,6 +13,7 @@ void gui_jumpTo(int x, int y){
 	COORD pos = { x, y };
 	SetConsoleCursorPosition(hConsole, pos);
 }
+
 void gui_setColor(int color){
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, color);

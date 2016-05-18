@@ -1,24 +1,22 @@
 #pragma once
 #include "headers.h"
-#include "callbacks.h"
+#include "notify.h"
 
 #define MAX_LISTENERS 10
-
-
 
 struct listener_s{
 	char name[20];
 	int startRow;
 	int color;
-	addPrint_cb addPrint;
-	removePrint_cb removePrint;
-	addPrint_transfer_cb addPrint_transfer;
-	removePrint_transfer_cb removePrint_transfer;
-	fullProcessing_cb fullProcessing;
-	fullOverflow_cb fullOverflow;
+	notify_addPrint_cb addPrint;
+	notify_removePrint_cb removePrint;
+	notify_addTransfer_cb addPrint_transfer;
+	notify_removeTransfer_cb removePrint_transfer;
+	notify_fullProcessing_cb fullProcessing;
+	notify_fullOverflow_cb fullOverflow;
 };
 
 listener_t listener_new(char* name, int startRow, int color);
 void listener_delete(listener_t self);
 
-void listener_setCallbacks(listener_t self, addPrint_cb addPrint, removePrint_cb removePrint, addPrint_transfer_cb addPrint_transfer, removePrint_transfer_cb removePrint_transfer, fullProcessing_cb fullProcessing, fullOverflow_cb fullOverflow);
+void listener_setNotifiers(listener_t self, notify_addPrint_cb addPrint, notify_removePrint_cb removePrint, notify_addTransfer_cb addPrint_transfer, notify_removeTransfer_cb removePrint_transfer, notify_fullProcessing_cb fullProcessing, notify_fullOverflow_cb fullOverflow);
