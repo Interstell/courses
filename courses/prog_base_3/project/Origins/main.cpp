@@ -7,10 +7,11 @@ using namespace sf;
 
 int main()
 {
+	srand(time(NULL));
 	Game game;
 	Gui gui;
-
-	Player player("cell1.png",gui.view, 300, 300);
+	
+	Player player(gui.view, 60, 60);
 	
 	while (gui.window.isOpen())
 	{
@@ -21,13 +22,17 @@ int main()
 		while (gui.window.pollEvent(event)){
 			if (event.type == Event::Closed)
 				gui.window.close();
+			if (event.type == Event::MouseWheelMoved){
+				int sign = (event.mouseWheel.delta > 0) ? 1 : -1;
+				gui.zoom(1 - sign*0.05);
+			}
 		}
 		gui.proceedWASDInput(player, GameTime);
 		gui.moveOnMouse(player, GameTime);
 		player.update(gui.view);
 		gui.window.clear();
 		gui.drawBgAroundPlayer(player);
-		gui.window.draw(player.sprite);
+		gui.window.draw(player.shape);
 		
 		gui.window.setView(gui.view);
 		gui.window.display();
