@@ -1,6 +1,8 @@
 #include "player.hpp"
 #include "game.hpp"
 #include "gui.hpp"
+#include "food.hpp"
+
 
 
 using namespace sf;
@@ -10,6 +12,7 @@ int main()
 	srand(time(NULL));
 	Game game;
 	Gui gui;
+	Food food;
 	
 	Player player(gui.view, 60, 60);
 	
@@ -32,8 +35,8 @@ int main()
 		player.update(gui.view);
 		gui.window.clear();
 		gui.drawBgAroundPlayer(player);
+		food.draw(gui);
 		gui.window.draw(player.shape);
-		
 		gui.window.setView(gui.view);
 		gui.window.display();
 	}
