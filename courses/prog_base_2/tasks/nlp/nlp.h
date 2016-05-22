@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include "list.h"
 
 #define MAX_SENTENCES_IN_TEXT 1000
 #define MAX_WORDS_IN_SENTENCE 100
