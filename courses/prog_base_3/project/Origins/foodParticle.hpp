@@ -12,8 +12,10 @@ public:
 	FoodParticle::FoodParticle(int x, int y);
 	bool getAliveStatus(void);
 	void draw(Gui& gui);
+	Vector2f getCoord();
+	void setCoord(float x, float y);
 private:
-	int x, y;
+	float x, y;
 	Vector2f moveVector;
 	int radius;
 	CircleShape shape;

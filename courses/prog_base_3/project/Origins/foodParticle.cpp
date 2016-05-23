@@ -19,3 +19,11 @@ void FoodParticle::draw(Gui& gui){
 	gui.window.draw(shape);
 }
 
+Vector2f FoodParticle::getCoord(){
+	return Vector2f(x, y);
+}
+
+void FoodParticle::setCoord(float x, float y){
+	this->x = x;
+	this->y = y;
+}

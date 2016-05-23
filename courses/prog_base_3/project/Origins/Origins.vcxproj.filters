@@ -27,13 +27,13 @@
     <ClCompile Include="game.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="botcell.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="foodParticle.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="food.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="renderChunk.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,13 +47,13 @@
     <ClInclude Include="game.hpp">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="botcell.hpp">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="foodParticle.hpp">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="food.hpp">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="renderChunk.hpp">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

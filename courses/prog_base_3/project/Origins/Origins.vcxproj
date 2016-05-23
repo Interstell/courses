@@ -81,21 +81,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="botcell.cpp" />
     <ClCompile Include="food.cpp" />
     <ClCompile Include="foodParticle.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gui.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="renderChunk.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="botcell.hpp" />
     <ClInclude Include="food.hpp" />
     <ClInclude Include="foodParticle.hpp" />
     <ClInclude Include="game.hpp" />
     <ClInclude Include="gui.hpp" />
     <ClInclude Include="player.hpp" />
+    <ClInclude Include="renderChunk.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

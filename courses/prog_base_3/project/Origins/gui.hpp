@@ -4,6 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include "player.hpp"
 using namespace sf;
+
+const float VIEW_RENDER_SIZE_MULTIPLIER = 3;
+
 class Gui{
 public:
 	RenderWindow window;
@@ -22,6 +25,8 @@ public:
 	void setView(int x, int y);
 	static Color getRandomColor();
 	void zoom(float zoomFactor);
+	FloatRect getCurrentViewCoord();
+	FloatRect getCurrentRenderCoord();
 private:
 
 };

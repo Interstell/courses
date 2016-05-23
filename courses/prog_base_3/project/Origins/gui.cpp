@@ -6,8 +6,9 @@ Gui::Gui(){
 	windowHeight = 600;
 	settings.antialiasingLevel = 8;
 	window.create(VideoMode(windowWidth, windowHeight), "Origins", sf::Style::Default, settings);
-	window.setFramerateLimit(120);
-	view.reset(FloatRect(0, 0, windowWidth, windowHeight));
+	window.setFramerateLimit(90);
+	//view.reset(FloatRect(-windowWidth/2, -windowHeight/2, windowWidth, windowHeight));
+	view.reset(FloatRect(10000, 10000, windowWidth, windowHeight));
 	bgImageSize = 60;
 	bgImage.loadFromFile("images/bg_white.png");
 	bgTexture.loadFromImage(bgImage);
@@ -110,4 +111,32 @@ Color Gui::getRandomColor(){
 
 void Gui::zoom(float zoomFactor){
 	view.zoom(zoomFactor);
+}
+
+FloatRect Gui::getCurrentViewCoord(){
+	Vector2f pixelPos = view.getCenter();
+	Vector2f windowSize = view.getSize();
+	pixelPos.x -= abs(windowSize.x / 2);
+	pixelPos.y -= abs(windowSize.y / 2);
+	//Vector2f worldPos = window.mapPixelToCoords(Vector2i(pixelPos.x, pixelPos.y));
+	FloatRect curView = FloatRect(pixelPos.x, pixelPos.y, windowSize.x, windowSize.y);
+	return curView;
+}
+
+FloatRect Gui::getCurrentRenderCoord(){
+	FloatRect curView = getCurrentViewCoord();
+	/*FloatRect renderView = FloatRect(curView.left - (VIEW_RENDER_SIZE_MULTIPLIER - 1) * curView.width,
+		curView.top - (VIEW_RENDER_SIZE_MULTIPLIER - 1)*curView.height,
+		curView.width*VIEW_RENDER_SIZE_MULTIPLIER,
+		curView.height*VIEW_RENDER_SIZE_MULTIPLIER);*/
+	/*FloatRect renderView = FloatRect(curView.left - (VIEW_RENDER_SIZE_MULTIPLIER * curView.width),
+		curView.top - VIEW_RENDER_SIZE_MULTIPLIER*curView.height,
+		curView.width*(1 + 2 * VIEW_RENDER_SIZE_MULTIPLIER),
+		curView.height*(1 + 2 * VIEW_RENDER_SIZE_MULTIPLIER));*/
+	FloatRect renderView = FloatRect(curView.left - curView.width,
+		curView.top - curView.height,
+		curView.width * 3,
+		curView.height * 3);
+	return renderView;
+	
 }

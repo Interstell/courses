@@ -10,6 +10,7 @@ public:
 	Color color;
 	Color outlineColor;
 	void move(double X, double Y);
+	void moveOnCoord(Vector2i coord);
 	void setSpeed(double Speed);
 	double getSpeed();
 	void update(View& view);
@@ -19,5 +20,4 @@ private:
 	String file;
 	Image image;
 	Texture texture;
-	
 };

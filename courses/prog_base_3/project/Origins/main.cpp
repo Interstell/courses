@@ -12,10 +12,9 @@ int main()
 	srand(time(NULL));
 	Game game;
 	Gui gui;
-	Food food;
 	
 	Player player(gui.view, 60, 60);
-	
+	Food food(gui, &player);
 	while (gui.window.isOpen())
 	{
 		float GameTime = game.clock.getElapsedTime().asMicroseconds();

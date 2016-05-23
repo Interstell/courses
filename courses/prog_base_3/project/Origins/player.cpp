@@ -36,6 +36,11 @@ void Player::move(double X, double Y){
 	y += Y;
 }
 
+void Player::moveOnCoord(Vector2i coord){
+	x = coord.x;
+	y = coord.y;
+}
+
 void Player::setSpeed(double speed){
 	this->speed = speed;
 }
@@ -45,6 +50,6 @@ double Player::getSpeed(){
 }
 
 void Player::update(View& view){
-	shape.setPosition(x - width/2, y - height/2);
+	shape.setPosition(x, y);
 	view.setCenter(x, y); //TODO: bgImageSize!!!
 }
