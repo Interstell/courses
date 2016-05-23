@@ -8,7 +8,7 @@ Gui::Gui(){
 	window.create(VideoMode(windowWidth, windowHeight), "Origins", sf::Style::Default, settings);
 	window.setFramerateLimit(90);
 	//view.reset(FloatRect(-windowWidth/2, -windowHeight/2, windowWidth, windowHeight));
-	view.reset(FloatRect(10000, 10000, windowWidth, windowHeight));
+	view.reset(FloatRect(50000, 50000, windowWidth, windowHeight));
 	bgImageSize = 60;
 	bgImage.loadFromFile("images/bg_white.png");
 	bgTexture.loadFromImage(bgImage);

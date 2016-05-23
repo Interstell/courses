@@ -16,13 +16,13 @@ class Food{
 private:
 	//std::vector<FoodParticle*> foodVector;
 	std::vector<FoodRenderChunk*> chunks;
+	FoodRenderChunk* currentChunk;
 	Player* player;
 	FloatRect foodRenderRect;
-	void pushParticleInRect(FloatRect rect);
 public:
 	Food::Food(Gui& gui, Player* player);
 	void draw(Gui& gui);
 	void initializeParticles(Gui& gui);
-	void replaceInvisibleParticles(Gui& gui);
-	void fillRenderViewWithNewParticles(Gui& gui);
+	void deleteInvisibleChunks(Gui& gui);
+	void loadNewChunks(Gui& gui);
 };

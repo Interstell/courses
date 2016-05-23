@@ -12,7 +12,6 @@ int main()
 	srand(time(NULL));
 	Game game;
 	Gui gui;
-	
 	Player player(gui.view, 60, 60);
 	Food food(gui, &player);
 	while (gui.window.isOpen())
