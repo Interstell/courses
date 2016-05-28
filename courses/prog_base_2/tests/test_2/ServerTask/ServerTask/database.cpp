@@ -42,13 +42,14 @@ list_t* db_getListOfScientistsFromDb(database_t self){
 			return NULL;
 		}
 		else if (SQLITE_ROW == status) {
+			//int Id, char* Surname, char* Name, char* BirthDate, double Quotation_index, int Books){
 			scientist_t sc = scientist_new(
-				sqlite3_column_int(self->stmt, 1),
+				sqlite3_column_int(self->stmt, 0),
+				(char*)sqlite3_column_text(self->stmt, 1),
 				(char*)sqlite3_column_text(self->stmt, 2),
 				(char*)sqlite3_column_text(self->stmt, 3),
-				(char*)sqlite3_column_text(self->stmt, 4),
-				sqlite3_column_double(self->stmt, 5),
-				sqlite3_column_int(self->stmt, 6)
+				sqlite3_column_double(self->stmt, 4),
+				sqlite3_column_int(self->stmt, 5)
 				);
 			list_push_back(scList, sc);
 		}

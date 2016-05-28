@@ -82,6 +82,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="database.cpp" />
+    <ClCompile Include="fshelper.c" />
     <ClCompile Include="list.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scientist.cpp" />
@@ -90,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="database.hpp" />
+    <ClInclude Include="fshelper.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="scientist.hpp" />
     <ClInclude Include="server.hpp" />

@@ -1,20 +1,27 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "server.hpp"
 #include "database.hpp"
+extern "C"{
+#include "list.h"
+}
+
+//ATTENTION! Server is on localhost:5000
 
 //NO C++ CODE HERE! :)
 
-int main() {
+void getFilesDirectory(char* exePath);
+
+int main(int argc, char *argv[]) {
 	lib_init();
 	socket_t * server = socket_new();
 	socket_bind(server, 5000);
 	socket_listen(server);
-	/*FILE* input = fopen("scientists.json", "r");
+	
+	char filesDirPath[500];
+	strcpy(filesDirPath, argv[0]);
+	getFilesDirectory(filesDirPath);
 
-	json_error_t error;
-	json_t* root = json_loadf(input, 0, &error);
-	fclose(input);*/
-
+	puts("\n\nATTENTION! Server is on localhost:5000\n\n");
 	char buf[10000];
 	while (1) {
 		socket_t * client = socket_accept(server);
@@ -33,9 +40,16 @@ int main() {
 				database_t db = db_new();
 				db_openDB(db, "database.db");
 				list_t* list = db_getListOfScientistsFromDb(db);
-				
+				json_t* jsonArray = scientist_serializeListToJson(list);
+				server_sendJson(client, jsonArray);
+				list_free(list);
 				db_delete(db);
 			}
+			else if (strstr(request.uri, "/dir/") != 0){
+				char* dir = strstr(request.uri, "/dir/") + strlen("/dir/");
+				server_sendDirectoryContentAsHtml(client, filesDirPath, dir);
+			}
+			else server_send404(client);
 
 		}
 		else if (strcmp(request.method, "DELETE") == 0){
@@ -47,7 +61,7 @@ int main() {
 		else if (strcmp(request.method, "KEEPALIVE") == 0){
 			//just catching, doing nothing
 		}
-		//else server_send405(client);
+		else server_send405(client);
 		socket_free(client);
 
 	}
@@ -57,4 +71,12 @@ int main() {
 
 
 	return 0;
+}
+
+void getFilesDirectory(char* exePath){
+	for (int i = strlen(exePath); i >= 0; i--){
+		if (exePath[strlen(exePath) - 1] == '\\') break;
+		exePath[strlen(exePath) - 1] = '\0';
+	}
+	strcat(exePath, "files\\");
 }

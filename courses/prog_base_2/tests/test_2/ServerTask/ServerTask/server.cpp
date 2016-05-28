@@ -91,3 +91,23 @@ json_t * server_getDataFromExternalServer(void){
 	return resJSON;
 }
 
+void server_send404(socket_t * client) {
+	json_t* error = json_pack("{s:s,s:s}", "status", "ERROR", "description", "404 Not Found. The page or directory you are trying to reach is not found.");
+	server_sendJson(client, error);
+}
+
+void server_send405(socket_t * client) {
+	json_t* error = json_pack("{s:s,s:s}", "status", "ERROR", "description", "405 Method not allowed. You have no permission to modify this page");
+	server_sendJson(client, error);
+}
+
+void server_sendDirectoryContentAsHtml(socket_t * client, char* filesDirPath, char* dirName){
+	char pathToDir[500];
+	sprintf(pathToDir, "%s%s", filesDirPath, dirName);
+	if (!dir_exists(pathToDir)){
+		server_send404(client);
+		return;
+	}
+	char* htmlList = dir_getFilesAsHtmlList(pathToDir);
+	getchar();
+}
