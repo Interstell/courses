@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{AD46362A-5E48-485D-B0CE-1B38811A6510}</ProjectGuid>
+    <ProjectGuid>{C60001BF-BBC0-4EAC-B4DA-524A514EBD24}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Server</RootNamespace>
+    <RootNamespace>ServerTask</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -53,13 +53,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>CURL\include\;jansson\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>\jansson;\CURL\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>jansson_d.lib;CURL\lib\libcurl_imp.lib;libsqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\Универ\2 семестр\ОП\KP2\Server\Server\CURL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>CURL\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -81,13 +81,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\ДЗ\server_Jansson_Lib_compiled\server\server_func.c" />
-    <ClCompile Include="..\..\..\ДЗ\server_Jansson_Lib_compiled\server\socket_win.c" />
-    <ClCompile Include="main.c" />
+    <ClCompile Include="database.cpp" />
+    <ClCompile Include="list.c" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="scientist.cpp" />
+    <ClCompile Include="server.cpp" />
+    <ClCompile Include="socket_win.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\ДЗ\server_Jansson_Lib_compiled\server\server_func.h" />
-    <ClInclude Include="..\..\..\ДЗ\server_Jansson_Lib_compiled\server\socket.h" />
+    <ClInclude Include="database.hpp" />
+    <ClInclude Include="list.h" />
+    <ClInclude Include="scientist.hpp" />
+    <ClInclude Include="server.hpp" />
+    <ClInclude Include="socket.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
