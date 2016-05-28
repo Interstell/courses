@@ -104,10 +104,18 @@ void server_send405(socket_t * client) {
 void server_sendDirectoryContentAsHtml(socket_t * client, char* filesDirPath, char* dirName){
 	char pathToDir[500];
 	sprintf(pathToDir, "%s%s", filesDirPath, dirName);
+	if (dirName[0] == '\0'){
+		pathToDir[strlen(pathToDir) - 1] = '\0';
+	}
 	if (!dir_exists(pathToDir)){
 		server_send404(client);
 		return;
 	}
+	if (dirName[0] == '\0'){
+		strcpy(dirName, "%ROOT%");
+	}
+	char html[1000];
 	char* htmlList = dir_getFilesAsHtmlList(pathToDir);
-	getchar();
+	sprintf(html, "<!DOCTYPE html><html><head><title>Directory: %s</title></head><body><h3 style=\"font-family:Verdana; color:red\">Files in directory %s: </h3>\n %s</body></html>", dirName, dirName, htmlList);
+	server_sendHtml(client, html);
 }

@@ -6,6 +6,8 @@ extern "C"{
 }
 
 //ATTENTION! Server is on localhost:5000
+//Directories for the task lie near.exe in "files" folder.
+//Example: localhost:5000/dir/dir1
 
 //NO C++ CODE HERE! :)
 
@@ -21,7 +23,8 @@ int main(int argc, char *argv[]) {
 	strcpy(filesDirPath, argv[0]);
 	getFilesDirectory(filesDirPath);
 
-	puts("\n\nATTENTION! Server is on localhost:5000\n\n");
+	puts("\n\nATTENTION! Server is on localhost:5000\n Directories for the task lie near .exe in \"files\" folder.\n Example: localhost:5000/dir/dir1\n\n");
+	
 	char buf[10000];
 	while (1) {
 		socket_t * client = socket_accept(server);
@@ -50,12 +53,6 @@ int main(int argc, char *argv[]) {
 				server_sendDirectoryContentAsHtml(client, filesDirPath, dir);
 			}
 			else server_send404(client);
-
-		}
-		else if (strcmp(request.method, "DELETE") == 0){
-
-		}
-		else if (strcmp(request.method, "POST") == 0){
 
 		}
 		else if (strcmp(request.method, "KEEPALIVE") == 0){
