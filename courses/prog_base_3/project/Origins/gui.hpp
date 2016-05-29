@@ -6,6 +6,11 @@
 using namespace sf;
 
 const float VIEW_RENDER_SIZE_MULTIPLIER = 3;
+const int WINDOW_WIDTH = 1200;
+const int WINDOW_HEIGHT = 600;
+const float INITIAL_ZOOM = 1.2;
+const Vector2f START_VIEW_SIZE = Vector2f(WINDOW_WIDTH * INITIAL_ZOOM, WINDOW_HEIGHT * INITIAL_ZOOM);
+const float VIEW_SIZE_CHANGING_MULTIPLYER = 6;
 
 class Gui{
 public:
@@ -17,6 +22,9 @@ public:
 	int bgImageSize;
 	Texture bgTexture;
 	Sprite bgSprite;
+	Font font;
+	Text scoreText;
+	Text massText;
 	
 	Gui();
 	void drawBgAroundPlayer(Player player);

@@ -2,33 +2,29 @@
 #include <iostream>
 using namespace std;
 Gui::Gui(){
-	windowWidth = 1200;
-	windowHeight = 600;
+	windowWidth = WINDOW_WIDTH;
+	windowHeight = WINDOW_HEIGHT;
 	settings.antialiasingLevel = 8;
 	window.create(VideoMode(windowWidth, windowHeight), "Origins", sf::Style::Default, settings);
 	window.setFramerateLimit(90);
-	//view.reset(FloatRect(-windowWidth/2, -windowHeight/2, windowWidth, windowHeight));
-	view.reset(FloatRect(50000, 50000, windowWidth, windowHeight));
+	view.reset(FloatRect(50000, 50000, START_VIEW_SIZE.x, START_VIEW_SIZE.y));
 	bgImageSize = 60;
 	bgImage.loadFromFile("images/bg_white.png");
 	bgTexture.loadFromImage(bgImage);
 	bgSprite.setTexture(bgTexture);
 	bgSprite.setPosition(0, 0);
+	font.loadFromFile("scribble box demo.ttf");
+	scoreText.setFont(font);
+	massText.setFont(font);
+	scoreText.setColor(Color(0,0,0));
+	massText.setColor(Color(0,0,0));
+	scoreText.setCharacterSize(40);
+	massText.setCharacterSize(40);
+	scoreText.setOrigin(scoreText.getCharacterSize() / 2, scoreText.getCharacterSize() / 2);
+	massText.setOrigin(massText.getCharacterSize()/2, massText.getCharacterSize()/2);
 }
 
 void Gui::drawBgAroundPlayer(Player player){
-	/*int leftX = view.getCenter().x - view.getSize().x / 2;
-	int startX = (player.getCoord().x + leftX) % bgImageSize;
-	int leftY = view.getCenter().y - view.getSize().y / 2;
-	int startY = (player.getCoord().y + leftY) % bgImageSize;
-	int endX = startX + view.getSize().x;
-	int endY = startY + view.getSize().y;
-	for (int i = startX; i <= endX; i += bgImageSize){
-	for (int j = startY; j <= endY; j += bgImageSize){
-	bgSprite.setPosition(i, j);
-	window.draw(bgSprite);
-	}
-	}*/
 	int numOfSquaresInViewX = view.getSize().x / bgImageSize + 3;
 	int numOfSquaresInViewY = view.getSize().y / bgImageSize + 3;
 	int currentSquareX = player.getCoord().x - player.getCoord().x % bgImageSize;
@@ -81,7 +77,7 @@ void Gui::moveOnMouse(Player& player, float time){
 	double vectorLength = sqrt(pow(alignVector.x, 2) + pow(alignVector.y, 2));
 	//float rotation = atan2(alignVector.y, alignVector.x) * 180 / 3.1415;
 	player.move(player.getSpeed()*time * alignVector.x / vectorLength, player.getSpeed() * time * alignVector.y / vectorLength);
-	player.update(view);
+	player.update(view, scoreText, massText);
 }
 
 Color Gui::getRandomColor(){
@@ -125,18 +121,9 @@ FloatRect Gui::getCurrentViewCoord(){
 
 FloatRect Gui::getCurrentRenderCoord(){
 	FloatRect curView = getCurrentViewCoord();
-	/*FloatRect renderView = FloatRect(curView.left - (VIEW_RENDER_SIZE_MULTIPLIER - 1) * curView.width,
-		curView.top - (VIEW_RENDER_SIZE_MULTIPLIER - 1)*curView.height,
-		curView.width*VIEW_RENDER_SIZE_MULTIPLIER,
-		curView.height*VIEW_RENDER_SIZE_MULTIPLIER);*/
-	/*FloatRect renderView = FloatRect(curView.left - (VIEW_RENDER_SIZE_MULTIPLIER * curView.width),
-		curView.top - VIEW_RENDER_SIZE_MULTIPLIER*curView.height,
-		curView.width*(1 + 2 * VIEW_RENDER_SIZE_MULTIPLIER),
-		curView.height*(1 + 2 * VIEW_RENDER_SIZE_MULTIPLIER));*/
 	FloatRect renderView = FloatRect(curView.left - curView.width,
 		curView.top - curView.height,
 		curView.width * 3,
 		curView.height * 3);
 	return renderView;
-	
 }

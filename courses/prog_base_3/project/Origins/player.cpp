@@ -1,15 +1,19 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "player.hpp"
 #include "game.hpp"
 #include "gui.hpp"
-Player::Player(View view, int X, int Y, int W, int H, Color bgColor){
+Player::Player(View& view, int X, int Y, int W, int H, Color bgColor){
 	x = X;
 	y = Y;
 	Player::Player(view, W, H);
 }
 
 
-Player::Player(View view, int W, int H, Color bgColor){
+Player::Player(View& view, int W, int H, Color bgColor){
+	this->view = &view;
 	dx = 0; dy = 0; speed = 0; angleX = 0; angleY = 0;
+	mass = START_MASS;
+	score = START_MASS;
 	x = view.getCenter().x;
 	y = view.getCenter().y;
 	color = Gui::getRandomColor();
@@ -49,7 +53,27 @@ double Player::getSpeed(){
 	return speed;
 }
 
-void Player::update(View& view){
+void Player::update(View& view, Text& scoreText, Text& massText){
 	shape.setPosition(x, y);
-	view.setCenter(x, y); //TODO: bgImageSize!!!
+	shape.setRadius(width + (mass - START_MASS)*0.2);
+	float sizeRatio = START_VIEW_SIZE.x / START_VIEW_SIZE.y;
+	Vector2f newViewSize = Vector2f(START_VIEW_SIZE.x + (mass - START_MASS) * VIEW_SIZE_CHANGING_MULTIPLYER * sizeRatio, START_VIEW_SIZE.y + (mass - START_MASS)*VIEW_SIZE_CHANGING_MULTIPLYER);
+	view.setSize(newViewSize);
+	view.setCenter(x + width / 2, y + height / 2);
+	char scoreChar[30];
+	sprintf(scoreChar, "Score : %3.0f", score);
+	scoreText.setString(String(scoreChar));
+	massText.setString(std::to_string((int)mass));
+	FloatRect viewCoord = FloatRect(view.getCenter().x - view.getSize().x / 2, view.getCenter().y - view.getSize().y / 2, view.getSize().x, view.getSize().y);
+	scoreText.setPosition(viewCoord.left + 30, viewCoord.top + viewCoord.height - 30);
+	massText.setPosition(x + width / 2, y + height / 2 + height*0.05);
+}
+
+void Player::incMass(View* view){
+	width++;
+	height++;
+	if (mass == score){
+		score++;
+	}
+	mass++;
 }

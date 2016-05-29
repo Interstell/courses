@@ -4,7 +4,7 @@
 
 using namespace sf;
 
-const int FOOD_RADIUS = 20;
+const int FOOD_RADIUS = 17;
 const int FOOD_CIRCLE_POINTS = 6;
 
 class FoodParticle{

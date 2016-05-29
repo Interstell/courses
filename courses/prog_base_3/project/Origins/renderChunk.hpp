@@ -3,7 +3,7 @@
 #include "foodParticle.hpp"
 using namespace sf;
 
-const int MAX_PARTICLES_PER_CHUNK = 15;
+const int MAX_PARTICLES_PER_CHUNK = 5;
 
 class FoodRenderChunk{
 private:
@@ -18,4 +18,5 @@ public:
 	FoodRenderChunk(Gui* gui, FloatRect coord);
 	FloatRect getCoord(void);
 	void draw(void);
+	void eatIntersectedFood(Player* player);
 };

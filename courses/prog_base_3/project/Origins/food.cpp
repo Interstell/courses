@@ -14,6 +14,7 @@ void Food::draw(Gui& gui){
 			currentChunk = elem;
 		}
 	}
+	currentChunk->eatIntersectedFood(player);
 }
 
 void Food::initializeParticles(Gui& gui){

@@ -3,8 +3,6 @@
 #include "gui.hpp"
 #include "food.hpp"
 
-
-
 using namespace sf;
 
 int main()
@@ -12,7 +10,7 @@ int main()
 	srand(time(NULL));
 	Game game;
 	Gui gui;
-	Player player(gui.view, 60, 60);
+	Player player(gui.view, 50, 50);
 	Food food(gui, &player);
 	while (gui.window.isOpen())
 	{
@@ -30,12 +28,14 @@ int main()
 		}
 		gui.proceedWASDInput(player, GameTime);
 		gui.moveOnMouse(player, GameTime);
-		player.update(gui.view);
+		player.update(gui.view, gui.scoreText, gui.massText);
 		gui.window.clear();
 		gui.drawBgAroundPlayer(player);
 		food.draw(gui);
-		gui.window.draw(player.shape);
 		gui.window.setView(gui.view);
+		gui.window.draw(player.shape);
+		gui.window.draw(gui.scoreText);
+		gui.window.draw(gui.massText);
 		gui.window.display();
 	}
 	

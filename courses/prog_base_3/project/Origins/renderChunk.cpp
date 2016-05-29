@@ -34,3 +34,15 @@ void FoodRenderChunk::draw(void){
 	}
 }
 
+void FoodRenderChunk::eatIntersectedFood(Player* player){
+	std::vector<FoodParticle*>::iterator it;
+	bool exist = false;
+	for (it = foodVector.begin(); it != foodVector.end();){
+		if (player->shape.getGlobalBounds().contains((*it)->getCoord())){
+			delete * it;
+			it = foodVector.erase(it);
+			player->incMass(player->view);
+		}
+		else ++it;
+	}
+}
