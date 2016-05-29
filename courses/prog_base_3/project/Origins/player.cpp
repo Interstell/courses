@@ -61,12 +61,26 @@ void Player::update(View& view, Text& scoreText, Text& massText){
 	view.setSize(newViewSize);
 	view.setCenter(x + width / 2, y + height / 2);
 	char scoreChar[30];
-	sprintf(scoreChar, "Score : %3.0f", score);
+	sprintf(scoreChar, "Score %3.0f", score);
+	char massChar[30];
+	sprintf(massChar, "Mass %3.0f", mass);
 	scoreText.setString(String(scoreChar));
-	massText.setString(std::to_string((int)mass));
+	massText.setString(String(massChar));
+	
 	FloatRect viewCoord = FloatRect(view.getCenter().x - view.getSize().x / 2, view.getCenter().y - view.getSize().y / 2, view.getSize().x, view.getSize().y);
-	scoreText.setPosition(viewCoord.left + 30, viewCoord.top + viewCoord.height - 30);
-	massText.setPosition(x + width / 2, y + height / 2 + height*0.05);
+	scoreText.setCharacterSize(viewCoord.height * SCORE_TEXT_INITIAL_SIZE / START_VIEW_SIZE.y);
+	massText.setCharacterSize(viewCoord.height * MASS_TEXT_INITIAL_SIZE / START_VIEW_SIZE.y);
+	
+	scoreText.setPosition(viewCoord.left + scoreText.getCharacterSize(), viewCoord.top + viewCoord.height - scoreText.getCharacterSize());
+	massText.setPosition(scoreText.getPosition().x + scoreText.getGlobalBounds().width - massText.getGlobalBounds().width,
+		scoreText.getPosition().y - massText.getCharacterSize());
+	
+
+	
+	/*FloatRect playerPos =  shape.getGlobalBounds();
+	massText.setPosition(playerPos.left + (playerPos.width / 2)*0.95, playerPos.top + playerPos.height / 2);*/
+
+	
 }
 
 void Player::incMass(View* view){

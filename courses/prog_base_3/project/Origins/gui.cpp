@@ -4,12 +4,12 @@ using namespace std;
 Gui::Gui(){
 	windowWidth = WINDOW_WIDTH;
 	windowHeight = WINDOW_HEIGHT;
-	settings.antialiasingLevel = 8;
+	settings.antialiasingLevel = 4;
 	window.create(VideoMode(windowWidth, windowHeight), "Origins", sf::Style::Default, settings);
 	window.setFramerateLimit(90);
 	view.reset(FloatRect(50000, 50000, START_VIEW_SIZE.x, START_VIEW_SIZE.y));
-	bgImageSize = 60;
-	bgImage.loadFromFile("images/bg_white.png");
+	bgImageSize = 150;
+	bgImage.loadFromFile("images/bg_white_large.png");
 	bgTexture.loadFromImage(bgImage);
 	bgSprite.setTexture(bgTexture);
 	bgSprite.setPosition(0, 0);
@@ -18,15 +18,15 @@ Gui::Gui(){
 	massText.setFont(font);
 	scoreText.setColor(Color(0,0,0));
 	massText.setColor(Color(0,0,0));
-	scoreText.setCharacterSize(40);
-	massText.setCharacterSize(40);
+	scoreText.setCharacterSize(SCORE_TEXT_INITIAL_SIZE);
+	massText.setCharacterSize(MASS_TEXT_INITIAL_SIZE);
 	scoreText.setOrigin(scoreText.getCharacterSize() / 2, scoreText.getCharacterSize() / 2);
 	massText.setOrigin(massText.getCharacterSize()/2, massText.getCharacterSize()/2);
 }
 
 void Gui::drawBgAroundPlayer(Player player){
-	int numOfSquaresInViewX = view.getSize().x / bgImageSize + 3;
-	int numOfSquaresInViewY = view.getSize().y / bgImageSize + 3;
+	int numOfSquaresInViewX = view.getSize().x / bgImageSize + 5;
+	int numOfSquaresInViewY = view.getSize().y / bgImageSize + 5;
 	int currentSquareX = player.getCoord().x - player.getCoord().x % bgImageSize;
 	int currentSquareY = player.getCoord().y - player.getCoord().y % bgImageSize;
 	for (int i = currentSquareX - (numOfSquaresInViewX*bgImageSize) / 2; i <= currentSquareX + (numOfSquaresInViewX*bgImageSize) / 2; i += bgImageSize){

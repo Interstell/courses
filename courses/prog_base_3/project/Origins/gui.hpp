@@ -11,6 +11,9 @@ const int WINDOW_HEIGHT = 600;
 const float INITIAL_ZOOM = 1.2;
 const Vector2f START_VIEW_SIZE = Vector2f(WINDOW_WIDTH * INITIAL_ZOOM, WINDOW_HEIGHT * INITIAL_ZOOM);
 const float VIEW_SIZE_CHANGING_MULTIPLYER = 6;
+const int SCORE_TEXT_INITIAL_SIZE = 40;
+const int MASS_TEXT_INITIAL_SIZE = 40;
+
 
 class Gui{
 public:
