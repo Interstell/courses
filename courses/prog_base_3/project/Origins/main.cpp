@@ -15,7 +15,7 @@ int main()
 	while (gui.window.isOpen())
 	{
 		float GameTime = game.clock.getElapsedTime().asMicroseconds();
-		GameTime /= (float)game.GameSpeed;
+		GameTime /= (float)GAME_SPEED;
 		game.clock.restart();
 		Event event;
 		while (gui.window.pollEvent(event)){

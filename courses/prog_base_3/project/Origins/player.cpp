@@ -40,23 +40,35 @@ Vector2i Player::getCoord(){
 void Player::move(double X, double Y, float time){
 	x += X;
 	y += Y;
-	if (childShape.getRadius() != 0) {
-		Vector2f childPosition = Vector2f(shape.getPosition().x 
-			+ shape.getRadius()*splitVector.x*splitDistanceFactor, 
-			shape.getPosition().y 
-			+ shape.getRadius()*splitVector.y*splitDistanceFactor);
-		childShape.setPosition(childPosition);
+	if (!splitAllowed) {
+		if (childShape.getRadius() != 0) {
+			Vector2f childPosition = Vector2f(view->getCenter().x
+				+ shape.getRadius()*splitVector.x*splitDistanceFactor,
+				view->getCenter().y
+				+ shape.getRadius()*splitVector.y*splitDistanceFactor);
+			childShape.setPosition(childPosition);
+		}
+		if (splitDirection) {
+			splitDistanceFactor += time*SPLIT_DISTANCE_STEP;
+		}
+		else{
+			splitDistanceFactor -= time*SPLIT_DISTANCE_STEP / SPLIT_FORWARD_BACK_DIFFERENCE_FACTOR;
+			splitSeconds += time*GAME_SPEED * 1000;
+		}
+		if (splitDistanceFactor > SPLIT_MAX_FACTOR){
+			splitDirection = false;
+		}
+		else if (splitDistanceFactor <= 1) { //waiting for union
+			splitDistanceFactor = 1;
+			if (splitSeconds >= UNION_WAINING_TIME) {
+				splitUnion();
+				splitSeconds = 0;
+				splitAllowed = true;
+				splitDirection = true;
+			}
+		}
 	}
-	if (splitDirection) {
-		splitDistanceFactor += time*SPLIT_DISTANCE_STEP;
-	}
-	else splitDistanceFactor -= time*SPLIT_DISTANCE_STEP / SPLIT_FORWARD_BACK_DIFFERENCE_FACTOR;
-	if (splitDistanceFactor > SPLIT_MAX_FACTOR){
-		splitDirection = false;
-	}
-	else if (splitDistanceFactor < 1.5) {
-		splitDistanceFactor = 1.5;
-	}
+	
 	
 }
 
@@ -146,4 +158,12 @@ void Player::split() {
 			+ newRadius*splitVector.y*splitDistanceFactor);
 		childShape.setPosition(childPosition);
 	}
+}
+
+void Player::splitUnion() {
+	float newRadius = shape.getRadius() + childShape.getRadius();
+	width = newRadius;
+	height = newRadius;
+	shape.setRadius(newRadius);
+	childShape.setRadius(0);
 }

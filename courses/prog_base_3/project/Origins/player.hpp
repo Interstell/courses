@@ -5,9 +5,10 @@ using namespace sf;
 const int START_MASS = 10;
 const double START_SPEED = 0.5;
 const int SPLIT_ALLOWED_RADIUS = 60;
-const float SPLIT_MAX_FACTOR = 10;
+const float SPLIT_MAX_FACTOR = 7;
 const float SPLIT_DISTANCE_STEP = 0.01;
-const float SPLIT_FORWARD_BACK_DIFFERENCE_FACTOR = 3;
+const float SPLIT_FORWARD_BACK_DIFFERENCE_FACTOR = 10;
+const float UNION_WAINING_TIME = 10; //seconds
 
 class Player{
 public:
@@ -37,6 +38,7 @@ public:
 	bool splitAllowed = true;
 	bool splitDirection; //true - forward, false - back
 	Vector2f splitVector;
+	float splitSeconds = 0;
 	void splitUnion();
 private:
 	int x, y, dx, dy, width, height;

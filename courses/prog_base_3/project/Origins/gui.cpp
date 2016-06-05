@@ -7,6 +7,7 @@ Gui::Gui(){
 	settings.antialiasingLevel = 4;
 	window.create(VideoMode(windowWidth, windowHeight), "Origins", sf::Style::Default, settings);
 	window.setFramerateLimit(90);
+	//window.setVerticalSyncEnabled(true);
 	view.reset(FloatRect(50000, 50000, START_VIEW_SIZE.x, START_VIEW_SIZE.y));
 	bgImageSize = 150;
 	bgImage.loadFromFile("images/bg_white_large.png");
