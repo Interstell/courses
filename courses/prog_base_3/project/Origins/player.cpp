@@ -121,13 +121,7 @@ void Player::update(View& view, Text& scoreText, Text& massText){
 	scoreText.setPosition(viewCoord.left + scoreText.getCharacterSize(), viewCoord.top + viewCoord.height - scoreText.getCharacterSize());
 	massText.setPosition(scoreText.getPosition().x + scoreText.getGlobalBounds().width - massText.getGlobalBounds().width,
 		scoreText.getPosition().y - massText.getCharacterSize());
-	
 
-	
-	/*FloatRect playerPos =  shape.getGlobalBounds();
-	massText.setPosition(playerPos.left + (playerPos.width / 2)*0.95, playerPos.top + playerPos.height / 2);*/
-
-	
 }
 
 void Player::incMass(View* view){
