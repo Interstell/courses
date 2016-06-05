@@ -11,10 +11,6 @@ FoodParticle::FoodParticle(int x, int y){
 	shape.setPosition(x, y);
 }
 
-bool FoodParticle::getAliveStatus(void){
-	return isAlive;
-}
-
 void FoodParticle::draw(Gui& gui){
 	gui.window.draw(shape);
 }

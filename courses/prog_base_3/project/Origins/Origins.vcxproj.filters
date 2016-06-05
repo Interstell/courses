@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Заголовочные файлы\Food">
+      <UniqueIdentifier>{cd527094-f0f1-4f24-aacd-e0a23b19e17c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\Food">
+      <UniqueIdentifier>{e9e32e33-25d4-42dc-854c-bb00274bae50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -27,14 +33,14 @@
     <ClCompile Include="game.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="foodParticle.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="food.cpp">
-      <Filter>Файлы исходного кода</Filter>
+      <Filter>Файлы исходного кода\Food</Filter>
+    </ClCompile>
+    <ClCompile Include="foodParticle.cpp">
+      <Filter>Файлы исходного кода\Food</Filter>
     </ClCompile>
     <ClCompile Include="renderChunk.cpp">
-      <Filter>Файлы исходного кода</Filter>
+      <Filter>Файлы исходного кода\Food</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -47,14 +53,14 @@
     <ClInclude Include="game.hpp">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="foodParticle.hpp">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="food.hpp">
-      <Filter>Заголовочные файлы</Filter>
+      <Filter>Заголовочные файлы\Food</Filter>
+    </ClInclude>
+    <ClInclude Include="foodParticle.hpp">
+      <Filter>Заголовочные файлы\Food</Filter>
     </ClInclude>
     <ClInclude Include="renderChunk.hpp">
-      <Filter>Заголовочные файлы</Filter>
+      <Filter>Заголовочные файлы\Food</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

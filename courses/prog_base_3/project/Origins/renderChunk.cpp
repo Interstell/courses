@@ -39,6 +39,7 @@ void FoodRenderChunk::eatIntersectedFood(Player* player){
 	bool exist = false;
 	for (it = foodVector.begin(); it != foodVector.end();){
 		if (player->shape.getGlobalBounds().contains((*it)->getCoord())){
+			//@todo check by radius
 			delete * it;
 			it = foodVector.erase(it);
 			player->incMass(player->view);
