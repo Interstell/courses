@@ -37,19 +37,18 @@ void Gui::drawBgAroundPlayer(Player player){
 	}
 }
 
-void Gui::proceedWASDInput(Player& player, float time){
-	player.setSpeed(0.2);
+void Gui::proceedKeyboardInput(Player& player, float time){
 	if (Keyboard::isKeyPressed(Keyboard::A)) {
-		player.move(-player.getSpeed()*time, 0);
+		player.move(-player.getSpeed()*time, 0, time);
 	}
 	if (Keyboard::isKeyPressed(Keyboard::D)) {
-		player.move(player.getSpeed()*time, 0);
+		player.move(player.getSpeed()*time, 0, time);
 	}
 	if (Keyboard::isKeyPressed(Keyboard::W)) {
-		player.move(0, -1.3*player.getSpeed()*time);
+		player.move(0, -1.3*player.getSpeed()*time, time);
 	}
 	if (Keyboard::isKeyPressed(Keyboard::S)) {
-		player.move(0, 1.3*player.getSpeed()*time);
+		player.move(0, 1.3*player.getSpeed()*time, time);
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Add)){
 		zoom(0.99f);
@@ -57,11 +56,13 @@ void Gui::proceedWASDInput(Player& player, float time){
 	if (Keyboard::isKeyPressed(Keyboard::Subtract)){
 		zoom(1.01f);
 	}
+	if (Keyboard::isKeyPressed(Keyboard::Space)) {
+		player.split();
+	}
 	
 	if (Mouse::isButtonPressed(Mouse::Left)){
 		std::cout << player.getCoord().x << " " << player.getCoord().y << " " << view.getCenter().x << " " << view.getCenter().y << std::endl;
 	}
-	player.setSpeed(0);
 }
 
 void Gui::setView(int x, int y){
@@ -69,15 +70,20 @@ void Gui::setView(int x, int y){
 }
 
 void Gui::moveOnMouse(Player& player, float time){
-	player.setSpeed(0.5);
+	//player.setSpeed(0.5f);
 	//player.setSpeed(0);
 	Vector2i pixelPos = Mouse::getPosition(window);
 	Vector2f mousePos = window.mapPixelToCoords(pixelPos);
 	Vector2f alignVector(mousePos.x - player.getCoord().x, mousePos.y - player.getCoord().y);
+	//player.alignVector = alignVector;
 	double vectorLength = sqrt(pow(alignVector.x, 2) + pow(alignVector.y, 2));
-	//float rotation = atan2(alignVector.y, alignVector.x) * 180 / 3.1415;
-	player.move(player.getSpeed()*time * alignVector.x / vectorLength, player.getSpeed() * time * alignVector.y / vectorLength);
+	player.alignVectorNormal = Vector2f(alignVector.x / vectorLength, alignVector.y / vectorLength);
+	//cout << player.alignVectorNormal.x << " " << player.alignVectorNormal.y << endl;
+	double angle = atan2(alignVector.y, alignVector.x);
+	player.setAngle(angle);
+	player.move(player.getSpeed()*time * alignVector.x / vectorLength, player.getSpeed() * time * alignVector.y / vectorLength, time);
 	player.update(view, scoreText, massText);
+	//player.setSpeed(START_SPEED);
 }
 
 Color Gui::getRandomColor(){

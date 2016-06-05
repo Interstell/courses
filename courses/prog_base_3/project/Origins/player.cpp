@@ -11,7 +11,9 @@ Player::Player(View& view, int X, int Y, int W, int H, Color bgColor){
 
 Player::Player(View& view, int W, int H, Color bgColor){
 	this->view = &view;
-	dx = 0; dy = 0; speed = 0; angleX = 0; angleY = 0;
+	dx = 0; dy = 0; angle = 0;
+	splitDistanceFactor = -1;
+	speed = START_SPEED;
 	mass = START_MASS;
 	score = START_MASS;
 	x = view.getCenter().x;
@@ -23,9 +25,9 @@ Player::Player(View& view, int W, int H, Color bgColor){
 	shape.setOutlineThickness(-10);
 	shape.setOutlineColor(outlineColor);
 	//TODO: texture
-	//shape.setScale(0.5, 0.5); //TODO: Dependence on size&score
-	width = shape.getScale().x * W;
-	height = shape.getScale().y * H;
+	//shape.setScale(0.5, 0.5);
+	width = W;
+	height = H;
 	shape.setOrigin(width/2, height/2);
 	//sprite.setTextureRect(IntRect(0, 0, width, height));
 	shape.setPosition(x, y);
@@ -35,14 +37,39 @@ Vector2i Player::getCoord(){
 	return Vector2i(x, y);
 }
 
-void Player::move(double X, double Y){
+void Player::move(double X, double Y, float time){
 	x += X;
 	y += Y;
+	if (childShape.getRadius() != 0) {
+		Vector2f childPosition = Vector2f(shape.getPosition().x 
+			+ shape.getRadius()*splitVector.x*splitDistanceFactor, 
+			shape.getPosition().y 
+			+ shape.getRadius()*splitVector.y*splitDistanceFactor);
+		childShape.setPosition(childPosition);
+	}
+	if (splitDirection) {
+		splitDistanceFactor += time*SPLIT_DISTANCE_STEP;
+	}
+	else splitDistanceFactor -= time*SPLIT_DISTANCE_STEP / SPLIT_FORWARD_BACK_DIFFERENCE_FACTOR;
+	if (splitDistanceFactor > SPLIT_MAX_FACTOR){
+		splitDirection = false;
+	}
+	else if (splitDistanceFactor < 1.5) {
+		splitDistanceFactor = 1.5;
+	}
+	
 }
 
 void Player::moveOnCoord(Vector2i coord){
 	x = coord.x;
 	y = coord.y;
+}
+
+void Player::draw(RenderWindow& window) {
+	if (childShape.getRadius() != 0) {
+		window.draw(childShape);
+	}
+	window.draw(shape);
 }
 
 void Player::setSpeed(double speed){
@@ -51,6 +78,14 @@ void Player::setSpeed(double speed){
 
 double Player::getSpeed(){
 	return speed;
+}
+
+void Player::setAngle(double angle) {
+	this->angle = angle;
+}
+
+double Player::getAngle() {
+	return angle;
 }
 
 void Player::update(View& view, Text& scoreText, Text& massText){
@@ -90,4 +125,25 @@ void Player::incMass(View* view){
 		score++;
 	}
 	mass++;
+}
+
+void Player::split() {
+	if (splitAllowed && shape.getRadius() > SPLIT_ALLOWED_RADIUS) {
+		splitAllowed = false;
+		splitDirection = true;
+		splitDistanceFactor = 1;
+		splitVector = alignVectorNormal;
+		float newRadius = shape.getRadius() / 2;
+		width /= 2;
+		height /= 2;
+		childShape = shape;
+		shape.setRadius(newRadius);
+		childShape.setRadius(newRadius);
+		Vector2f mainPosition = shape.getPosition();
+		Vector2f childPosition = Vector2f(shape.getPosition().x 
+			+ newRadius*splitVector.x*splitDistanceFactor, 
+			shape.getPosition().y 
+			+ newRadius*splitVector.y*splitDistanceFactor);
+		childShape.setPosition(childPosition);
+	}
 }

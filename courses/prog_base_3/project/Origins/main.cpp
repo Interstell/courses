@@ -21,19 +21,19 @@ int main()
 		while (gui.window.pollEvent(event)){
 			if (event.type == Event::Closed)
 				gui.window.close();
-			if (event.type == Event::MouseWheelMoved){
+			/*if (event.type == Event::MouseWheelMoved){
 				int sign = (event.mouseWheel.delta > 0) ? 1 : -1;
 				gui.zoom(1 - sign*0.05);
-			}
+			}*/
 		}
-		gui.proceedWASDInput(player, GameTime);
+		gui.proceedKeyboardInput(player, GameTime);
 		gui.moveOnMouse(player, GameTime);
 		player.update(gui.view, gui.scoreText, gui.massText);
 		gui.window.clear();
 		gui.drawBgAroundPlayer(player);
 		food.draw(gui);
 		gui.window.setView(gui.view);
-		gui.window.draw(player.shape);
+		player.draw(gui.window);
 		gui.window.draw(gui.scoreText);
 		gui.window.draw(gui.massText);
 		gui.window.display();

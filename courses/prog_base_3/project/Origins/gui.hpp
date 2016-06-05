@@ -31,7 +31,7 @@ public:
 	
 	Gui();
 	void drawBgAroundPlayer(Player player);
-	void proceedWASDInput(Player& player, float time);
+	void proceedKeyboardInput(Player& player, float time);
 	void moveOnMouse(Player& player, float time);
 	void setView(int x, int y);
 	static Color getRandomColor();
