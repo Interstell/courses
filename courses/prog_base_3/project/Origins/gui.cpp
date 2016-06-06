@@ -72,7 +72,7 @@ void Gui::setView(int x, int y){
 
 void Gui::moveOnMouse(Player& player, float time){
 	//player.setSpeed(0.5f);
-	//player.setSpeed(0);
+	player.setSpeed(0);
 	Vector2i pixelPos = Mouse::getPosition(window);
 	Vector2f mousePos = window.mapPixelToCoords(pixelPos);
 	Vector2f alignVector(mousePos.x - player.getCoord().x, mousePos.y - player.getCoord().y);
@@ -84,7 +84,7 @@ void Gui::moveOnMouse(Player& player, float time){
 	player.setAngle(angle);
 	player.move(player.getSpeed()*time * alignVector.x / vectorLength, player.getSpeed() * time * alignVector.y / vectorLength, time);
 	player.update(view, scoreText, massText);
-	//player.setSpeed(START_SPEED);
+	player.setSpeed(START_SPEED);
 }
 
 Color Gui::getRandomColor(){

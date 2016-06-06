@@ -1,5 +1,6 @@
 #include "player.hpp"
 #include "gui.hpp"
+#include "game.hpp"
 
 Player::Player(View& view, int X, int Y, int W, int H, Color bgColor){
 	x = X;
@@ -19,7 +20,7 @@ Player::Player(View& view, int W, int H, Color bgColor){
 	y = view.getCenter().y;
 	color = Gui::getRandomColor();
 	outlineColor = Color((color.r <= 30) ? 0 : color.r - 30, (color.g <= 30) ? 0 : color.g - 30, (color.b <= 30) ? 0 : color.b - 30);
-	mainShape = new CircleShape();
+	mainShape = new CircleShape;
 	mainShape->setRadius(W);
 	mainShape->setFillColor(color);
 	mainShape->setOutlineThickness(-10);
@@ -29,8 +30,9 @@ Player::Player(View& view, int W, int H, Color bgColor){
 	width = W;
 	height = H;
 	mainShape->setOrigin(width/2, height/2);
-	//sprite.setTextureRect(IntRect(0, 0, width, height));
+	//sprite.setTextureRect(IntRect(0, 0, mainRadius, mainRadius));
 	mainShape->setPosition(x, y);
+	shapes.push_back(new CellPart(mainShape, NULL));
 }
 
 Vector2i Player::getCoord(){
@@ -68,6 +70,45 @@ void Player::move(double X, double Y, float time){
 			}
 		}
 	}*/
+	std::vector<CellPart*>::iterator it;
+	for (it = shapes.begin(); it != shapes.end();){
+		CellPart* child = *it;
+		CellPart* parent = child->parent;
+		if (parent == NULL) {
+			++it;
+			continue;
+		}
+		if (child->shape->getRadius() != 0) {
+			Vector2f childPosition = Vector2f(view->getCenter().x
+				+ parent->shape->getRadius()*splitVector.x*splitDistanceFactor,
+				view->getCenter().y
+				+ parent->shape->getRadius()*splitVector.y*splitDistanceFactor);
+			child->shape->setPosition(childPosition);
+		}
+		++it;
+	}
+	if (splitDirection) {
+		splitDistanceFactor += time*SPLIT_DISTANCE_STEP;
+	}
+	else{
+		splitDistanceFactor -= time*SPLIT_DISTANCE_STEP / SPLIT_FORWARD_BACK_DIFFERENCE_FACTOR;
+		splitSeconds += time*GAME_SPEED * 1000;
+	}
+	if (splitDistanceFactor > SPLIT_MAX_FACTOR){
+		splitDirection = false;
+	}
+	else if (splitDistanceFactor <= 1) { //waiting for union
+		splitDistanceFactor = 1;
+		if (splitSeconds >= UNION_WAINING_TIME) {
+			splitUnion();
+			splitSeconds = 0;
+			splitAllowed = true;
+			splitDirection = true;
+		}
+	}
+
+
+	
 }
 
 void Player::moveOnCoord(Vector2i coord){
@@ -79,7 +120,12 @@ void Player::draw(RenderWindow& window) {
 	/*if (childShape.getRadius() != 0) {
 		window.draw(childShape);
 	}*/
-	window.draw(*mainShape);
+	//window.draw(*mainShape);
+	std::vector<CellPart*>::iterator it;
+	for (it = shapes.begin(); it != shapes.end();){
+		window.draw(*(*it)->shape);
+		++it;
+	}
 }
 
 void Player::setSpeed(double speed){
@@ -138,8 +184,8 @@ void Player::split() {
 		splitDistanceFactor = 1;
 		splitVector = alignVectorNormal;
 		float newRadius = mainShape.getRadius() / 2;
-		width /= 2;
-		height /= 2;
+		mainRadius /= 2;
+		mainRadius /= 2;
 		childShape = mainShape;
 		mainShape.setRadius(newRadius);
 		childShape.setRadius(newRadius);
@@ -150,12 +196,69 @@ void Player::split() {
 			+ newRadius*splitVector.y*splitDistanceFactor);
 		childShape.setPosition(childPosition);
 	*/
+	if (splitAllowed) {
+		splitAllowed = false;
+		splitDirection = true;
+		splitDistanceFactor = 1;
+		splitVector = alignVectorNormal;
+		splitSeconds = 0;
+
+		std::vector<CellPart*> children;
+		std::vector<CellPart*>::iterator it;
+		for (it = shapes.begin(); it != shapes.end();){
+			// todo check of size before split
+			if ((*it)->shape->getRadius() < SPLIT_ALLOWED_RADIUS) {
+				++it;
+				continue;
+			}
+			if ((*it)->shape == mainShape) {
+				width /= 2;
+				height /= 2;
+			}
+			int newRadius = (*it)->shape->getRadius() / 2;
+			(*it)->shape->setRadius(newRadius);
+			CircleShape* child = new CircleShape();
+			*child = *((*it)->shape);
+			child->setRadius(newRadius);
+			Vector2f mainPosition = (*it)->shape->getPosition();
+			Vector2f childPosition = Vector2f(mainPosition.x
+				+ newRadius*splitVector.x*splitDistanceFactor,
+				mainPosition.y
+				+ newRadius*splitVector.y*splitDistanceFactor);
+			child->setPosition(childPosition);
+			children.push_back(new CellPart(child,*it));
+			++it;
+		}
+		for (it = children.begin(); it != children.end();) {
+			shapes.push_back(*it);
+			++it;
+		}
+	}
+	
+
 }
 
 void Player::splitUnion() {
-	/* newRadius = mainShape.getRadius() + childShape.getRadius();
-	width = newRadius;
-	height = newRadius;
+	std::vector<CellPart*>::iterator it;
+	int sumRadius = 0;
+	for (it = shapes.begin(); it != shapes.end();){
+		sumRadius += (*it)->shape->getRadius();
+		++it;
+	}
+	width = sumRadius;
+	height = sumRadius;
+	mainShape->setRadius(sumRadius);
+	for (it = shapes.begin(); it != shapes.end();){
+		if ((*it)->shape != mainShape) {
+			delete * it;
+			it = shapes.erase(it);
+		}
+		else ++it;
+	}
+
+	/*newRadius = mainShape.getRadius() + childShape.getRadius();
+	mainRadius = newRadius;
+	mainRadius = newRadius;
 	mainShape.setRadius(newRadius);
 	childShape.setRadius(0);*/
 }

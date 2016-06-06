@@ -6,11 +6,11 @@
 
 const int START_MASS = 10;
 const double START_SPEED = 0.5;
-const int SPLIT_ALLOWED_RADIUS = 60;
+const int SPLIT_ALLOWED_RADIUS = 40;
 const float SPLIT_MAX_FACTOR = 7;
 const float SPLIT_DISTANCE_STEP = 0.01;
 const float SPLIT_FORWARD_BACK_DIFFERENCE_FACTOR = 10;
-const float UNION_WAINING_TIME = 10; //seconds
+const float UNION_WAINING_TIME = 15; //seconds
 
 class Player{
 public:
@@ -18,6 +18,7 @@ public:
 	Player::Player(View& view, int X, int Y, int W, int H, Color bgColor = Color(96, 121, 254));
 	Player::Player(View& view, int W, int H, Color bgColor = Color(96, 121, 254));
 	CircleShape* mainShape;
+	//float mainRadius;
 	std::vector<CellPart*> shapes;
 	Color color;
 	Color outlineColor;

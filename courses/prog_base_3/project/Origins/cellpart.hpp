@@ -3,13 +3,13 @@
 
 #include "GlobalHeader.hpp"
 
-class FoodRenderChunk;
-
+//class FoodRenderChunk;
 class CellPart {
 public:
-	CircleShape shape;
-	FoodRenderChunk* curChunk;
-	CellPart(CircleShape shape);
+	CircleShape* shape;
+	CellPart* parent = NULL;
+	//FoodRenderChunk* curChunk;
+	CellPart(CircleShape* shape, CellPart* parent);
 };
 
 #endif

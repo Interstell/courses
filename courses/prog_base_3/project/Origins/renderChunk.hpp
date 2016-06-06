@@ -5,7 +5,7 @@
 #include "foodParticle.hpp"
 #include "player.hpp"
 
-const int MAX_PARTICLES_PER_CHUNK = 5;
+const int MAX_PARTICLES_PER_CHUNK = 25;
 
 class FoodRenderChunk{
 private:
