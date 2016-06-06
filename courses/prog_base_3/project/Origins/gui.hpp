@@ -1,9 +1,8 @@
-#pragma once
-#include <iostream>
+#ifndef  GUI_H_INCLUDED
+#define GUI_H_INCLUDED
+#include "GlobalHeader.hpp"
 
-#include <SFML/Graphics.hpp>
-#include "player.hpp"
-using namespace sf;
+class Player;
 
 const float VIEW_RENDER_SIZE_MULTIPLIER = 3;
 const int WINDOW_WIDTH = 1200;
@@ -30,7 +29,7 @@ public:
 	Text massText;
 	
 	Gui();
-	void drawBgAroundPlayer(Player player);
+	void drawBgAroundPlayer(Player& player);
 	void proceedKeyboardInput(Player& player, float time);
 	void moveOnMouse(Player& player, float time);
 	void setView(int x, int y);
@@ -41,3 +40,5 @@ public:
 private:
 
 };
+
+#endif

@@ -81,6 +81,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cellpart.cpp" />
     <ClCompile Include="food.cpp" />
     <ClCompile Include="foodParticle.cpp" />
     <ClCompile Include="game.cpp" />
@@ -90,9 +91,11 @@
     <ClCompile Include="renderChunk.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cellpart.hpp" />
     <ClInclude Include="food.hpp" />
     <ClInclude Include="foodParticle.hpp" />
     <ClInclude Include="game.hpp" />
+    <ClInclude Include="GlobalHeader.hpp" />
     <ClInclude Include="gui.hpp" />
     <ClInclude Include="player.hpp" />
     <ClInclude Include="renderChunk.hpp" />

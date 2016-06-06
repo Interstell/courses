@@ -1,6 +1,6 @@
 #include "gui.hpp"
-#include <iostream>
-using namespace std;
+#include "player.hpp"
+
 Gui::Gui(){
 	windowWidth = WINDOW_WIDTH;
 	windowHeight = WINDOW_HEIGHT;
@@ -25,7 +25,7 @@ Gui::Gui(){
 	massText.setOrigin(massText.getCharacterSize()/2, massText.getCharacterSize()/2);
 }
 
-void Gui::drawBgAroundPlayer(Player player){
+void Gui::drawBgAroundPlayer(Player& player){
 	int numOfSquaresInViewX = view.getSize().x / bgImageSize + 5;
 	int numOfSquaresInViewY = view.getSize().y / bgImageSize + 5;
 	int currentSquareX = player.getCoord().x - player.getCoord().x % bgImageSize;

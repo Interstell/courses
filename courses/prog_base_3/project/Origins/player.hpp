@@ -1,6 +1,8 @@
-#pragma once
-#include <SFML/Graphics.hpp>
-using namespace sf;
+#ifndef PLAYER_H_INCLUDED
+#define PLAYER_H_INCLUDED
+
+#include "GlobalHeader.hpp"
+#include "cellpart.hpp"
 
 const int START_MASS = 10;
 const double START_SPEED = 0.5;
@@ -15,8 +17,8 @@ public:
 	Vector2i getCoord();
 	Player::Player(View& view, int X, int Y, int W, int H, Color bgColor = Color(96, 121, 254));
 	Player::Player(View& view, int W, int H, Color bgColor = Color(96, 121, 254));
-	CircleShape shape;
-	CircleShape childShape;
+	CircleShape* mainShape;
+	std::vector<CellPart*> shapes;
 	Color color;
 	Color outlineColor;
 	void move(double X, double Y, float time);
@@ -47,3 +49,5 @@ private:
 	Image image;
 	Texture texture;
 };
+
+#endif

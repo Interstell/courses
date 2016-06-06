@@ -1,9 +1,7 @@
-#include "player.hpp"
+#include "GlobalHeader.hpp"
 #include "game.hpp"
 #include "gui.hpp"
 #include "food.hpp"
-
-using namespace sf;
 
 int main()
 {

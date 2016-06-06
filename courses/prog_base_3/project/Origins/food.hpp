@@ -1,16 +1,14 @@
-#pragma once
-#include <iostream>
-#include <iterator>
-#include <vector>
-#include <SFML/Graphics.hpp>
-#include "gui.hpp"
+#ifndef FOOD_H_INCLUDED
+#define FOOD_H_INCLUDED
+
+#include "GlobalHeader.hpp"
 #include "renderChunk.hpp"
+#include "player.hpp"
+#include "gui.hpp"
 
 
 const int NUM_OF_PARTICLES_IN_VIEW = 300;
 const int CHUNK_SIZE_PIXELS = 800;
-
-using namespace sf;
 
 class Food{
 private:
@@ -26,3 +24,5 @@ public:
 	void deleteInvisibleChunks(Gui& gui);
 	void loadNewChunks(Gui& gui);
 };
+
+#endif

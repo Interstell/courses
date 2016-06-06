@@ -1,7 +1,9 @@
-#pragma once
-#include <SFML/Graphics.hpp>
+#ifndef RENDERCHUNK_H_INCLUDED
+#define RENDERCHUNK_H_INCLUDED
+
+#include "GlobalHeader.hpp"
 #include "foodParticle.hpp"
-using namespace sf;
+#include "player.hpp"
 
 const int MAX_PARTICLES_PER_CHUNK = 5;
 
@@ -20,3 +22,5 @@ public:
 	void draw(void);
 	void eatIntersectedFood(Player* player);
 };
+
+#endif

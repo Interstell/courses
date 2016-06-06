@@ -1,7 +1,6 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include "player.hpp"
-#include "game.hpp"
 #include "gui.hpp"
+
 Player::Player(View& view, int X, int Y, int W, int H, Color bgColor){
 	x = X;
 	y = Y;
@@ -20,17 +19,18 @@ Player::Player(View& view, int W, int H, Color bgColor){
 	y = view.getCenter().y;
 	color = Gui::getRandomColor();
 	outlineColor = Color((color.r <= 30) ? 0 : color.r - 30, (color.g <= 30) ? 0 : color.g - 30, (color.b <= 30) ? 0 : color.b - 30);
-	shape.setRadius(W);
-	shape.setFillColor(color);
-	shape.setOutlineThickness(-10);
-	shape.setOutlineColor(outlineColor);
+	mainShape = new CircleShape();
+	mainShape->setRadius(W);
+	mainShape->setFillColor(color);
+	mainShape->setOutlineThickness(-10);
+	mainShape->setOutlineColor(outlineColor);
 	//TODO: texture
-	//shape.setScale(0.5, 0.5);
+	//mainShape.setScale(0.5, 0.5);
 	width = W;
 	height = H;
-	shape.setOrigin(width/2, height/2);
+	mainShape->setOrigin(width/2, height/2);
 	//sprite.setTextureRect(IntRect(0, 0, width, height));
-	shape.setPosition(x, y);
+	mainShape->setPosition(x, y);
 }
 
 Vector2i Player::getCoord(){
@@ -40,12 +40,12 @@ Vector2i Player::getCoord(){
 void Player::move(double X, double Y, float time){
 	x += X;
 	y += Y;
-	if (!splitAllowed) {
+	/*if (!splitAllowed) {
 		if (childShape.getRadius() != 0) {
 			Vector2f childPosition = Vector2f(view->getCenter().x
-				+ shape.getRadius()*splitVector.x*splitDistanceFactor,
+				+ mainShape.getRadius()*splitVector.x*splitDistanceFactor,
 				view->getCenter().y
-				+ shape.getRadius()*splitVector.y*splitDistanceFactor);
+				+ mainShape.getRadius()*splitVector.y*splitDistanceFactor);
 			childShape.setPosition(childPosition);
 		}
 		if (splitDirection) {
@@ -67,9 +67,7 @@ void Player::move(double X, double Y, float time){
 				splitDirection = true;
 			}
 		}
-	}
-	
-	
+	}*/
 }
 
 void Player::moveOnCoord(Vector2i coord){
@@ -78,10 +76,10 @@ void Player::moveOnCoord(Vector2i coord){
 }
 
 void Player::draw(RenderWindow& window) {
-	if (childShape.getRadius() != 0) {
+	/*if (childShape.getRadius() != 0) {
 		window.draw(childShape);
-	}
-	window.draw(shape);
+	}*/
+	window.draw(*mainShape);
 }
 
 void Player::setSpeed(double speed){
@@ -101,8 +99,8 @@ double Player::getAngle() {
 }
 
 void Player::update(View& view, Text& scoreText, Text& massText){
-	shape.setPosition(x, y);
-	shape.setRadius(width + (mass - START_MASS)*0.2);
+	mainShape->setPosition(x, y);
+	mainShape->setRadius(width + (mass - START_MASS)*0.2);
 	float sizeRatio = START_VIEW_SIZE.x / START_VIEW_SIZE.y;
 	Vector2f newViewSize = Vector2f(START_VIEW_SIZE.x + (mass - START_MASS) * VIEW_SIZE_CHANGING_MULTIPLYER * sizeRatio, START_VIEW_SIZE.y + (mass - START_MASS)*VIEW_SIZE_CHANGING_MULTIPLYER);
 	view.setSize(newViewSize);
@@ -134,30 +132,30 @@ void Player::incMass(View* view){
 }
 
 void Player::split() {
-	if (splitAllowed && shape.getRadius() > SPLIT_ALLOWED_RADIUS) {
+	/*if (splitAllowed && mainShape.getRadius() > SPLIT_ALLOWED_RADIUS) {
 		splitAllowed = false;
 		splitDirection = true;
 		splitDistanceFactor = 1;
 		splitVector = alignVectorNormal;
-		float newRadius = shape.getRadius() / 2;
+		float newRadius = mainShape.getRadius() / 2;
 		width /= 2;
 		height /= 2;
-		childShape = shape;
-		shape.setRadius(newRadius);
+		childShape = mainShape;
+		mainShape.setRadius(newRadius);
 		childShape.setRadius(newRadius);
-		Vector2f mainPosition = shape.getPosition();
-		Vector2f childPosition = Vector2f(shape.getPosition().x 
+		Vector2f mainPosition = mainShape.getPosition();
+		Vector2f childPosition = Vector2f(mainShape.getPosition().x 
 			+ newRadius*splitVector.x*splitDistanceFactor, 
-			shape.getPosition().y 
+			mainShape.getPosition().y 
 			+ newRadius*splitVector.y*splitDistanceFactor);
 		childShape.setPosition(childPosition);
-	}
+	*/
 }
 
 void Player::splitUnion() {
-	float newRadius = shape.getRadius() + childShape.getRadius();
+	/* newRadius = mainShape.getRadius() + childShape.getRadius();
 	width = newRadius;
 	height = newRadius;
-	shape.setRadius(newRadius);
-	childShape.setRadius(0);
+	mainShape.setRadius(newRadius);
+	childShape.setRadius(0);*/
 }

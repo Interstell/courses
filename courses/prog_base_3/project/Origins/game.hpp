@@ -1,7 +1,7 @@
-#pragma once
-#include <SFML/Graphics.hpp>
+#ifndef GAME_H_INCLUDED
+#define GAME_H_INCLUDED
+#include "GlobalHeader.hpp"
 
-using namespace sf;
 const int GAME_SPEED = 800;
 
 class Game{
@@ -11,3 +11,5 @@ public:
 	Game();
 private:
 };
+
+#endif

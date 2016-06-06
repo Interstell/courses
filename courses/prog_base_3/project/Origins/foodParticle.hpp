@@ -1,9 +1,8 @@
-#pragma once
-#include <SFML/Graphics.hpp>
+#ifndef FOODPARTICLE_H_INCLUDED
+#define FOODPARTICLE_H_INCLUDED
+
+#include "GlobalHeader.hpp"
 #include "gui.hpp"
-
-using namespace sf;
-
 const int FOOD_RADIUS = 17;
 const int FOOD_CIRCLE_POINTS = 6;
 
@@ -20,3 +19,5 @@ private:
 	CircleShape shape;
 	Color color;
 };
+
+#endif
