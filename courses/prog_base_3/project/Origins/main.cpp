@@ -8,7 +8,7 @@ int main()
 	srand(time(NULL));
 	Game game;
 	Gui gui;
-	Player player(gui.view, 50, 50);
+	Player player(gui.view, START_WIDTH_HEIGHT, START_WIDTH_HEIGHT);
 	Food food(gui, &player);
 	while (gui.window.isOpen())
 	{

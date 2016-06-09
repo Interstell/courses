@@ -25,7 +25,7 @@ Player::Player(View& view, int W, int H, Color bgColor){
 	mainShape->setFillColor(color);
 	mainShape->setOutlineThickness(-10);
 	mainShape->setOutlineColor(outlineColor);
-	//TODO: texture
+	//todo texture ??? what for?
 	//mainShape.setScale(0.5, 0.5);
 	width = W;
 	height = H;
@@ -89,9 +89,11 @@ void Player::moveOnCoord(Vector2i coord){
 void Player::draw(RenderWindow& window) {
 	std::vector<CellPart*>::iterator it;
 	for (it = shapes.begin(); it != shapes.end();){
+		cout << (*it)->shape->getRadius() << endl;	
 		window.draw(*(*it)->shape);
 		++it;
 	}
+	cout << " " << endl;
 }
 
 void Player::setSpeed(double speed){
@@ -112,11 +114,21 @@ double Player::getAngle() {
 
 void Player::update(View& view, Text& scoreText, Text& massText){
 	mainShape->setPosition(x, y);
-	mainShape->setRadius(width + (mass - START_MASS)*0.2);
+	//mainShape->setRadius(width + (mass - START_MASS)*0.2);
+	mainShape->setRadius(width);
 	float sizeRatio = START_VIEW_SIZE.x / START_VIEW_SIZE.y;
-	Vector2f newViewSize = Vector2f(START_VIEW_SIZE.x + (mass - START_MASS) * VIEW_SIZE_CHANGING_MULTIPLYER * sizeRatio, START_VIEW_SIZE.y + (mass - START_MASS)*VIEW_SIZE_CHANGING_MULTIPLYER);
+	// todo normal koefs for logic scale changing (both shapes and view)
+	Vector2f newViewSize = Vector2f(START_VIEW_SIZE.x
+		+ (width - START_WIDTH_HEIGHT)
+		* VIEW_SIZE_CHANGING_MULTIPLYER
+		* sizeRatio,
+		START_VIEW_SIZE.y
+		+ (width - START_WIDTH_HEIGHT)
+		*VIEW_SIZE_CHANGING_MULTIPLYER);
+
+
 	view.setSize(newViewSize);
-	view.setCenter(x + width / 2, y + height / 2);
+	view.setCenter(x + width/2, y + height /2);
 	char scoreChar[30];
 	sprintf(scoreChar, "Score %3.0f", score);
 	char massChar[30];
@@ -134,9 +146,12 @@ void Player::update(View& view, Text& scoreText, Text& massText){
 
 }
 
-void Player::incMass(View* view){
-	width++;
-	height++;
+void Player::incMass(View* view, CellPart* part){
+	if (part->shape == mainShape) { //bug: if parts are same size and position??
+		width++;
+		height++;
+	}
+	part->shape->setRadius(part->shape->getRadius() + 1);
 	if (mass == score){
 		score++;
 	}
@@ -154,6 +169,7 @@ void Player::split() {
 		std::vector<CellPart*> children;
 		std::vector<CellPart*>::iterator it;
 		for (it = shapes.begin(); it != shapes.end();){
+			//cout << (*it)->shape->getRadius() << endl;
 			if ((*it)->shape->getRadius() < SPLIT_ALLOWED_RADIUS) {
 				++it;
 				continue;
@@ -202,10 +218,4 @@ void Player::splitUnion() {
 		}
 		else ++it;
 	}
-
-	/*newRadius = mainShape.getRadius() + childShape.getRadius();
-	mainRadius = newRadius;
-	mainRadius = newRadius;
-	mainShape.setRadius(newRadius);
-	childShape.setRadius(0);*/
 }

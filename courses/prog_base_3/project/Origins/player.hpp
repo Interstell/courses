@@ -5,8 +5,9 @@
 #include "cellpart.hpp"
 
 const int START_MASS = 10;
+const float START_WIDTH_HEIGHT = 50;
 const double START_SPEED = 0.5;
-const int SPLIT_ALLOWED_RADIUS = 40;
+const int SPLIT_ALLOWED_RADIUS = 80;
 const float SPLIT_MAX_FACTOR = 7;
 const float SPLIT_DISTANCE_STEP = 0.005;
 const float SPLIT_FORWARD_BACK_DIFFERENCE_FACTOR = 3;
@@ -32,7 +33,7 @@ public:
 	Vector2f alignVectorNormal;
 	View* view;
 	void update(View& view, Text& scoreText, Text& massText);
-	void incMass(View* view);
+	void incMass(View* view, CellPart* part);
 	float score;
 	float mass;
 
