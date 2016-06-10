@@ -39,8 +39,13 @@ void FoodRenderChunk::eatIntersectedFood(Player* player){
 	std::vector<CellPart*>::iterator itShapes;
 	for (itShapes = player->shapes.begin(); itShapes != player->shapes.end();) {
 		for (itFood = foodVector.begin(); itFood != foodVector.end();) {
-			if ((*itShapes)->shape->getGlobalBounds().contains((*itFood)->getCoord())){
-				//@todo check by radius
+			double distanceBetwCenters = sqrt(
+				pow((*itShapes)->shape->getPosition().x + (*itShapes)->shape->getRadius() - (*itFood)->getCoord().x, 2)
+				+ pow((*itShapes)->shape->getPosition().y + (*itShapes)->shape->getRadius() - (*itFood)->getCoord().y, 2)
+				);
+			double sumRadius = (*itShapes)->shape->getRadius() + FOOD_RADIUS;
+			if ((*itShapes)->shape->getGlobalBounds().contains((*itFood)->getCoord())
+				&& sumRadius <= distanceBetwCenters){
 				delete * itFood;
 				itFood = foodVector.erase(itFood);
 				player->incMass(player->view, *itShapes);

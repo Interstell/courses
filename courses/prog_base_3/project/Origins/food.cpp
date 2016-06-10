@@ -6,15 +6,35 @@ Food::Food(Gui& gui, Player* player){
 }
 
 void Food::draw(Gui& gui){
+	//todo reduce number of rendered particles
+	//todo vector of chunks in MAX_SPLIT_RADIUS 
 	deleteInvisibleChunks(gui);
 	loadNewChunks(gui);
-	for (FoodRenderChunk* elem : chunks){
+	/*for (FoodRenderChunk* elem : chunks){
 		elem->draw();
 		if (elem->getCoord().contains(gui.view.getCenter())){
 			currentChunk = elem;
 		}
 	}
-	currentChunk->eatIntersectedFood(player);
+	currentChunk->eatIntersectedFood(player);*/
+	for (FoodRenderChunk* elem : chunks){
+		elem->draw();
+		FloatRect maxSplitRect = FloatRect(
+			player->mainShape->getPosition().x - player->mainShape->getRadius() * 2 * player->splitDistanceFactor,
+			player->mainShape->getPosition().y - player->mainShape->getRadius() * 2 * player->splitDistanceFactor,
+			2 * player->mainShape->getRadius() * 2 * player->splitDistanceFactor,
+			2 * player->mainShape->getRadius() * 2 * player->splitDistanceFactor
+			);
+			
+		if (elem->getCoord().intersects(maxSplitRect)) {
+			chunksInRadius.push_back(elem);
+		}
+	}
+	std::vector<FoodRenderChunk*>::iterator it;
+	for (it = chunksInRadius.begin(); it != chunksInRadius.end();) {
+		(*it)->eatIntersectedFood(player);
+		it = chunksInRadius.erase(it);
+	}
 }
 
 void Food::initializeParticles(Gui& gui){
@@ -30,7 +50,6 @@ void Food::initializeParticles(Gui& gui){
 	rightTop.y -= abs(rightTop.y) % CHUNK_SIZE_PIXELS;
 	for (int i = leftTop.x; i < rightTop.x; i += CHUNK_SIZE_PIXELS){
 		for (int j = leftTop.y; j < leftDown.y; j += CHUNK_SIZE_PIXELS){
-			std::cout << i << " " << j << " " << std::endl;
 			chunks.push_back(new FoodRenderChunk(&gui, i, j, CHUNK_SIZE_PIXELS));
 		}
 	}

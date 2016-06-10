@@ -2,13 +2,6 @@
 #include "gui.hpp"
 #include "game.hpp"
 
-Player::Player(View& view, int X, int Y, int W, int H, Color bgColor){
-	x = X;
-	y = Y;
-	Player::Player(view, W, H);
-}
-
-
 Player::Player(View& view, int W, int H, Color bgColor){
 	this->view = &view;
 	dx = 0; dy = 0; angle = 0;
@@ -32,7 +25,8 @@ Player::Player(View& view, int W, int H, Color bgColor){
 	mainShape->setOrigin(width/2, height/2);
 	//sprite.setTextureRect(IntRect(0, 0, mainRadius, mainRadius));
 	mainShape->setPosition(x, y);
-	shapes.push_back(new CellPart(mainShape, NULL));
+	mainCell = new CellPart(mainShape, NULL);
+	shapes.push_back(mainCell);
 }
 
 Vector2i Player::getCoord(){
@@ -40,24 +34,33 @@ Vector2i Player::getCoord(){
 }
 
 void Player::move(double X, double Y, float time){
+	//todo correct jump factor
 	x += X;
 	y += Y;
 	//cout << "R " << mainShape->getRadius() << " W " << width << " H " << height << endl;
 	std::vector<CellPart*>::iterator it;
 	for (it = shapes.begin(); it != shapes.end();){
+		(*it)->shape->setOrigin((*it)->shape->getRadius(), (*it)->shape->getRadius());
+		//(*it)->shape->setPointCount(rand() % 10 + 10);
 		CellPart* child = *it;
 		CellPart* parent = child->parent;
+		double currentSplitFactor = splitDistanceFactor;
 		if (parent == NULL) {
 			++it;
 			continue;
 		}
-		if (child->shape->getRadius() != 0) {
-			Vector2f childPosition = Vector2f(view->getCenter().x
-				+ parent->shape->getRadius()*splitVector.x*splitDistanceFactor,
-				view->getCenter().y
-				+ parent->shape->getRadius()*splitVector.y*splitDistanceFactor);
-			child->shape->setPosition(childPosition);
+		Vector2f currentSplitVector = child->splitVector;
+		if (!child->jumpable) {
+			currentSplitFactor = 1; //todo constant (useless??)
 		}
+
+		Vector2f parentCenter = Vector2f(parent->shape->getPosition().x, parent->shape->getPosition().y);
+		Vector2f childPosition = Vector2f(parentCenter.x
+			+ 2 * parent->shape->getRadius()*currentSplitVector.x*currentSplitFactor,
+			parentCenter.y
+			+ 2 * parent->shape->getRadius()*currentSplitVector.y*currentSplitFactor);
+		child->shape->setPosition(childPosition);
+
 		++it;
 	}
 	if (splitDirection) {
@@ -163,11 +166,23 @@ void Player::split() {
 		splitAllowed = false;
 		splitDirection = true;
 		splitDistanceFactor = 1;
-		splitVector = alignVectorNormal;
 		splitSeconds = 0;
 
 		std::vector<CellPart*> children;
 		std::vector<CellPart*>::iterator it;
+
+		for (it = shapes.begin(); it != shapes.end();) {
+			if ((*it)->shape->getRadius() > SPLIT_ALLOWED_RADIUS) {
+				splitVector = alignVectorNormal;
+				break;
+			}
+			++it;
+		}
+
+		for (it = shapes.begin(); it != shapes.end();) {
+			(*it)->jumpable = false;
+			++it;
+		}
 		for (it = shapes.begin(); it != shapes.end();){
 			//cout << (*it)->shape->getRadius() << endl;
 			if ((*it)->shape->getRadius() < SPLIT_ALLOWED_RADIUS) {
@@ -189,7 +204,7 @@ void Player::split() {
 				mainPosition.y
 				+ newRadius*splitVector.y*splitDistanceFactor);
 			child->setPosition(childPosition);
-			children.push_back(new CellPart(child,*it));
+			children.push_back(new CellPart(child,*it, splitVector));
 			++it;
 		}
 		for (it = children.begin(); it != children.end();) {

@@ -14,6 +14,7 @@ private:
 	//std::vector<FoodParticle*> foodVector;
 	std::vector<FoodRenderChunk*> chunks;
 	FoodRenderChunk* currentChunk;
+	vector<FoodRenderChunk*> chunksInRadius;
 	Player* player;
 	FloatRect foodRenderRect;
 public:

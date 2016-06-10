@@ -76,9 +76,11 @@ void Gui::moveOnMouse(Player& player, float time){
 	Vector2i pixelPos = Mouse::getPosition(window);
 	Vector2f mousePos = window.mapPixelToCoords(pixelPos);
 	Vector2f alignVector(mousePos.x - player.getCoord().x, mousePos.y - player.getCoord().y);
-	//player.alignVector = alignVector;
 	double vectorLength = sqrt(pow(alignVector.x, 2) + pow(alignVector.y, 2));
 	player.alignVectorNormal = Vector2f(alignVector.x / vectorLength, alignVector.y / vectorLength);
+	if (player.mainCell->splitVector == Vector2f(0, 0)) {
+		player.mainCell->splitVector = player.alignVectorNormal;
+	}
 	//cout << player.alignVectorNormal.x << " " << player.alignVectorNormal.y << endl;
 	double angle = atan2(alignVector.y, alignVector.x);
 	player.setAngle(angle);
@@ -128,10 +130,14 @@ FloatRect Gui::getCurrentViewCoord(){
 
 FloatRect Gui::getCurrentRenderCoord(){
 	FloatRect curView = getCurrentViewCoord();
-	FloatRect renderView = FloatRect(curView.left - curView.width,
+	/*FloatRect renderView = FloatRect(curView.left - curView.width,
 		curView.top - curView.height,
 		curView.width * 3,
-		curView.height * 3);
+		curView.height * 3);*/
+	FloatRect renderView = FloatRect(curView.left - curView.width/2,
+		curView.top - curView.height/2,
+		curView.width * 2,
+		curView.height * 2);
 	
 	return renderView;
 }
