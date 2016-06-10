@@ -2,27 +2,27 @@
 #include "game.hpp"
 #include "gui.hpp"
 #include "food.hpp"
+#include "ai.hpp"
 
 int main()
 {
 	srand(time(NULL));
+	float GameTime;
 	Game game;
 	Gui gui;
 	Player player(gui.view, START_WIDTH_HEIGHT, START_WIDTH_HEIGHT);
 	Food food(gui, &player);
+	AI ai(&gui, &player, &GameTime);
 	while (gui.window.isOpen())
 	{
-		float GameTime = game.clock.getElapsedTime().asMicroseconds();
+		GameTime = game.clock.getElapsedTime().asMicroseconds();
 		GameTime /= (float)GAME_SPEED;
 		game.clock.restart();
 		Event event;
 		while (gui.window.pollEvent(event)){
-			if (event.type == Event::Closed)
+			if (event.type == Event::Closed) {
 				gui.window.close();
-			/*if (event.type == Event::MouseWheelMoved){
-				int sign = (event.mouseWheel.delta > 0) ? 1 : -1;
-				gui.zoom(1 - sign*0.05);
-			}*/
+			}
 		}
 		gui.proceedKeyboardInput(player, GameTime);
 		gui.moveOnMouse(player, GameTime);
@@ -31,6 +31,7 @@ int main()
 		gui.drawBgAroundPlayer(player);
 		food.draw(gui);
 		gui.window.setView(gui.view);
+		ai.draw();
 		player.draw(gui.window);
 		gui.window.draw(gui.scoreText);
 		gui.window.draw(gui.massText);

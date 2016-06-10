@@ -4,7 +4,7 @@
 
 Player::Player(View& view, int W, int H, Color bgColor){
 	this->view = &view;
-	dx = 0; dy = 0; angle = 0;
+	angle = 0;
 	splitDistanceFactor = -1;
 	speed = START_SPEED;
 	mass = START_MASS;
@@ -84,19 +84,14 @@ void Player::move(double X, double Y, float time){
 	}
 }
 
-void Player::moveOnCoord(Vector2i coord){
-	x = coord.x;
-	y = coord.y;
-}
-
 void Player::draw(RenderWindow& window) {
 	std::vector<CellPart*>::iterator it;
 	for (it = shapes.begin(); it != shapes.end();){
-		cout << (*it)->shape->getRadius() << endl;	
+		//cout << (*it)->shape->getRadius() << endl;	
 		window.draw(*(*it)->shape);
 		++it;
 	}
-	cout << " " << endl;
+	//cout << " " << endl;
 }
 
 void Player::setSpeed(double speed){

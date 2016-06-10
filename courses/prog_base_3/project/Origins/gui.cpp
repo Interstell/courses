@@ -1,11 +1,13 @@
 #include "gui.hpp"
 #include "player.hpp"
 
+//todo render queue for logical overlay
+
 Gui::Gui(){
 	windowWidth = WINDOW_WIDTH;
 	windowHeight = WINDOW_HEIGHT;
 	settings.antialiasingLevel = 4;
-	window.create(VideoMode(windowWidth, windowHeight), "Origins", sf::Style::Default, settings);
+	window.create(VideoMode(windowWidth, windowHeight), "Origins", sf::Style::Close, settings);
 	window.setFramerateLimit(90);
 	//window.setVerticalSyncEnabled(true);
 	view.reset(FloatRect(50000, 50000, START_VIEW_SIZE.x, START_VIEW_SIZE.y));
@@ -81,10 +83,13 @@ void Gui::moveOnMouse(Player& player, float time){
 	if (player.mainCell->splitVector == Vector2f(0, 0)) {
 		player.mainCell->splitVector = player.alignVectorNormal;
 	}
-	//cout << player.alignVectorNormal.x << " " << player.alignVectorNormal.y << endl;
 	double angle = atan2(alignVector.y, alignVector.x);
 	player.setAngle(angle);
-	player.move(player.getSpeed()*time * alignVector.x / vectorLength, player.getSpeed() * time * alignVector.y / vectorLength, time);
+	double curSpeed = player.getSpeed();
+	if (vectorLength < player.mainShape->getRadius()) {
+		curSpeed *= vectorLength / player.mainShape->getRadius();
+	}
+	player.move(curSpeed*time * alignVector.x / vectorLength, curSpeed * time * alignVector.y / vectorLength, time);
 	player.update(view, scoreText, massText);
 	//player.setSpeed(START_SPEED);
 }
@@ -114,6 +119,15 @@ Color Gui::getRandomColor(){
 	return colorArray[rand() % (sizeof(colorArray) / sizeof(Color))];
 }
 
+Vector2f Gui::getNormalVector(Vector2f vector) {
+	double length = sqrt(pow(vector.x, 2) + pow(vector.y, 2));
+	return Vector2f(vector.x / length, vector.y / length);
+}
+
+Vector2f Gui::vectorFromAngle(double angle) {
+	return Vector2f(sin(angle), cos(angle));
+}
+
 void Gui::zoom(float zoomFactor){
 	view.zoom(zoomFactor);
 }
@@ -130,14 +144,14 @@ FloatRect Gui::getCurrentViewCoord(){
 
 FloatRect Gui::getCurrentRenderCoord(){
 	FloatRect curView = getCurrentViewCoord();
-	/*FloatRect renderView = FloatRect(curView.left - curView.width,
+	FloatRect renderView = FloatRect(curView.left - curView.width,
 		curView.top - curView.height,
 		curView.width * 3,
-		curView.height * 3);*/
-	FloatRect renderView = FloatRect(curView.left - curView.width/2,
+		curView.height * 3);
+	/*FloatRect renderView = FloatRect(curView.left - curView.width/2,
 		curView.top - curView.height/2,
 		curView.width * 2,
-		curView.height * 2);
+		curView.height * 2);*/
 	
 	return renderView;
 }

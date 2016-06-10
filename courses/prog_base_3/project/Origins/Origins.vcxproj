@@ -81,6 +81,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ai.cpp" />
+    <ClCompile Include="bot.cpp" />
     <ClCompile Include="cellpart.cpp" />
     <ClCompile Include="food.cpp" />
     <ClCompile Include="foodParticle.cpp" />
@@ -91,6 +93,8 @@
     <ClCompile Include="renderChunk.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ai.hpp" />
+    <ClInclude Include="bot.hpp" />
     <ClInclude Include="cellpart.hpp" />
     <ClInclude Include="food.hpp" />
     <ClInclude Include="foodParticle.hpp" />

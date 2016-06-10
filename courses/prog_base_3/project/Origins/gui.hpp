@@ -34,6 +34,8 @@ public:
 	void moveOnMouse(Player& player, float time);
 	void setView(int x, int y);
 	static Color getRandomColor();
+	static Vector2f getNormalVector(Vector2f vector);
+	static Vector2f vectorFromAngle(double angle);
 	void zoom(float zoomFactor);
 	FloatRect getCurrentViewCoord();
 	FloatRect getCurrentRenderCoord();

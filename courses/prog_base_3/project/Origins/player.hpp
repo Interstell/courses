@@ -24,7 +24,6 @@ public:
 	Color color;
 	Color outlineColor;
 	void move(double X, double Y, float time);
-	void moveOnCoord(Vector2i coord);
 	void draw(RenderWindow& window);
 	void setSpeed(double Speed);
 	double getSpeed();
@@ -47,9 +46,6 @@ public:
 private:
 	int x, y, dx, dy, width, height;
 	double angle, speed;
-	String file;
-	Image image;
-	Texture texture;
 };
 
 #endif

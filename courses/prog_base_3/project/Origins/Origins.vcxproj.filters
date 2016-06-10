@@ -25,6 +25,12 @@
     <Filter Include="Файлы исходного кода\Player">
       <UniqueIdentifier>{8c450aa3-b364-4eb4-924c-b6305e58f398}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Заголовочные файлы\AI">
+      <UniqueIdentifier>{62d50bdf-a8b8-4235-9fd8-5a7628ae946a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\AI">
+      <UniqueIdentifier>{34d7dab9-d41c-4eaf-9845-b20b88db1c65}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,6 +57,12 @@
     <ClCompile Include="player.cpp">
       <Filter>Файлы исходного кода\Player</Filter>
     </ClCompile>
+    <ClCompile Include="bot.cpp">
+      <Filter>Файлы исходного кода\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="ai.cpp">
+      <Filter>Файлы исходного кода\AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gui.hpp">
@@ -76,6 +88,12 @@
     </ClInclude>
     <ClInclude Include="GlobalHeader.hpp">
       <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="bot.hpp">
+      <Filter>Заголовочные файлы\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="ai.hpp">
+      <Filter>Заголовочные файлы\AI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
