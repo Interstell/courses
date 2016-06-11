@@ -12,6 +12,9 @@ const float SPLIT_MAX_FACTOR = 4;
 const float SPLIT_DISTANCE_STEP = 0.005;
 const float SPLIT_FORWARD_BACK_DIFFERENCE_FACTOR = 10;
 const float UNION_WAINING_TIME = 15; //seconds
+const float ZOOM_IN_FACTOR_PER_FRAME = 1.0003f;
+const float ZOOM_OUT_FACTOR_PER_FRAME = 0.9997f;
+const float ZOOM_EPSILON_FACTOR = 0.002;
 
 class Player{
 public:
@@ -26,18 +29,20 @@ public:
 	void move(double X, double Y, float time);
 	void draw(RenderWindow& window);
 	void setSpeed(double Speed);
+	void setWidthHeight(int width, int height);
 	double getSpeed();
 	void setAngle(double angle);
 	double getAngle();
 	Vector2f alignVectorNormal;
 	View* view;
+	Vector2f currentViewSize;
 	void update(View& view, Text& scoreText, Text& massText);
 	void incMass(CellPart* part);
 	void incMass(CellPart* part, double foodRadius);
 	void decMass(CellPart* part);
 	float score;
 	float mass;
-
+	double sumRadius;
 	void split();
 	double splitDistanceFactor;
 	bool splitAllowed = true;

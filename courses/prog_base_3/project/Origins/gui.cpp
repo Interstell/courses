@@ -28,8 +28,8 @@ Gui::Gui(){
 }
 
 void Gui::drawBgAroundPlayer(Player& player){
-	int numOfSquaresInViewX = view.getSize().x / bgImageSize + 5;
-	int numOfSquaresInViewY = view.getSize().y / bgImageSize + 5;
+	int numOfSquaresInViewX = view.getSize().x / bgImageSize + 15;
+	int numOfSquaresInViewY = view.getSize().y / bgImageSize + 15;
 	int currentSquareX = player.getCoord().x - player.getCoord().x % bgImageSize;
 	int currentSquareY = player.getCoord().y - player.getCoord().y % bgImageSize;
 	for (int i = currentSquareX - (numOfSquaresInViewX*bgImageSize) / 2; i <= currentSquareX + (numOfSquaresInViewX*bgImageSize) / 2; i += bgImageSize){

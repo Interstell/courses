@@ -7,6 +7,7 @@ class CellPart {
 public:
 	CircleShape* shape;
 	CellPart* parent = NULL;
+	CellPart* child = NULL;
 	bool jumpable = true;
 	Vector2f splitVector = Vector2f(0,0);
 	CellPart(CircleShape* shape, CellPart* parent);

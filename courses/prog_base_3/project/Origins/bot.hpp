@@ -5,8 +5,8 @@
 #include "cellpart.hpp"
 
 const double BOT_MIN_RADIUS = 50;
-const double BOT_START_MASS = 10;
-const double BOT_START_SPEED = 0.1;
+const double BOT_START_MASS = 0;
+const double BOT_START_SPEED = 0.2;
 const int BOT_ANGLE_STEP = 10;
 static enum STATE{
 	NEUTRAL = 1,

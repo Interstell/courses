@@ -98,17 +98,25 @@ void AI::playerInteraction() {
 						(*itBotShapes)->shape->getGlobalBounds().top
 						+ (*itBotShapes)->shape->getGlobalBounds().height / 2);
 					if (playerCellRadius / botCellRadius > EATING_SIZE_DIFFERENCE_FACTOR      //player eats bot
-						&& (*itPlayerShapes)->shape->getGlobalBounds().contains(botCellCenter)) {
-						player->incMass(*itPlayerShapes, botCellRadius);
+						&& (*itPlayerShapes)->shape->getGlobalBounds().contains(botCellCenter)) { //bug check for radius
+						player->incMass(*itPlayerShapes, botCellRadius); //bug incorrect increase
 						(*itBotShapes)->shape->setRadius(0);
 					}
 					else if (botCellRadius / playerCellRadius > EATING_SIZE_DIFFERENCE_FACTOR //bot eats player
-						&& (*itBotShapes)->shape->getGlobalBounds().contains(playerCellCenter)) {
-						player->decMass(*itPlayerShapes);
+						&& (*itBotShapes)->shape->getGlobalBounds().contains(playerCellCenter)) { //bug check for radius
+						player->decMass(*itPlayerShapes); //bug incorrect decrease
 						(*itPlayerShapes)->shape->setRadius(0);
-						//todo check for gameover on player->mass == 0
-						if (player->mass <= 0) {
+						//todo gameover
+						if (player->sumRadius <= 0 || player->mass <= 0) {
 							exit(EXIT_SUCCESS);
+						}
+						if (*itPlayerShapes == player->mainCell) {
+							player->mainCell = player->mainCell->child;
+							player->mainShape = player->mainCell->shape;
+							player->setWidthHeight(player->mainShape->getRadius(), player->mainShape->getRadius());
+							player->mainCell->parent = NULL;
+							itPlayerShapes = player->shapes.erase(itPlayerShapes);
+							goto deletedPlayer;
 						}
 					}
 				}
@@ -117,6 +125,8 @@ void AI::playerInteraction() {
 			++itBot;
 		}
 		++itPlayerShapes;
+	deletedPlayer:
+		int label = 0;
 	}
 }
 
