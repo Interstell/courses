@@ -5,21 +5,20 @@
 #include "bot.hpp"
 class Player;
 
-const double MATH_PI = 3.1415926535897932384;
 const int MAX_BOTS_IN_RENDER = 5;
-const double BIG_SMALL_DIFFERENCE_FACTOR = 0.1;
-const int SIZE_DISPERSION_PERCENT = 40;
+const double BIG_SMALL_DIFFERENCE_FACTOR = 0;
+const int SIZE_DISPERSION_PERCENT = 50;
 
 class AI {
 public:
-	AI(Gui* gui, Player* player, float* gameTime);
+	AI(Gui* gui, Player* player);
 	Player* player;
 	Gui* gui;
 	vector<Bot*> bots;
-	float* time;
 	void initializeBots();
 	void deleteInvisibleBots();
 	void loadNewBots();
+	void move(float time);
 	void draw();
 
 private:

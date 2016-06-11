@@ -33,6 +33,7 @@ public:
 	View* view;
 	void update(View& view, Text& scoreText, Text& massText);
 	void incMass(View* view, CellPart* part);
+	void incMass(View* view, CellPart* part, double foodMass);
 	float score;
 	float mass;
 

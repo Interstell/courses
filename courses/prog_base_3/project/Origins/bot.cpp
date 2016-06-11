@@ -1,16 +1,18 @@
 #include "bot.hpp"
 #include "gui.hpp"
 
-Bot::Bot(double x, double y, double mass, double angle) {
+Bot::Bot(double x, double y, double radius, double angle) {
 	this->x = x;
 	this->y = y;
-	this->mass = mass;
+	this->speed = BOT_START_SPEED;
+
+	this->mass = radius - (BOT_MIN_RADIUS - BOT_START_MASS);
 	this->angle = angle;
 	speed = BOT_START_SPEED;
 	color = Gui::getRandomColor();
 	outlineColor = Color((color.r <= 30) ? 0 : color.r - 30, (color.g <= 30) ? 0 : color.g - 30, (color.b <= 30) ? 0 : color.b - 30);
 	mainShape = new CircleShape;
-	mainShape->setRadius(BOT_MIN_RADIUS + mass - BOT_START_MASS);
+	mainShape->setRadius(radius);
 	mainShape->setFillColor(color);
 	mainShape->setOutlineThickness(-10);
 	mainShape->setOutlineColor(outlineColor);
@@ -20,9 +22,18 @@ Bot::Bot(double x, double y, double mass, double angle) {
 	shapes.push_back(mainCell);
 }
 
-void Bot::move(double X, double Y, float time) {
+void Bot::move(double X, double Y) {
 	x += X;
 	y += Y;
+	mainShape->setPosition(x, y);
+}
+
+void Bot::move(float time) {
+	Vector2f vector = Gui::getVectorFromAngle(angle);	
+	move(speed * time * vector.x, speed * time * vector.y);
+	angle += pow(-1, rand() % 2)*((double)(rand() % BOT_ANGLE_STEP) / 100);
+	if (angle > 2 * MATH_PI)
+		angle -= 2 * MATH_PI;
 }
 
 void Bot::draw(RenderWindow& window) {

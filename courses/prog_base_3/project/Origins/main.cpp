@@ -12,7 +12,7 @@ int main()
 	Gui gui;
 	Player player(gui.view, START_WIDTH_HEIGHT, START_WIDTH_HEIGHT);
 	Food food(gui, &player);
-	AI ai(&gui, &player, &GameTime);
+	AI ai(&gui, &player);
 	while (gui.window.isOpen())
 	{
 		GameTime = game.clock.getElapsedTime().asMicroseconds();
@@ -31,6 +31,7 @@ int main()
 		gui.drawBgAroundPlayer(player);
 		food.draw(gui);
 		gui.window.setView(gui.view);
+		ai.move(GameTime);
 		ai.draw();
 		player.draw(gui.window);
 		gui.window.draw(gui.scoreText);

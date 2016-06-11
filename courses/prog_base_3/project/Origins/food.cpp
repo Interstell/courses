@@ -7,16 +7,8 @@ Food::Food(Gui& gui, Player* player){
 
 void Food::draw(Gui& gui){
 	//todo reduce number of rendered particles
-	//todo vector of chunks in MAX_SPLIT_RADIUS 
 	deleteInvisibleChunks(gui);
 	loadNewChunks(gui);
-	/*for (FoodRenderChunk* elem : chunks){
-		elem->draw();
-		if (elem->getCoord().contains(gui.view.getCenter())){
-			currentChunk = elem;
-		}
-	}
-	currentChunk->eatIntersectedFood(player);*/
 	for (FoodRenderChunk* elem : chunks){
 		elem->draw();
 		FloatRect maxSplitRect = FloatRect(

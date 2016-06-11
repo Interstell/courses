@@ -156,6 +156,18 @@ void Player::incMass(View* view, CellPart* part){
 	mass++;
 }
 
+void Player::incMass(View* view, CellPart* part, double foodMass) {
+	if (part->shape == mainShape) { //bug: if parts are same size and position??
+		width += foodMass;
+		height += foodMass;
+	}
+	part->shape->setRadius(part->shape->getRadius() + 1);
+	if (mass == score){
+		score += foodMass;
+	}
+	mass+=foodMass;
+}
+
 void Player::split() {
 	if (splitAllowed) {
 		splitAllowed = false;

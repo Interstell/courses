@@ -6,7 +6,13 @@
 
 const double BOT_MIN_RADIUS = 50;
 const double BOT_START_MASS = 10;
-const double BOT_START_SPEED = 0.5;
+const double BOT_START_SPEED = 0.1;
+const int BOT_ANGLE_STEP = 10;
+static enum STATE{
+	NEUTRAL = 1,
+	AGRESSIVE,
+	SCARED
+};
 
 class Bot {
 public:
@@ -18,7 +24,9 @@ public:
 	Color outlineColor;
 	Vector2f alignVector;
 	Vector2f alignVectorNormal;
-	void move(double X, double Y, float time);
+	enum STATE behaviour;
+	void move(double X, double Y);
+	void move(float time);
 	void draw(RenderWindow& window);
 	Vector2f getCoord();
 	double mass;

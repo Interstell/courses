@@ -1,10 +1,9 @@
 #include "ai.hpp"
 #include "player.hpp"
 
-AI::AI(Gui* gui, Player* player, float* gameTime) {
+AI::AI(Gui* gui, Player* player) {
 	this->gui = gui;
 	this->player = player;
-	time = gameTime;
 	initializeBots();
 }
 
@@ -63,14 +62,21 @@ void AI::loadNewBots() {
 		_rad = (player->mass + START_WIDTH_HEIGHT - START_MASS)
 			* (1 + pow(-1, rand() % 2)
 			*((double)(rand() % SIZE_DISPERSION_PERCENT) / 100) - BIG_SMALL_DIFFERENCE_FACTOR);
-		cout << _rad << " " << _angle << endl;
-		
-		if (_rad < BOT_MIN_RADIUS) {
-			_rad = BOT_MIN_RADIUS;
+		cout << _rad << endl;
+		if (_rad < BOT_MIN_RADIUS - 5) { //todo constant
+			_rad = BOT_MIN_RADIUS - 5;
 		}
 		bots.push_back(new Bot(_x, _y, _rad, _angle));
 	}
 
+}
+
+void AI::move(float time) {
+	vector<Bot*>::iterator it;
+	for (it = bots.begin(); it != bots.end();) {
+		(*it)->move(time);
+		++it;
+	}
 }
 
 void AI::draw() {

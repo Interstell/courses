@@ -89,6 +89,7 @@ void Gui::moveOnMouse(Player& player, float time){
 	if (vectorLength < player.mainShape->getRadius()) {
 		curSpeed *= vectorLength / player.mainShape->getRadius();
 	}
+	
 	player.move(curSpeed*time * alignVector.x / vectorLength, curSpeed * time * alignVector.y / vectorLength, time);
 	player.update(view, scoreText, massText);
 	//player.setSpeed(START_SPEED);
@@ -124,8 +125,8 @@ Vector2f Gui::getNormalVector(Vector2f vector) {
 	return Vector2f(vector.x / length, vector.y / length);
 }
 
-Vector2f Gui::vectorFromAngle(double angle) {
-	return Vector2f(sin(angle), cos(angle));
+Vector2f Gui::getVectorFromAngle(double angle) {
+	return Vector2f(cos(angle), sin(angle));
 }
 
 void Gui::zoom(float zoomFactor){
