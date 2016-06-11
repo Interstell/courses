@@ -1,6 +1,7 @@
 #include "player.hpp"
 #include "gui.hpp"
 #include "game.hpp"
+#include "bot.hpp"
 
 Player::Player(View& view, int W, int H, Color bgColor){
 	this->view = &view;
@@ -41,7 +42,7 @@ void Player::move(double X, double Y, float time){
 	std::vector<CellPart*>::iterator it;
 	for (it = shapes.begin(); it != shapes.end();){
 		(*it)->shape->setOrigin((*it)->shape->getRadius(), (*it)->shape->getRadius());
-		//(*it)->shape->setPointCount(rand() % 10 + 10);
+		(*it)->shape->setPointCount(rand() % 10 + 10);
 		CellPart* child = *it;
 		CellPart* parent = child->parent;
 		double currentSplitFactor = splitDistanceFactor;
@@ -144,28 +145,37 @@ void Player::update(View& view, Text& scoreText, Text& massText){
 
 }
 
-void Player::incMass(View* view, CellPart* part){
+void Player::incMass(CellPart* part){
 	if (part->shape == mainShape) { //bug: if parts are same size and position??
 		width++;
 		height++;
 	}
 	part->shape->setRadius(part->shape->getRadius() + 1);
-	if (mass == score){
-		score++;
-	}
 	mass++;
+	if (mass >= score){
+		score = mass;
+	}
 }
 
-void Player::incMass(View* view, CellPart* part, double foodMass) {
+void Player::incMass(CellPart* part, double foodRadius) {
+	double foodMass = foodRadius - BOT_MIN_RADIUS;
 	if (part->shape == mainShape) { //bug: if parts are same size and position??
 		width += foodMass;
 		height += foodMass;
 	}
-	part->shape->setRadius(part->shape->getRadius() + 1);
-	if (mass == score){
+	part->shape->setRadius(part->shape->getRadius() + foodMass);
+	/*if (mass == score){
 		score += foodMass;
 	}
-	mass+=foodMass;
+	mass+=foodMass;*/
+	mass += foodMass;
+	if (mass >= score) {
+		score = mass;
+	}
+}
+
+void Player::decMass(CellPart* part) {
+	mass -= part->shape->getRadius();
 }
 
 void Player::split() {

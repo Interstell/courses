@@ -7,6 +7,7 @@ Food::Food(Gui& gui, Player* player){
 
 void Food::draw(Gui& gui){
 	//todo reduce number of rendered particles
+	//todo bots eating food
 	deleteInvisibleChunks(gui);
 	loadNewChunks(gui);
 	for (FoodRenderChunk* elem : chunks){
@@ -17,7 +18,7 @@ void Food::draw(Gui& gui){
 			2 * player->mainShape->getRadius() * 2 * player->splitDistanceFactor,
 			2 * player->mainShape->getRadius() * 2 * player->splitDistanceFactor
 			);
-			
+		
 		if (elem->getCoord().intersects(maxSplitRect)) {
 			chunksInRadius.push_back(elem);
 		}

@@ -48,7 +48,7 @@ void FoodRenderChunk::eatIntersectedFood(Player* player){
 				&& sumRadius <= distanceBetwCenters){
 				delete * itFood;
 				itFood = foodVector.erase(itFood);
-				player->incMass(player->view, *itShapes);
+				player->incMass(*itShapes);
 			}
 			else ++itFood;
 		}

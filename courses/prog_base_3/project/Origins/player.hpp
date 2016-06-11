@@ -32,8 +32,9 @@ public:
 	Vector2f alignVectorNormal;
 	View* view;
 	void update(View& view, Text& scoreText, Text& massText);
-	void incMass(View* view, CellPart* part);
-	void incMass(View* view, CellPart* part, double foodMass);
+	void incMass(CellPart* part);
+	void incMass(CellPart* part, double foodRadius);
+	void decMass(CellPart* part);
 	float score;
 	float mass;
 

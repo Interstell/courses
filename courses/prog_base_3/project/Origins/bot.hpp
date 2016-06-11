@@ -31,7 +31,7 @@ public:
 	Vector2f getCoord();
 	double mass;
 
-	void split();
+	void split(); //todo split
 	double splitDistanceFactor;
 	bool splitAllowed = true;
 	bool splitDirection; //true - forward, false - back
