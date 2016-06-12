@@ -5,9 +5,9 @@
 #include "bot.hpp"
 class Player;
 
-const int MAX_BOTS_IN_RENDER = 5;
+const int MAX_BOTS_IN_RENDER = 9;
 const double BIG_SMALL_DIFFERENCE_FACTOR = 0;
-const int SIZE_DISPERSION_PERCENT = 80;
+const int SIZE_DISPERSION_PERCENT = 60;
 const double EATING_SIZE_DIFFERENCE_FACTOR = 1.2;
 
 class AI {
@@ -21,6 +21,8 @@ public:
 	void loadNewBots();
 	void move(float time);
 	void playerInteraction();
+	void botsSetBehaviourWithPlayer();
+	void botsPerformBehaviourWithPlayer();
 	void draw();
 
 private:

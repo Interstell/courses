@@ -13,6 +13,7 @@ int main()
 	Player player(gui.view, START_WIDTH_HEIGHT, START_WIDTH_HEIGHT);
 	Food food(gui, &player);
 	AI ai(&gui, &player);
+	
 	while (gui.window.isOpen())
 	{
 		GameTime = game.clock.getElapsedTime().asMicroseconds();

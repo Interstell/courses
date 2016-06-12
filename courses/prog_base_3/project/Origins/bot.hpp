@@ -5,9 +5,11 @@
 #include "cellpart.hpp"
 
 const double BOT_MIN_RADIUS = 50;
-const double BOT_START_MASS = 0;
-const double BOT_START_SPEED = 0.2;
-const int BOT_ANGLE_STEP = 10;
+const double BOT_START_MASS = 10;
+const double BOT_START_SPEED = 0.35;
+const int BOT_NEUTRAL_ANGLE_STEP = 10;
+const int BOT_UNNEUTRAL_ANGLE_STEP = 1;
+const double SEARCH_RADIUS_FACTOR = 6;
 static enum STATE{
 	NEUTRAL = 1,
 	AGRESSIVE,
@@ -24,13 +26,15 @@ public:
 	Color outlineColor;
 	Vector2f alignVector;
 	Vector2f alignVectorNormal;
-	enum STATE behaviour;
+	enum STATE behaviour = NEUTRAL;
 	void move(double X, double Y);
 	void move(float time);
 	void draw(RenderWindow& window);
 	Vector2f getCoord();
 	double mass;
-
+	double sumRadius;
+	double averageRadius;
+	double angle;
 	void split(); //todo split
 	double splitDistanceFactor;
 	bool splitAllowed = true;
@@ -38,9 +42,10 @@ public:
 	Vector2f splitVector;
 	float splitSeconds = 0;
 	void splitUnion();
+	
 private:
 	double x, y;
-	double angle, speed;
+	double speed;
 };
 
 #endif

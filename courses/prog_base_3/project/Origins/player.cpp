@@ -93,6 +93,7 @@ void Player::draw(RenderWindow& window) {
 		window.draw(*(*it)->shape);
 		++it;
 	}
+	averageRadius = sumRadius / shapes.size();
 }
 
 void Player::setSpeed(double speed){
@@ -181,7 +182,6 @@ void Player::incMass(CellPart* part, double foodRadius) {
 
 void Player::decMass(CellPart* part) {
 	double radius = part->shape->getRadius();
-	//mass -= (part->shape->getRadius() - START_WIDTH_HEIGHT + BOT_START_MASS); //bug mass must divide by two
 	mass -= mass*(part->shape->getRadius() / sumRadius);
 }
 
@@ -202,7 +202,6 @@ void Player::split() {
 			}
 			++it;
 		}
-
 		for (it = shapes.begin(); it != shapes.end();) {
 			(*it)->jumpable = false;
 			++it;
@@ -249,8 +248,7 @@ void Player::splitUnion() {
 		sumRadius += (*it)->shape->getRadius();
 		++it;
 	}
-	width = sumRadius;
-	height = sumRadius;
+	setWidthHeight(sumRadius, sumRadius);
 	mainShape->setRadius(sumRadius);
 	for (it = shapes.begin(); it != shapes.end();){
 		if ((*it)->shape != mainShape) {

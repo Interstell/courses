@@ -95,5 +95,8 @@
     <ClInclude Include="ai.hpp">
       <Filter>Заголовочные файлы\AI</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

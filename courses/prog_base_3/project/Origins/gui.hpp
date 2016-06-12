@@ -4,7 +4,6 @@
 
 class Player;
 
-const float VIEW_RENDER_SIZE_MULTIPLIER = 3;
 const int WINDOW_WIDTH = 1200;
 const int WINDOW_HEIGHT = 600;
 const float INITIAL_ZOOM = 1.2;
@@ -36,6 +35,10 @@ public:
 	static Color getRandomColor();
 	static Vector2f getNormalVector(Vector2f vector);
 	static Vector2f getVectorFromAngle(double angle);
+	static Vector2f getShapeCenter(CircleShape shape);
+	static Vector2f getDirectionVector(CircleShape shape1, CircleShape shape2);
+	static double getDistanceBetwShapes(CircleShape shape1, CircleShape shape2);
+	static double getAngleFromNormalVector(Vector2f vector);
 	void zoom(float zoomFactor);
 	FloatRect getCurrentViewCoord();
 	FloatRect getCurrentRenderCoord();

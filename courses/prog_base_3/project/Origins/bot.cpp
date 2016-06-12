@@ -31,17 +31,21 @@ void Bot::move(double X, double Y) {
 void Bot::move(float time) {
 	Vector2f vector = Gui::getVectorFromAngle(angle);	
 	move(speed * time * vector.x, speed * time * vector.y);
-	angle += pow(-1, rand() % 2)*((double)(rand() % BOT_ANGLE_STEP) / 100);
+	int	botRandomShift = (behaviour == NEUTRAL) ? BOT_NEUTRAL_ANGLE_STEP : BOT_UNNEUTRAL_ANGLE_STEP;
+	angle += pow(-1, rand() % 2)*((double)(rand() % botRandomShift) / 100);
 	if (angle > 2 * MATH_PI)
 		angle -= 2 * MATH_PI;
 }
 
 void Bot::draw(RenderWindow& window) {
 	std::vector<CellPart*>::iterator it;
+	sumRadius = 0;
 	for (it = shapes.begin(); it != shapes.end();){
+		sumRadius += (*it)->shape->getRadius();
 		window.draw(*(*it)->shape);
 		++it;
 	}
+	averageRadius = sumRadius / shapes.size();
 }
 
 Vector2f Bot::getCoord() {

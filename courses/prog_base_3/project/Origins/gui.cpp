@@ -6,11 +6,11 @@
 Gui::Gui(){
 	windowWidth = WINDOW_WIDTH;
 	windowHeight = WINDOW_HEIGHT;
-	settings.antialiasingLevel = 4;
+	settings.antialiasingLevel = 8;
 	window.create(VideoMode(windowWidth, windowHeight), "Origins", sf::Style::Close, settings);
 	window.setFramerateLimit(90);
 	//window.setVerticalSyncEnabled(true);
-	view.reset(FloatRect(50000, 50000, START_VIEW_SIZE.x, START_VIEW_SIZE.y));
+	view.reset(FloatRect(150000, 150000, START_VIEW_SIZE.x, START_VIEW_SIZE.y));
 	bgImageSize = 150;
 	bgImage.loadFromFile("images/bg_white_large.png");
 	bgTexture.loadFromImage(bgImage);
@@ -127,6 +127,32 @@ Vector2f Gui::getNormalVector(Vector2f vector) {
 
 Vector2f Gui::getVectorFromAngle(double angle) {
 	return Vector2f(cos(angle), sin(angle));
+}
+
+Vector2f Gui::getShapeCenter(CircleShape shape) {
+	return Vector2f(shape.getGlobalBounds().left + shape.getGlobalBounds().width/2,
+		shape.getGlobalBounds().top + shape.getGlobalBounds().height/2);
+}
+
+Vector2f Gui::getDirectionVector(CircleShape shape1, CircleShape shape2) {
+	Vector2f shape1Center = getShapeCenter(shape1);
+	Vector2f shape2Center = getShapeCenter(shape2);
+	return Vector2f(shape2Center.x - shape1Center.x, shape2Center.y - shape1Center.y);
+}
+
+double Gui::getDistanceBetwShapes(CircleShape shape1, CircleShape shape2) {
+	Vector2f shape1Center = getShapeCenter(shape1);
+	Vector2f shape2Center = getShapeCenter(shape2);
+	return sqrt(pow(shape1Center.x - shape2Center.x, 2) + pow(shape1Center.y - shape2Center.y, 2));
+}
+
+double Gui::getAngleFromNormalVector(Vector2f vector) {
+	double cosAngle = vector.x;
+	double angle = acos(cosAngle);
+	if (vector.y < 0) {
+		angle += MATH_PI;
+	}
+	return angle;
 }
 
 void Gui::zoom(float zoomFactor){

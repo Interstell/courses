@@ -6,14 +6,14 @@
 
 const int START_MASS = 10;
 const float START_WIDTH_HEIGHT = 50;
-const double START_SPEED = 0.5;
+const double START_SPEED = 0.6;
 const int SPLIT_ALLOWED_RADIUS = 70;
 const float SPLIT_MAX_FACTOR = 4;
 const float SPLIT_DISTANCE_STEP = 0.005;
 const float SPLIT_FORWARD_BACK_DIFFERENCE_FACTOR = 10;
 const float UNION_WAINING_TIME = 15; //seconds
-const float ZOOM_IN_FACTOR_PER_FRAME = 1.0003f;
-const float ZOOM_OUT_FACTOR_PER_FRAME = 0.9997f;
+const float ZOOM_IN_FACTOR_PER_FRAME = 1.0005f;
+const float ZOOM_OUT_FACTOR_PER_FRAME = 0.9995f;
 const float ZOOM_EPSILON_FACTOR = 0.002;
 
 class Player{
@@ -43,6 +43,7 @@ public:
 	float score;
 	float mass;
 	double sumRadius;
+	double averageRadius;
 	void split();
 	double splitDistanceFactor;
 	bool splitAllowed = true;

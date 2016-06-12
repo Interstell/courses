@@ -107,6 +107,7 @@
     <ClInclude Include="gui.hpp" />
     <ClInclude Include="player.hpp" />
     <ClInclude Include="renderChunk.hpp" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

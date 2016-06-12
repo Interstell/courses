@@ -98,16 +98,16 @@ void AI::playerInteraction() {
 						(*itBotShapes)->shape->getGlobalBounds().top
 						+ (*itBotShapes)->shape->getGlobalBounds().height / 2);
 					if (playerCellRadius / botCellRadius > EATING_SIZE_DIFFERENCE_FACTOR      //player eats bot
-						&& (*itPlayerShapes)->shape->getGlobalBounds().contains(botCellCenter)) { //bug check for radius
-						player->incMass(*itPlayerShapes, botCellRadius); //bug incorrect increase
+						&& (*itPlayerShapes)->shape->getGlobalBounds().contains(botCellCenter)) { 
+						player->incMass(*itPlayerShapes, botCellRadius); 
 						(*itBotShapes)->shape->setRadius(0);
 					}
 					else if (botCellRadius / playerCellRadius > EATING_SIZE_DIFFERENCE_FACTOR //bot eats player
-						&& (*itBotShapes)->shape->getGlobalBounds().contains(playerCellCenter)) { //bug check for radius
-						player->decMass(*itPlayerShapes); //bug incorrect decrease
+						&& (*itBotShapes)->shape->getGlobalBounds().contains(playerCellCenter)) { 
+						player->decMass(*itPlayerShapes);
 						(*itPlayerShapes)->shape->setRadius(0);
 						//todo gameover
-						if (player->sumRadius <= 0 || player->mass <= 0) {
+						if (player->mass <= START_MASS) {
 							exit(EXIT_SUCCESS);
 						}
 						if (*itPlayerShapes == player->mainCell) {
@@ -126,8 +126,47 @@ void AI::playerInteraction() {
 		}
 		++itPlayerShapes;
 	deletedPlayer:
-		int label = 0;
+		int smth = 0;
 	}
+}
+
+void AI::botsSetBehaviourWithPlayer() {
+	vector<Bot*>::iterator itBot;
+	double searchRadius = SEARCH_RADIUS_FACTOR * player->mainShape->getRadius(); //todo constant
+	for (itBot = bots.begin(); itBot != bots.end();) {
+		double distance = Gui::getDistanceBetwShapes(*((*itBot)->mainShape), *(player->mainShape));
+		if (distance < searchRadius) {
+			if (player->averageRadius / (*itBot)->averageRadius > EATING_SIZE_DIFFERENCE_FACTOR) {
+				(*itBot)->behaviour = SCARED;
+				Vector2f newVector = Gui::getDirectionVector(*(player->mainShape), *((*itBot)->mainShape));
+				newVector = Gui::getNormalVector(newVector);
+				(*itBot)->angle = Gui::getAngleFromNormalVector(newVector);
+			}
+			else if ((*itBot)->averageRadius / player->averageRadius  > EATING_SIZE_DIFFERENCE_FACTOR) {
+				(*itBot)->behaviour = AGRESSIVE;
+				Vector2f newVector = Gui::getDirectionVector(*((*itBot)->mainShape), *(player->mainShape));
+				newVector = Gui::getNormalVector(newVector);
+				(*itBot)->angle = Gui::getAngleFromNormalVector(newVector);
+			}
+			else (*itBot)->behaviour = NEUTRAL;
+		}
+		++itBot;
+	}
+}
+
+void AI::botsPerformBehaviourWithPlayer() {
+	/*vector<Bot*>::iterator itBot;
+	for (itBot = bots.begin(); itBot != bots.end();) {
+		switch ((*itBot)->behaviour) {
+		case SCARED:
+			(*itBot)->angle = (*itBot)->angle + MATH_PI/2;
+			if ((*itBot)->angle >= MATH_PI) {
+				(*itBot)->angle -= MATH_PI;
+			}
+			break;
+		}
+		++itBot;
+	}*/
 }
 
 void AI::draw() {
@@ -135,6 +174,7 @@ void AI::draw() {
 	deleteInvisibleBots();
 	loadNewBots();
 	playerInteraction();
+	botsSetBehaviourWithPlayer();
 	for (it = bots.begin(); it != bots.end();) {
 		(*it)->draw(gui->window);
 		++it;

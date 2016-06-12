@@ -7,7 +7,7 @@
 #include "gui.hpp"
 
 
-const int CHUNK_SIZE_PIXELS = 2000;
+const int CHUNK_SIZE_PIXELS = 800;
 
 class Food{
 private:
