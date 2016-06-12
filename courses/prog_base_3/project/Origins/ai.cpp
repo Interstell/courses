@@ -89,14 +89,8 @@ void AI::playerInteraction() {
 				if ((*itBotShapes)->shape->getGlobalBounds().intersects((*itPlayerShapes)->shape->getGlobalBounds())) {
 					double playerCellRadius = (*itPlayerShapes)->shape->getRadius();
 					double botCellRadius = (*itBotShapes)->shape->getRadius();
-					Vector2f playerCellCenter = Vector2f((*itPlayerShapes)->shape->getGlobalBounds().left
-						+ (*itPlayerShapes)->shape->getGlobalBounds().width / 2,
-						(*itPlayerShapes)->shape->getGlobalBounds().top
-						+ (*itPlayerShapes)->shape->getGlobalBounds().height / 2);
-					Vector2f botCellCenter = Vector2f((*itBotShapes)->shape->getGlobalBounds().left
-						+ (*itBotShapes)->shape->getGlobalBounds().width / 2,
-						(*itBotShapes)->shape->getGlobalBounds().top
-						+ (*itBotShapes)->shape->getGlobalBounds().height / 2);
+					Vector2f playerCellCenter = Gui::getShapeCenter(*(*itPlayerShapes)->shape);
+					Vector2f botCellCenter = Gui::getShapeCenter(*(*itBotShapes)->shape);
 					if (playerCellRadius / botCellRadius > EATING_SIZE_DIFFERENCE_FACTOR      //player eats bot
 						&& (*itPlayerShapes)->shape->getGlobalBounds().contains(botCellCenter)) { 
 						player->incMass(*itPlayerShapes, botCellRadius); 
@@ -110,10 +104,10 @@ void AI::playerInteraction() {
 						if (player->mass <= START_MASS) {
 							exit(EXIT_SUCCESS);
 						}
-						if (*itPlayerShapes == player->mainCell) {
+						if (*itPlayerShapes == player->mainCell && player->shapes.size() > 1) {
 							player->mainCell = player->mainCell->child;
 							player->mainShape = player->mainCell->shape;
-							player->setWidthHeight(player->mainShape->getRadius(), player->mainShape->getRadius());
+							player->setWidthHeight((int)(player->mainShape->getRadius()), (int)(player->mainShape->getRadius()));
 							player->mainCell->parent = NULL;
 							itPlayerShapes = player->shapes.erase(itPlayerShapes);
 							goto deletedPlayer;
@@ -127,6 +121,47 @@ void AI::playerInteraction() {
 		++itPlayerShapes;
 	deletedPlayer:
 		int smth = 0;
+	}
+}
+
+void AI::botsInteraction() { //shame for n^4, though n is const
+	vector<Bot*>::iterator itBotI;
+	vector<CellPart*>::iterator itBotShapeI;
+	vector<Bot*>::iterator itBotJ;
+	vector<CellPart*>::iterator itBotShapeJ;
+	for (itBotI = bots.begin(); itBotI != prev(bots.end(), 1);) {
+		for (itBotShapeI = (*itBotI)->shapes.begin(); itBotShapeI != (*itBotI)->shapes.end();) {
+			for (itBotJ = next(itBotI, 1); itBotJ != bots.end();) {
+				for (itBotShapeJ = (*itBotJ)->shapes.begin(); itBotShapeJ != (*itBotJ)->shapes.end();) {
+					if ((*itBotShapeI)->shape->getGlobalBounds().intersects((*itBotShapeJ)->shape->getGlobalBounds())) {
+						double iRadius = (*itBotShapeI)->shape->getRadius();
+						double jRadius = (*itBotShapeJ)->shape->getRadius();
+						Vector2f iCenter = Gui::getShapeCenter(*(*itBotShapeI)->shape);
+						Vector2f jCenter = Gui::getShapeCenter(*(*itBotShapeI)->shape);
+						if (iRadius / jRadius > EATING_SIZE_DIFFERENCE_FACTOR      
+							&& (*itBotShapeI)->shape->getGlobalBounds().contains(jCenter)) {
+							(*itBotShapeI)->shape->setRadius((*itBotShapeI)->shape->getRadius() + (*itBotShapeJ)->shape->getRadius());
+							itBotShapeJ = (*itBotJ)->shapes.erase(itBotShapeJ);
+							goto itBotShapeJErased;
+						}
+						else if (jRadius / iRadius > EATING_SIZE_DIFFERENCE_FACTOR
+							&& (*itBotShapeJ)->shape->getGlobalBounds().contains(iCenter)){
+							(*itBotShapeJ)->shape->setRadius((*itBotShapeJ)->shape->getRadius() + (*itBotShapeI)->shape->getRadius());
+							itBotShapeI = (*itBotI)->shapes.erase(itBotShapeI);
+							goto itBotShapeIErased;
+						}
+					}
+					++itBotShapeJ;
+					itBotShapeJErased:
+					int smth = 0;
+				}
+				++itBotJ; 
+			}
+			++itBotShapeI;
+			itBotShapeIErased:
+			int smth2 = 0;
+		}
+		++itBotI;
 	}
 }
 
@@ -154,25 +189,11 @@ void AI::botsSetBehaviourWithPlayer() {
 	}
 }
 
-void AI::botsPerformBehaviourWithPlayer() {
-	/*vector<Bot*>::iterator itBot;
-	for (itBot = bots.begin(); itBot != bots.end();) {
-		switch ((*itBot)->behaviour) {
-		case SCARED:
-			(*itBot)->angle = (*itBot)->angle + MATH_PI/2;
-			if ((*itBot)->angle >= MATH_PI) {
-				(*itBot)->angle -= MATH_PI;
-			}
-			break;
-		}
-		++itBot;
-	}*/
-}
-
 void AI::draw() {
 	vector<Bot*>::iterator it;
 	deleteInvisibleBots();
 	loadNewBots();
+	botsInteraction();
 	playerInteraction();
 	botsSetBehaviourWithPlayer();
 	for (it = bots.begin(); it != bots.end();) {

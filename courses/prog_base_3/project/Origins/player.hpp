@@ -29,7 +29,7 @@ public:
 	void move(double X, double Y, float time);
 	void draw(RenderWindow& window);
 	void setSpeed(double Speed);
-	void setWidthHeight(int width, int height);
+	void setWidthHeight(double width, double height);
 	double getSpeed();
 	void setAngle(double angle);
 	double getAngle();

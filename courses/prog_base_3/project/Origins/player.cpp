@@ -100,9 +100,9 @@ void Player::setSpeed(double speed){
 	this->speed = speed;
 }
 
-void Player::setWidthHeight(int width, int height) {
-	this->width = width;
-	this->height = height;
+void Player::setWidthHeight(double width, double height) {
+	this->width = (int)width;
+	this->height = (int)height;
 }
 
 double Player::getSpeed(){

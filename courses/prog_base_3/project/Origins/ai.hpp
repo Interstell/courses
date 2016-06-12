@@ -21,11 +21,9 @@ public:
 	void loadNewBots();
 	void move(float time);
 	void playerInteraction();
+	void botsInteraction();
 	void botsSetBehaviourWithPlayer();
-	void botsPerformBehaviourWithPlayer();
 	void draw();
-
-private:
 };
 
 
