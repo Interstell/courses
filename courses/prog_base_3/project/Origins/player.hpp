@@ -16,14 +16,17 @@ const float ZOOM_IN_FACTOR_PER_FRAME = 1.0005f;
 const float ZOOM_OUT_FACTOR_PER_FRAME = 0.9995f;
 const float ZOOM_EPSILON_FACTOR = 0.002;
 
+class Gui;
+
 class Player{
 public:
 	Vector2i getCoord();
-	Player::Player(View& view, int W, int H, Color bgColor = Color(96, 121, 254));
+	Player::Player(View& view, int W, int H, Gui* gui);
 	CircleShape* mainShape;
 	CellPart* mainCell;
 	//float mainRadius;
 	std::vector<CellPart*> shapes;
+	Gui* gui;
 	Color color;
 	Color outlineColor;
 	void move(double X, double Y, float time);
@@ -51,6 +54,7 @@ public:
 	Vector2f splitVector;
 	float splitSeconds = 0;
 	void splitUnion();
+	bool gameOver = false;
 private:
 	int x, y, dx, dy, width, height;
 	double angle, speed;

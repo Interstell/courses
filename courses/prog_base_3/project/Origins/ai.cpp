@@ -1,5 +1,6 @@
 #include "ai.hpp"
 #include "player.hpp"
+#include "menu.hpp"
 
 AI::AI(Gui* gui, Player* player) {
 	this->gui = gui;
@@ -100,9 +101,9 @@ void AI::playerInteraction() {
 						&& (*itBotShapes)->shape->getGlobalBounds().contains(playerCellCenter)) { 
 						player->decMass(*itPlayerShapes);
 						(*itPlayerShapes)->shape->setRadius(0);
-						//todo gameover
 						if (player->mass <= START_MASS) {
-							exit(EXIT_SUCCESS);
+							gameOver(player->gui->window, player->score);
+							player->gameOver = true;
 						}
 						if (*itPlayerShapes == player->mainCell && player->shapes.size() > 1) {
 							player->mainCell = player->mainCell->child;

@@ -77,6 +77,7 @@ void runMenu(RenderWindow* window) {
 				Game game(window);
 				game.run();
 				window->setView(View(FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)));
+				showHighscores(window);
 				continue;
 			}
 		}
@@ -91,6 +92,7 @@ void runMenu(RenderWindow* window) {
 			exitBtn.setCharacterSize(70);
 			if (Mouse::isButtonPressed(Mouse::Left))
 				window->close();
+				//gameOver(window, 322);
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::Escape) && Keyboard::isKeyPressed(Keyboard::LControl))
@@ -212,5 +214,113 @@ void showHighscores(RenderWindow* window) {
 	for (Text* row : rows) {
 		delete row;
 	}
+}
 
+void gameOver(RenderWindow* window, int score) {
+	Font fontGuide, fontMenu;
+	fontGuide.loadFromFile("fonts/Brandon_reg.otf");
+	fontMenu.loadFromFile("fonts/Brandon_med.otf");
+
+	Sprite menuBgSprite, logoSprite, labelSprite;
+	Texture menuBgTexture, logoTexture, labelTexture;
+	menuBgTexture.loadFromFile("images/menu_bg.png");
+	menuBgSprite.setTexture(menuBgTexture);
+	menuBgSprite.setPosition(0, 0);
+
+	logoTexture.loadFromFile("images/logo.png");
+	logoSprite.setTexture(logoTexture);
+	logoSprite.setPosition(700, 70);
+	logoSprite.scale(0.9, 0.9);
+
+	Text gameOver, userScore, userName, userDescr;
+
+	gameOver.setString("GAME OVER");
+	gameOver.setFont(fontMenu);
+	gameOver.setColor(ORANGE);
+	gameOver.setCharacterSize(60);
+	gameOver.setPosition(100, 20);
+
+	userScore.setString("Your score is: " + to_string(score));
+	userScore.setFont(fontGuide);
+	userScore.setColor(Color::Black);
+	userScore.setCharacterSize(40);
+	userScore.setPosition(100, 100);
+
+	userDescr.setString("Type your name below and press Tab");
+	userDescr.setFont(fontGuide);
+	userDescr.setColor(Color::Black);
+	userDescr.setCharacterSize(40);
+	userDescr.setPosition(100, 150);
+
+	userName.setString("");
+	userName.setFont(fontGuide);
+	userName.setColor(Color::Black);
+	userName.setCharacterSize(50);
+	userName.setPosition(100, 210);
+	
+	RectangleShape border;
+	border.setSize(Vector2f(544, 65));
+	border.setPosition(93, 216);
+	border.setOutlineColor(ORANGE);
+	border.setOutlineThickness(5);
+	border.setFillColor(Color::Transparent);
+
+	window->setView(View(FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)));
+	string userInput="";
+
+	while (window->isOpen())
+	{
+		window->clear(Color::White);
+
+		sf::Event event;
+		while (window->pollEvent(event)){
+			if (event.type == sf::Event::Closed)
+				window->close();
+			if (event.type == sf::Event::TextEntered){
+				if (isalnum(event.text.unicode) && userInput.length() < 20){
+					userInput += event.text.unicode;
+					userName.setString(userInput);
+				}
+			}
+		}
+		Vector2f mousePos = Vector2f(Mouse::getPosition(*window).x, Mouse::getPosition(*window).y);
+
+		if (Keyboard::isKeyPressed(Keyboard::Escape))
+			break;
+		if (Keyboard::isKeyPressed(Keyboard::BackSpace) && userInput.length() > 0) {
+			userInput.erase(userInput.length() - 1);
+			userName.setString(userInput);
+		}
+		if (Keyboard::isKeyPressed(Keyboard::Tab) && userInput.length() > 0) {
+			writeResult(userInput, score);
+			return;
+		}
+
+		window->draw(menuBgSprite);
+		window->draw(logoSprite);
+		window->draw(gameOver);
+		window->draw(userScore);
+		window->draw(userDescr);
+		window->draw(userName);
+		window->draw(border);
+		
+
+		window->display();
+	}
+}
+
+void writeResult(string name, int score) {
+	FILE* file = fopen("highscores.json", "r");
+	json_error_t error;
+	json_t* root = json_loadf(file, 0, &error);
+	fclose(file);
+	time_t timeLocal = time(NULL);
+	struct tm* time = localtime(&timeLocal);
+	char timeStr[100];
+	strftime(timeStr, sizeof(timeStr), "%d.%m.%Y %H:%M", time);
+	json_t* res = json_pack("{s:s,s:s,s:i}", "name", name.c_str(), "time", timeStr, "score", score);
+	json_array_append(root, res);
+	file = fopen("highscores.json", "w");
+	json_dumpf(root, file, JSON_INDENT(3));
+	fclose(file);
 }

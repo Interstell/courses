@@ -9,5 +9,6 @@
 
 void runMenu(RenderWindow* window);
 void showHighscores(RenderWindow* window);
-
+void gameOver(RenderWindow* window, int score);
+void writeResult(string name, int score);
 #endif

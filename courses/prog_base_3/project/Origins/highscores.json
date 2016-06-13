@@ -1,12 +1,37 @@
 [
    {
-      "name":"Dmitry",
-      "time":"13.06.2016 03.22",
-      "score":322
+      "score": 322,
+      "time": "13.06.2016 03:22",
+      "name": "Dmitry"
    },
    {
-      "name":"Dmitry",
-      "time":"13.06.2016 03.41",
-      "score":341
+      "score": 341,
+      "time": "13.06.2016 03:41",
+      "name": "Dmitry"
+   },
+   {
+      "score": 311,
+      "time": "13.06.2016 05:30",
+      "name": "Kate"
+   },
+   {
+      "score": 322,
+      "time": "13.06.2016 05:31",
+      "name": "Vasya"
+   },
+   {
+      "name": "Tester",
+      "time": "13.06.2016 05:33",
+      "score": 41
+   },
+   {
+      "name": "Kate",
+      "time": "13.06.2016 05:41",
+      "score": 335
+   },
+   {
+      "name": "Katya",
+      "score": 2062,
+      "time": "13.06.2016 05:42"
    }
 ]

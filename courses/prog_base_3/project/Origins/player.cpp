@@ -3,8 +3,9 @@
 #include "game.hpp"
 #include "bot.hpp"
 
-Player::Player(View& view, int W, int H, Color bgColor){
+Player::Player(View& view, int W, int H, Gui* gui){
 	this->view = &view;
+	this->gui = gui;
 	angle = 0;
 	splitDistanceFactor = -1;
 	speed = START_SPEED;

@@ -13,7 +13,7 @@ Game::Game(RenderWindow* window){
 void Game::run() {
 	float GameTime;
 	Gui gui(window);
-	Player player(gui.view, START_WIDTH_HEIGHT, START_WIDTH_HEIGHT);
+	Player player(gui.view, START_WIDTH_HEIGHT, START_WIDTH_HEIGHT, &gui);
 	Food food(gui, &player);
 	AI ai(&gui, &player);
 	int exitPressed = 0;
@@ -29,7 +29,8 @@ void Game::run() {
 				gui.window->close();
 			}
 		}
-		if (Keyboard::isKeyPressed(Keyboard::Escape)) {
+		if (Keyboard::isKeyPressed(Keyboard::Escape) || player.gameOver) {
+			if (!player.gameOver) gameOver(window, player.score);
 			return;
 		}
 		gui.proceedKeyboardInput(player, GameTime);
