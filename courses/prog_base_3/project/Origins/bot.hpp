@@ -6,10 +6,12 @@
 
 const double BOT_MIN_RADIUS = 50;
 const double BOT_START_MASS = 10;
-const double BOT_START_SPEED = 0.2;
+const double BOT_START_SPEED = 0.5;
 const int BOT_NEUTRAL_ANGLE_STEP = 10;
 const int BOT_UNNEUTRAL_ANGLE_STEP = 1;
 const double SEARCH_RADIUS_FACTOR = 6;
+const double BOT_SPEED_DECREASE_PER_1_RADIUS = 0.005;
+const double BOT_MIN_SPEED = 0.2;
 static enum STATE{
 	NEUTRAL = 1,
 	AGRESSIVE,

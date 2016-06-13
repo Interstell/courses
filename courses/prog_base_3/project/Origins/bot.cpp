@@ -46,6 +46,10 @@ void Bot::draw(RenderWindow& window) {
 		++it;
 	}
 	averageRadius = sumRadius / shapes.size();
+	speed = BOT_START_SPEED - (averageRadius - BOT_MIN_RADIUS)*BOT_SPEED_DECREASE_PER_1_RADIUS;
+	if (speed < BOT_MIN_SPEED) {
+		speed = BOT_MIN_SPEED;
+	}
 }
 
 Vector2f Bot::getCoord() {

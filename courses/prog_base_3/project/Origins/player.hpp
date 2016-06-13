@@ -15,7 +15,9 @@ const float UNION_WAINING_TIME = 15; //seconds
 const float ZOOM_IN_FACTOR_PER_FRAME = 1.0005f;
 const float ZOOM_OUT_FACTOR_PER_FRAME = 0.9995f;
 const float ZOOM_EPSILON_FACTOR = 0.002;
-
+const float ZOOM_OFF_RADIUS = 250;
+const double SPEED_DECREASE_BY_1_RADIUS = 0.005;
+const double MIN_SPEED = 0.2;
 class Gui;
 
 class Player{
@@ -32,6 +34,7 @@ public:
 	void move(double X, double Y, float time);
 	void draw(RenderWindow& window);
 	void setSpeed(double Speed);
+	void setXY(int x, int y);
 	void setWidthHeight(double width, double height);
 	double getSpeed();
 	void setAngle(double angle);

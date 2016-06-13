@@ -6,7 +6,6 @@ Food::Food(Gui& gui, Player* player){
 }
 
 void Food::draw(Gui& gui){
-	//todo reduce number of rendered particles
 	//todo bots eating food
 	deleteInvisibleChunks(gui);
 	loadNewChunks(gui);

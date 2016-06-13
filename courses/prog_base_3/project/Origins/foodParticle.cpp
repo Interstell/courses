@@ -12,7 +12,10 @@ FoodParticle::FoodParticle(int x, int y){
 }
 
 void FoodParticle::draw(Gui& gui){
-	gui.window->draw(shape);
+	vector<CircleShape*>::iterator it = next(gui.foodRenderQueue.begin(), rand() % (gui.foodRenderQueue.size() + 1));
+	if (shape.getGlobalBounds().intersects(gui.getCurrentViewCoord())) {
+		gui.foodRenderQueue.insert(it, new CircleShape(shape));
+	}
 }
 
 Vector2f FoodParticle::getCoord(){

@@ -42,8 +42,8 @@ public:
 	void zoom(float zoomFactor);
 	FloatRect getCurrentViewCoord();
 	FloatRect getCurrentRenderCoord();
-private:
-
+	vector<CircleShape*> foodRenderQueue;
+	void performFoodRenderQueue();
 };
 
 #endif

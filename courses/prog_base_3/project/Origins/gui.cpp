@@ -1,5 +1,6 @@
 #include "gui.hpp"
 #include "player.hpp"
+#include "food.hpp"
 
 //todo render queue for logical overlay
 
@@ -7,8 +8,6 @@ Gui::Gui(RenderWindow* window){
 	this->window = window;
 	windowWidth = WINDOW_WIDTH;
 	windowHeight = WINDOW_HEIGHT;
-	
-	//window.setVerticalSyncEnabled(true);
 	view.reset(FloatRect(150000, 150000, START_VIEW_SIZE.x, START_VIEW_SIZE.y));
 	bgImageSize = 150;
 	bgImage.loadFromFile("images/bg_white_large.png");
@@ -40,7 +39,7 @@ void Gui::drawBgAroundPlayer(Player& player){
 }
 
 void Gui::proceedKeyboardInput(Player& player, float time){
-	if (Keyboard::isKeyPressed(Keyboard::A)) {
+	/*if (Keyboard::isKeyPressed(Keyboard::A)) {
 		player.move(-player.getSpeed()*time, 0, time);
 	}
 	if (Keyboard::isKeyPressed(Keyboard::D)) {
@@ -57,14 +56,15 @@ void Gui::proceedKeyboardInput(Player& player, float time){
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Subtract)){
 		zoom(1.01f);
-	}
+	}*/ 
+	/*if (Mouse::isButtonPressed(Mouse::Left)){
+	std::cout << player.getCoord().x << " " << player.getCoord().y << " " << view.getCenter().x << " " << view.getCenter().y << std::endl;
+	}*/
+	//only for debug
 	if (Keyboard::isKeyPressed(Keyboard::Space)) {
 		player.split();
 	}
 	
-	if (Mouse::isButtonPressed(Mouse::Left)){
-		std::cout << player.getCoord().x << " " << player.getCoord().y << " " << view.getCenter().x << " " << view.getCenter().y << std::endl;
-	}
 }
 
 void Gui::setView(int x, int y){
@@ -72,8 +72,6 @@ void Gui::setView(int x, int y){
 }
 
 void Gui::moveOnMouse(Player& player, float time){
-	//player.setSpeed(0.5f);
-	//player.setSpeed(0);
 	Vector2i pixelPos = Mouse::getPosition(*window);
 	Vector2f mousePos = window->mapPixelToCoords(pixelPos);
 	Vector2f alignVector(mousePos.x - player.getCoord().x, mousePos.y - player.getCoord().y);
@@ -91,7 +89,6 @@ void Gui::moveOnMouse(Player& player, float time){
 	
 	player.move(curSpeed*time * alignVector.x / vectorLength, curSpeed * time * alignVector.y / vectorLength, time);
 	player.update(view, scoreText, massText);
-	//player.setSpeed(START_SPEED);
 }
 
 Color Gui::getRandomColor(){
@@ -163,7 +160,6 @@ FloatRect Gui::getCurrentViewCoord(){
 	Vector2f windowSize = view.getSize();
 	pixelPos.x -= abs(windowSize.x / 2);
 	pixelPos.y -= abs(windowSize.y / 2);
-	//Vector2f worldPos = window.mapPixelToCoords(Vector2i(pixelPos.x, pixelPos.y));
 	FloatRect curView = FloatRect(pixelPos.x, pixelPos.y, windowSize.x, windowSize.y);
 	return curView;
 }
@@ -173,11 +169,17 @@ FloatRect Gui::getCurrentRenderCoord(){
 	FloatRect renderView = FloatRect(curView.left - curView.width,
 		curView.top - curView.height,
 		curView.width * 3,
-		curView.height * 3);
-	/*FloatRect renderView = FloatRect(curView.left - curView.width/2,
-		curView.top - curView.height/2,
-		curView.width * 2,
-		curView.height * 2);*/
-	
+		curView.height * 3);	
 	return renderView;
+}
+
+void Gui::performFoodRenderQueue() {
+	int i = 0;
+	for (CircleShape* shape : foodRenderQueue) {
+		window->draw(*shape);
+		if (++i == MAX_PARTICLES_IN_RENDER) {
+			break;
+		}
+	}
+	foodRenderQueue.clear();
 }

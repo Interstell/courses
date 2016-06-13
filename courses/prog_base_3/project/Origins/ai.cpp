@@ -64,7 +64,7 @@ void AI::loadNewBots() {
 			* (1 + pow(-1, rand() % 2)
 			*((double)(rand() % SIZE_DISPERSION_PERCENT) / 100) - BIG_SMALL_DIFFERENCE_FACTOR);
 		cout << _rad << endl;
-		if (_rad < BOT_MIN_RADIUS) { //todo constant
+		if (_rad < BOT_MIN_RADIUS) { 
 			_rad = BOT_MIN_RADIUS;
 		}
 		bots.push_back(new Bot(_x, _y, _rad, _angle));
@@ -105,8 +105,9 @@ void AI::playerInteraction() {
 							gameOver(player->gui->window, player->score);
 							player->gameOver = true;
 						}
-						if (*itPlayerShapes == player->mainCell && player->shapes.size() > 1) {
+						if (*itPlayerShapes == player->mainCell && player->shapes.size() > 1) { //bug if we lose main cell we die
 							player->mainCell = player->mainCell->child;
+							player->setXY((int)(player->mainShape->getPosition().x), (int)(player->mainShape->getPosition().y)); //todo correct deleteion of main
 							player->mainShape = player->mainCell->shape;
 							player->setWidthHeight((int)(player->mainShape->getRadius()), (int)(player->mainShape->getRadius()));
 							player->mainCell->parent = NULL;
@@ -168,7 +169,7 @@ void AI::botsInteraction() { //shame for n^4, though n is const
 
 void AI::botsSetBehaviourWithPlayer() {
 	vector<Bot*>::iterator itBot;
-	double searchRadius = SEARCH_RADIUS_FACTOR * player->mainShape->getRadius(); //todo constant
+	double searchRadius = SEARCH_RADIUS_FACTOR * player->mainShape->getRadius(); 
 	for (itBot = bots.begin(); itBot != bots.end();) {
 		double distance = Gui::getDistanceBetwShapes(*((*itBot)->mainShape), *(player->mainShape));
 		if (distance < searchRadius) {
@@ -198,7 +199,7 @@ void AI::draw() {
 	playerInteraction();
 	botsSetBehaviourWithPlayer();
 	for (it = bots.begin(); it != bots.end();) {
-		(*it)->draw(*(gui->window)); //bug ??
+		(*it)->draw(*(gui->window)); 
 		++it;
 	}
 }

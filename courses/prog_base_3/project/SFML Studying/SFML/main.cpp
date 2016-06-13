@@ -2,15 +2,6 @@
 #include "map.h"
 #include "view.h"
 
-// *******ATTENTION PLEASE******
-//	This code is a part of educational guide on SFML library. 
-//	I decided to start from learning and passing it in order to know all the opportunities this library offer
-//	in order to work quicker with my real project.
-//	I named variables and methods as the guide's author did, so they code WILL seem unreadable
-//	Obviously, my own project will not contain such awful sh*t without camelCase and pool of magic constants.
-//	Thank's for reading.
-// *******ATTENTION PLEASE******
-
 int main()
 {
 	RenderWindow window(VideoMode(640, 480), "Learning SFML");

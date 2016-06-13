@@ -20,12 +20,9 @@ Player::Player(View& view, int W, int H, Gui* gui){
 	mainShape->setFillColor(color);
 	mainShape->setOutlineThickness(-10);
 	mainShape->setOutlineColor(outlineColor);
-	//todo texture ??? what for?
-	//mainShape.setScale(0.5, 0.5);
 	width = W;
 	height = H;
 	mainShape->setOrigin(width/2, height/2);
-	//sprite.setTextureRect(IntRect(0, 0, mainRadius, mainRadius));
 	mainShape->setPosition(x, y);
 	mainCell = new CellPart(mainShape, NULL);
 	shapes.push_back(mainCell);
@@ -36,14 +33,12 @@ Vector2i Player::getCoord(){
 }
 
 void Player::move(double X, double Y, float time){
-	//todo correct jump factor
+	
 	x += X;
 	y += Y;
-	//cout << "R " << mainShape->getRadius() << " W " << width << " H " << height << endl;
 	std::vector<CellPart*>::iterator it;
 	for (it = shapes.begin(); it != shapes.end();){
 		(*it)->shape->setOrigin((*it)->shape->getRadius(), (*it)->shape->getRadius());
-		//(*it)->shape->setPointCount(rand() % 10 + 10);
 		CellPart* child = *it;
 		CellPart* parent = child->parent;
 		double currentSplitFactor = splitDistanceFactor;
@@ -53,7 +48,7 @@ void Player::move(double X, double Y, float time){
 		}
 		Vector2f currentSplitVector = child->splitVector;
 		if (!child->jumpable) {
-			currentSplitFactor = 1; //todo constant (useless??)
+			currentSplitFactor = 1; 
 		}
 
 		Vector2f parentCenter = Vector2f(parent->shape->getPosition().x, parent->shape->getPosition().y);
@@ -101,6 +96,11 @@ void Player::setSpeed(double speed){
 	this->speed = speed;
 }
 
+void Player::setXY(int x, int y) {
+	this->x = x;
+	this->y = y;
+}
+
 void Player::setWidthHeight(double width, double height) {
 	this->width = (int)width;
 	this->height = (int)height;
@@ -120,10 +120,8 @@ double Player::getAngle() {
 
 void Player::update(View& view, Text& scoreText, Text& massText){
 	mainShape->setPosition(x, y);
-	//mainShape->setRadius(width + (mass - START_MASS)*0.2);
 	mainShape->setRadius(width);
 	float sizeRatio = START_VIEW_SIZE.x / START_VIEW_SIZE.y;
-	// todo normal koefs for logic scale changing (both shapes and view)
 	Vector2f currentViewSize = Vector2f(START_VIEW_SIZE.x
 		+ (width - START_WIDTH_HEIGHT)
 		* VIEW_SIZE_CHANGING_MULTIPLYER
@@ -131,13 +129,20 @@ void Player::update(View& view, Text& scoreText, Text& massText){
 		START_VIEW_SIZE.y
 		+ (width - START_WIDTH_HEIGHT)
 		*VIEW_SIZE_CHANGING_MULTIPLYER);
-	if (currentViewSize.x - view.getSize().x > ZOOM_EPSILON_FACTOR*currentViewSize.x) {
-		view.zoom(ZOOM_IN_FACTOR_PER_FRAME);
+	if (averageRadius < ZOOM_OFF_RADIUS) {
+		if (currentViewSize.x - view.getSize().x > ZOOM_EPSILON_FACTOR*currentViewSize.x) {
+			view.zoom(ZOOM_IN_FACTOR_PER_FRAME);
+		}
+		else if (view.getSize().x - currentViewSize.x > ZOOM_EPSILON_FACTOR*currentViewSize.y) {
+			view.zoom(ZOOM_OUT_FACTOR_PER_FRAME);
+		}
 	}
-	else if (view.getSize().x - currentViewSize.x > ZOOM_EPSILON_FACTOR*currentViewSize.y) {
-		view.zoom(ZOOM_OUT_FACTOR_PER_FRAME);
+	else view.setSize(currentViewSize);
+	speed = START_SPEED - (averageRadius - START_WIDTH_HEIGHT)*SPEED_DECREASE_BY_1_RADIUS;
+	if (speed < MIN_SPEED) {
+		speed = MIN_SPEED;
 	}
-	//view.setSize(currentViewSize);
+		
 	view.setCenter(x + width/2, y + height /2);
 	char scoreChar[30];
 	sprintf(scoreChar, "Score %3.0f", score);
@@ -208,7 +213,6 @@ void Player::split() {
 			++it;
 		}
 		for (it = shapes.begin(); it != shapes.end();){
-			//cout << (*it)->shape->getRadius() << endl;
 			if ((*it)->shape->getRadius() < SPLIT_ALLOWED_RADIUS) {
 				++it;
 				continue;

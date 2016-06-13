@@ -10,8 +10,6 @@ public:
 	RenderWindow* window;
 	Game();
 	Game(RenderWindow* window);
-	
-
 	void run();
 };
 

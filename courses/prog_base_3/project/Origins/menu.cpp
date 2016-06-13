@@ -71,7 +71,7 @@ void runMenu(RenderWindow* window) {
 		}
 		Vector2f mousePos = Vector2f(Mouse::getPosition(*window).x, Mouse::getPosition(*window).y);
 		
-		if (newGame.getGlobalBounds().contains(mousePos)){// intRect - прямокутна область
+		if (newGame.getGlobalBounds().contains(mousePos)){
 			newGame.setCharacterSize(90);
 			if (Mouse::isButtonPressed(Mouse::Left)){
 				Game game(window);
@@ -92,7 +92,6 @@ void runMenu(RenderWindow* window) {
 			exitBtn.setCharacterSize(70);
 			if (Mouse::isButtonPressed(Mouse::Left))
 				window->close();
-				//gameOver(window, 322);
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::Escape) && Keyboard::isKeyPressed(Keyboard::LControl))

@@ -39,6 +39,7 @@ void Game::run() {
 		gui.window->clear();
 		gui.drawBgAroundPlayer(player);
 		food.draw(gui);
+		gui.performFoodRenderQueue();
 		gui.window->setView(gui.view);
 		ai.move(GameTime);
 		ai.draw();
