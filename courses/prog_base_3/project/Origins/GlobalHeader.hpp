@@ -5,6 +5,8 @@
 #include <vector>
 #include <iterator>
 #include <SFML/Graphics.hpp>
+#include <jansson/jansson.h>
+
 
 using namespace std;
 using namespace sf;

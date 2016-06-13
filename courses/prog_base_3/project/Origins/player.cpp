@@ -156,7 +156,7 @@ void Player::update(View& view, Text& scoreText, Text& massText){
 }
 
 void Player::incMass(CellPart* part){
-	if (part->shape == mainShape) { //bug: if parts are same size and position??
+	if (part->shape == mainShape) {
 		width++;
 		height++;
 	}
@@ -169,7 +169,7 @@ void Player::incMass(CellPart* part){
 
 void Player::incMass(CellPart* part, double foodRadius) {
 	double foodMass = foodRadius - BOT_MIN_RADIUS + BOT_START_MASS;
-	if (part->shape == mainShape) { //bug: if parts are same size and position??
+	if (part->shape == mainShape) { 
 		width += foodMass;
 		height += foodMass;
 	}

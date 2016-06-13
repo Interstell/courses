@@ -140,13 +140,13 @@ void AI::botsInteraction() { //shame for n^4, though n is const
 						Vector2f jCenter = Gui::getShapeCenter(*(*itBotShapeI)->shape);
 						if (iRadius / jRadius > EATING_SIZE_DIFFERENCE_FACTOR      
 							&& (*itBotShapeI)->shape->getGlobalBounds().contains(jCenter)) {
-							(*itBotShapeI)->shape->setRadius((*itBotShapeI)->shape->getRadius() + (*itBotShapeJ)->shape->getRadius());
+							(*itBotShapeI)->shape->setRadius((*itBotShapeI)->shape->getRadius() + (*itBotShapeJ)->shape->getRadius() - BOT_MIN_RADIUS);
 							itBotShapeJ = (*itBotJ)->shapes.erase(itBotShapeJ);
 							goto itBotShapeJErased;
 						}
 						else if (jRadius / iRadius > EATING_SIZE_DIFFERENCE_FACTOR
 							&& (*itBotShapeJ)->shape->getGlobalBounds().contains(iCenter)){
-							(*itBotShapeJ)->shape->setRadius((*itBotShapeJ)->shape->getRadius() + (*itBotShapeI)->shape->getRadius());
+							(*itBotShapeJ)->shape->setRadius((*itBotShapeJ)->shape->getRadius() + (*itBotShapeI)->shape->getRadius() - BOT_MIN_RADIUS);
 							itBotShapeI = (*itBotI)->shapes.erase(itBotShapeI);
 							goto itBotShapeIErased;
 						}
@@ -197,7 +197,7 @@ void AI::draw() {
 	playerInteraction();
 	botsSetBehaviourWithPlayer();
 	for (it = bots.begin(); it != bots.end();) {
-		(*it)->draw(gui->window);
+		(*it)->draw(*(gui->window)); //bug ??
 		++it;
 	}
 }

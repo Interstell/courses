@@ -7,9 +7,12 @@ const int GAME_SPEED = 800;
 class Game{
 public:
 	Clock clock;
-	//int GameSpeed = 800;
+	RenderWindow* window;
 	Game();
-private:
+	Game(RenderWindow* window);
+	
+
+	void run();
 };
 
 #endif

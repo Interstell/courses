@@ -3,12 +3,11 @@
 
 //todo render queue for logical overlay
 
-Gui::Gui(){
+Gui::Gui(RenderWindow* window){
+	this->window = window;
 	windowWidth = WINDOW_WIDTH;
 	windowHeight = WINDOW_HEIGHT;
-	settings.antialiasingLevel = 8;
-	window.create(VideoMode(windowWidth, windowHeight), "Origins", sf::Style::Close, settings);
-	window.setFramerateLimit(90);
+	
 	//window.setVerticalSyncEnabled(true);
 	view.reset(FloatRect(150000, 150000, START_VIEW_SIZE.x, START_VIEW_SIZE.y));
 	bgImageSize = 150;
@@ -16,7 +15,7 @@ Gui::Gui(){
 	bgTexture.loadFromImage(bgImage);
 	bgSprite.setTexture(bgTexture);
 	bgSprite.setPosition(0, 0);
-	font.loadFromFile("scribble box demo.ttf");
+	font.loadFromFile("fonts/scribble_box_demo.ttf");
 	scoreText.setFont(font);
 	massText.setFont(font);
 	scoreText.setColor(Color(0,0,0));
@@ -35,7 +34,7 @@ void Gui::drawBgAroundPlayer(Player& player){
 	for (int i = currentSquareX - (numOfSquaresInViewX*bgImageSize) / 2; i <= currentSquareX + (numOfSquaresInViewX*bgImageSize) / 2; i += bgImageSize){
 		for (int j = currentSquareY - (numOfSquaresInViewY*bgImageSize) / 2; j <= currentSquareY + (numOfSquaresInViewY*bgImageSize) / 2; j += bgImageSize){
 			bgSprite.setPosition(i, j);
-			window.draw(bgSprite);
+			window->draw(bgSprite);
 		}
 	}
 }
@@ -75,8 +74,8 @@ void Gui::setView(int x, int y){
 void Gui::moveOnMouse(Player& player, float time){
 	//player.setSpeed(0.5f);
 	//player.setSpeed(0);
-	Vector2i pixelPos = Mouse::getPosition(window);
-	Vector2f mousePos = window.mapPixelToCoords(pixelPos);
+	Vector2i pixelPos = Mouse::getPosition(*window);
+	Vector2f mousePos = window->mapPixelToCoords(pixelPos);
 	Vector2f alignVector(mousePos.x - player.getCoord().x, mousePos.y - player.getCoord().y);
 	double vectorLength = sqrt(pow(alignVector.x, 2) + pow(alignVector.y, 2));
 	player.alignVectorNormal = Vector2f(alignVector.x / vectorLength, alignVector.y / vectorLength);

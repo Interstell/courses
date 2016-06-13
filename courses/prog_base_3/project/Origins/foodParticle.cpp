@@ -12,7 +12,7 @@ FoodParticle::FoodParticle(int x, int y){
 }
 
 void FoodParticle::draw(Gui& gui){
-	gui.window.draw(shape);
+	gui.window->draw(shape);
 }
 
 Vector2f FoodParticle::getCoord(){

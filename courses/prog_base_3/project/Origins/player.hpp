@@ -6,7 +6,7 @@
 
 const int START_MASS = 10;
 const float START_WIDTH_HEIGHT = 50;
-const double START_SPEED = 0.6;
+const double START_SPEED = 0.5;
 const int SPLIT_ALLOWED_RADIUS = 70;
 const float SPLIT_MAX_FACTOR = 4;
 const float SPLIT_DISTANCE_STEP = 0.005;

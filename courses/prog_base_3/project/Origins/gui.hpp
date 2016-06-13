@@ -15,7 +15,7 @@ const int MASS_TEXT_INITIAL_SIZE = 40;
 
 class Gui{
 public:
-	RenderWindow window;
+	RenderWindow* window;
 	ContextSettings settings;
 	int windowWidth, windowHeight;
 	View view;
@@ -26,8 +26,8 @@ public:
 	Font font;
 	Text scoreText;
 	Text massText;
-	
 	Gui();
+	Gui(RenderWindow* window);
 	void drawBgAroundPlayer(Player& player);
 	void proceedKeyboardInput(Player& player, float time);
 	void moveOnMouse(Player& player, float time);
