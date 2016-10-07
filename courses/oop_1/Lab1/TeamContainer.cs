@@ -27,7 +27,7 @@ namespace Lab1 {
             this.teamLead = teamLead;
         }
         /// <summary>
-        /// Typical array adding method with ordinary implementation.
+        /// Adds new team member to team container
         /// </summary>
         /// <param name="member">New team member to be pushed</param>
         /// <returns>Whether push was success or not.</returns>

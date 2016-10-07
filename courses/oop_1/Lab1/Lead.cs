@@ -23,13 +23,19 @@ namespace Lab1 {
         protected void hireMembers<T>(HRDepartment hr, int size) {
             for (int i = 0; i < size; i++) {
                 if (typeof(T) == typeof(Programmer)) {
-                    team.push(hr.hireProgrammer());
+                    Programmer prog = hr.hireProgrammer();
+                    Logger.memberHired(prog.ToString());
+                    team.push(prog);
                 }
                 else if (typeof(T) == typeof(Tester)) {
-                    team.push(hr.hireTester());
+                    Tester tester = hr.hireTester();
+                    Logger.memberHired(tester.ToString());
+                    team.push(tester);
                 }
                 else if (typeof(T) == typeof(Analyst)) {
-                    team.push(hr.hireAnalyst());
+                    Analyst a = hr.hireAnalyst();
+                    Logger.memberHired(a.ToString());
+                    team.push(a);
                 }
             }
         }

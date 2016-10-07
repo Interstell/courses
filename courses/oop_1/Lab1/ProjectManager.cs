@@ -33,10 +33,13 @@ namespace Lab1 {
         /// </summary>
         public void hireLeads() {
             techLead = project.HR.hireTechLead();
+            Logger.leadHired("TechLead", techLead.ToString());
             techLead.hireTeam(project.HR);
             qaLead = project.HR.hireQALead();
+            Logger.leadHired("QALead", qaLead.ToString());
             qaLead.hireTeam(project.HR);
             analyticsLead = project.HR.hireAnalyticsLead();
+            Logger.leadHired("AnalyticsLead", analyticsLead.ToString());
             analyticsLead.hireTeam(project.HR);
         }
     }

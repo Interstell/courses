@@ -50,6 +50,7 @@ namespace Lab1 {
         public Project(string name, int numberOfUserStories) {
             Name = name;
             UserStoriesGlobal = numberOfUserStories;
+            Logger.newProject(Name, UserStoriesGlobal);
         }
         
     }
