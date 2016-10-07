@@ -9,7 +9,7 @@ namespace Lab1 {
         private static int teamMaxSize = 10;
         private Employee[] team;
         private Employee teamLead;
-        private int teamSize;
+        private int teamCurrentSize;
 
         public Employee TeamLead {
             get { return teamLead; }
@@ -26,10 +26,14 @@ namespace Lab1 {
         public TeamContainer(Employee teamLead):this() {
             this.teamLead = teamLead;
         }
-
+        /// <summary>
+        /// Typical array adding method with ordinary implementation.
+        /// </summary>
+        /// <param name="member">New team member to be pushed</param>
+        /// <returns>Whether push was success or not.</returns>
         public Boolean push(Employee member) {
-            if (teamSize < teamMaxSize) {
-                team[teamSize++] = member;
+            if (teamCurrentSize < teamMaxSize) {
+                team[teamCurrentSize++] = member;
                 return true;
             }
             return false;

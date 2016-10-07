@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Lab1 {
+    /// <summary>
+    /// Class to represent a Programmer development team member.
+    /// </summary>
     class Programmer : Employee {
         private string skills;
 
@@ -20,14 +23,20 @@ namespace Lab1 {
         public Programmer() {
             
         }
-        
-        public Programmer(string name, string surname, string skills)
-            : base(name, surname) {
-            this.Skills = skills;
-        }
+        /// <summary>
+        /// Programmer constructor
+        /// </summary>
+        /// <param name="name">Name</param>
+        /// <param name="surname">Surname</param>
+        /// <param name="skills">Current skills e.g. '.NET'</param>
+        /// <param name="hourPayRate">Payrate per hour</param>
         public Programmer(string name, string surname, string skills, int hourPayRate)
             : this(name, surname, skills) {
                 this.HourPayRate = hourPayRate;
+        }
+        public Programmer(string name, string surname, string skills)
+            : base(name, surname) {
+            this.Skills = skills;
         }
 
         public override string ToString() {

@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Lab1 {
+    /// <summary>
+    /// Abstract class with basic information about employee to be inherited.
+    /// </summary>
     abstract class Employee {
         private string name;
         private string surname;

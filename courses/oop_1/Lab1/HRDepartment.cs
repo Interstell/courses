@@ -5,8 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Lab1{
+    /// <summary>
+    /// Technical class where new company members are "hired"(objects initialized and filled with random data)
+    /// </summary>
     class HRDepartment {
         private static Random randomizer;
+        /// <summary>
+        /// Lists of names, surnames and it-skills to pick from.
+        /// </summary>
         private static string[] names = new string[] { "Noah", "Liam", "Mason", "Jacob", "William", "Ethan", "Michael", "Alexander", "James", "Daniel", "Elijah", "Benjamin", "Logan", "Aiden", "Jayden" };
         private static string[] surnames = new string[]{"Jones", "Williams", "Campbell", "Davis", "Thompson", "Kelly", "Sullivan", "O'Brien", "Evans", "Brown", "Lewis", "Wilson", "Wallace", "Ryan", "Moore", "Anderson"};
         private static string[] skills = new string[]{"Python", ".NET", "C/C++", "Java", "Swift", "Obj-C", "Scala", "NodeJS", "React/Redux", "Angular2","Haskell"};
@@ -14,7 +20,10 @@ namespace Lab1{
         static HRDepartment() {
             randomizer = new Random();
         }
-        
+        /// <summary>
+        /// Picks random name from the list above
+        /// </summary>
+        /// <returns>random name</returns>
         private string randomName() {
             return names[randomizer.Next(names.Length)]; 
         }
@@ -27,6 +36,10 @@ namespace Lab1{
             return skills[randomizer.Next(skills.Length)];
         }
         
+        /// <summary>
+        /// Creates a new instance of Programmer and fills it with random data
+        /// </summary>
+        /// <returns>new Programmer instance</returns>
         public Programmer hireProgrammer() {
             return new Programmer(randomName(),randomSurname(), randomSkill());
         }
