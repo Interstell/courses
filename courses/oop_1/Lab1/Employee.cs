@@ -37,7 +37,6 @@ namespace Lab1 {
                 }
             }
         }
-
         protected Employee(string name, string surname, int hourPayRate) {
             this.Name = name;
             this.Surname = surname;
@@ -46,7 +45,6 @@ namespace Lab1 {
 
         public Employee():this(null, null, 0){ }
         public Employee(string name, string surname):this (name, surname, 0){ }
-
         public Employee(string name, int hourPayRate) : this(name, null, hourPayRate) { }
 
         public override string ToString(){

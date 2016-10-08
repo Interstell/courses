@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Lab1.Employee" Collapsed="true">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgEAAAMAAQABAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Employee.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab1.Programmer" Collapsed="true">
+    <Position X="2.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAABAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Programmer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab1.Tester" Collapsed="true">
+    <Position X="5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tester.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab1.Analyst" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Analyst.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab1.Lead" Collapsed="true">
+    <Position X="6.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAgAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Lead.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab1.TechLead" Collapsed="true">
+    <Position X="4.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TechLead.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab1.AnalyticsLead" Collapsed="true">
+    <Position X="8.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AnalyticsLead.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab1.QALead" Collapsed="true">
+    <Position X="6.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>QALead.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab1.HRDepartment" Collapsed="true">
+    <Position X="1" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAABAAAAAgAQAECIIAAgAAAAAAAAAACAQAAQAAAIA=</HashCode>
+      <FileName>HRDepartment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab1.Logger" Collapsed="true">
+    <Position X="1" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAEAAAAAAIAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Logger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab1.Project" Collapsed="true">
+    <Position X="1" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAIAAAAQDAAgFCABAAAAAAAAAAAA=</HashCode>
+      <FileName>Project.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab1.ProjectManager" Collapsed="true">
+    <Position X="3.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAkAAAAAAAAAAAAACAAACAgAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>ProjectManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab1.TeamContainer" Collapsed="true">
+    <Position X="1" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAACCAAABAQAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>TeamContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
