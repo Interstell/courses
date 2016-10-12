@@ -32,15 +32,15 @@ namespace Lab1 {
         /// Hires 3 leads from HR "factory" and calls their methods of hiring their own teams.
         /// </summary>
         public void hireLeads() {
-            techLead = project.HR.hireTechLead();
+            techLead = HRDepartment.Instance.hireTechLead();
             Logger.leadHired("TechLead", techLead.ToString());
-            techLead.hireTeam(project.HR);
-            qaLead = project.HR.hireQALead();
+            techLead.hireTeam();
+            qaLead = HRDepartment.Instance.hireQALead();
             Logger.leadHired("QALead", qaLead.ToString());
-            qaLead.hireTeam(project.HR);
-            analyticsLead = project.HR.hireAnalyticsLead();
+            qaLead.hireTeam();
+            analyticsLead = HRDepartment.Instance.hireAnalyticsLead();
             Logger.leadHired("AnalyticsLead", analyticsLead.ToString());
-            analyticsLead.hireTeam(project.HR);
+            analyticsLead.hireTeam();
         }
     }
 }

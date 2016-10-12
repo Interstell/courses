@@ -17,9 +17,8 @@ namespace Lab1 {
         /// <remarks>
         /// Wraps a generic method from the base class.
         /// </remarks>
-        /// <param name="hr">Reference to HR technical class instance</param>
-        public override void hireTeam(HRDepartment hr) {
-            hireMembers<Tester>(hr, teamSize);
+        public override void hireTeam() {
+            hireMembers<Tester>(teamSize);
         }
     }   
 }

@@ -46,6 +46,7 @@
     <Compile Include="AnalyticsLead.cs" />
     <Compile Include="Lead.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="MyClass.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="ProjectManager.cs" />
     <Compile Include="QALead.cs" />

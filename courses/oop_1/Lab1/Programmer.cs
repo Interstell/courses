@@ -10,6 +10,8 @@ namespace Lab1 {
     /// </summary>
     class Programmer : Employee {
         private string skills;
+        private int linesWrittenToday;
+        private int linesPlanned;
 
         public string Skills {
             get { return skills; }
@@ -37,6 +39,15 @@ namespace Lab1 {
         public Programmer(string name, string surname, string skills)
             : base(name, surname) {
             this.Skills = skills;
+            this.linesWrittenToday = 0;
+            this.linesPlanned = 100;
+        }
+
+        public override void Work() {
+            linesWrittenToday = new Random().Next(linesPlanned);
+            if (linesWrittenToday / linesPlanned > 0.5) {
+                base.Work();
+            }
         }
 
         public override string ToString() {

@@ -10,12 +10,26 @@ namespace Lab1{
     /// </summary>
     class HRDepartment {
         private static Random randomizer;
+        private static HRDepartment instance;
+
         /// <summary>
         /// Lists of names, surnames and it-skills to pick from.
         /// </summary>
         private static string[] names = new string[] { "Noah", "Liam", "Mason", "Jacob", "William", "Ethan", "Michael", "Alexander", "James", "Daniel", "Elijah", "Benjamin", "Logan", "Aiden", "Jayden" };
         private static string[] surnames = new string[]{"Jones", "Williams", "Campbell", "Davis", "Thompson", "Kelly", "Sullivan", "O'Brien", "Evans", "Brown", "Lewis", "Wilson", "Wallace", "Ryan", "Moore", "Anderson"};
         private static string[] skills = new string[]{"Python", ".NET", "C/C++", "Java", "Swift", "Obj-C", "Scala", "NodeJS", "React/Redux", "Angular2","Haskell"};
+
+        public static HRDepartment Instance {
+            get {
+                if (instance == null)
+                    instance = new HRDepartment();
+                return instance;
+            }
+        }
+
+        private HRDepartment() {
+
+        }
 
         static HRDepartment() {
             randomizer = new Random();
@@ -24,15 +38,15 @@ namespace Lab1{
         /// Picks random name from the list above
         /// </summary>
         /// <returns>random name</returns>
-        private string randomName() {
+        private static string randomName() {
             return names[randomizer.Next(names.Length)]; 
         }
 
-        private string randomSurname() {
+        private static string randomSurname() {
             return surnames[randomizer.Next(surnames.Length)];
         }   
 
-        private string randomSkill() {
+        private static string randomSkill() {
             return skills[randomizer.Next(skills.Length)];
         }
         

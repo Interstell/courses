@@ -12,6 +12,8 @@ namespace Lab1 {
         private string name;
         private string surname;
         private int hourPayRate;
+        private int workingHoursCount;
+        private int earned;
 
         public string Name {
             get { return name; }
@@ -41,11 +43,17 @@ namespace Lab1 {
             this.Name = name;
             this.Surname = surname;
             this.HourPayRate = hourPayRate;
+            this.earned = 0;
+            this.workingHoursCount = 8;
         }
 
         public Employee():this(null, null, 0){ }
         public Employee(string name, string surname):this (name, surname, 0){ }
         public Employee(string name, int hourPayRate) : this(name, null, hourPayRate) { }
+        
+        public virtual void Work() {
+            this.earned += hourPayRate * workingHoursCount;
+        }
 
         public override string ToString(){
             return Name + " " + Surname;

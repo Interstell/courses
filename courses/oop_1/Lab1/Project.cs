@@ -10,7 +10,6 @@ namespace Lab1 {
     /// </summary>
     class Project {
         private string name;
-        private HRDepartment hr;
 
         public string Name {
             get{return name;}
@@ -30,17 +29,6 @@ namespace Lab1 {
         public int LinesOfCodeGlobal { get; set; }
         public int LinesOfCodeCurrent { get; set; }
         public int LinesOfCodeToTest { get; set; }
-
-        public HRDepartment HR {
-            get {
-                return hr;
-            }
-            set {
-                if (value != null) {
-                    hr = value;
-                }
-            }
-        }
 
         /// <summary>
         /// Constructor for working project
