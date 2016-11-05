@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Lab2.Employee" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAgAAIACAQAAIAgEAAAMAAQABAAEACAABAAAAAAAAAA=</HashCode>
+      <FileName>Employee.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Lab2.Programmer" Collapsed="true">
+    <Position X="2.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAgAABACAAAAAAAEAAAAIAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Programmer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab2.Tester" Collapsed="true">
+    <Position X="5.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAACAAAAAAAEAAAAAAAAAAIAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Tester.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab2.Analyst" Collapsed="true">
+    <Position X="8" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAIAIAAAA=</HashCode>
+      <FileName>Analyst.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab2.ProjectManager" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAgAAAUQAAAggBAEAAAACAAACAoAAQAAAQQAAAAAAAA=</HashCode>
+      <FileName>ProjectManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab2.Lead" Collapsed="true">
+    <Position X="6.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Lead.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Lab2.TechLead" Collapsed="true">
+    <Position X="4.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwEAAIAABAAAAAAAEAAAAAAEAAQAAAAAACAAAAAAAA=</HashCode>
+      <FileName>TechLead.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab2.QALead" Collapsed="true">
+    <Position X="6.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgEAAIAAABAAQAAAEAAAAAAEAAQAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>QALead.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab2.AnalyticsLead" Collapsed="true">
+    <Position X="8.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgEIAIAAAAAAAAAQEAAAAIAEAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AnalyticsLead.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab2.Project" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQBAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Project.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab2.HRDepartment" Collapsed="true">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAABAAAAAgAQAECIIAAgAAAABAAAAASAQAAQAAAIA=</HashCode>
+      <FileName>HRDepartment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab2.TeamContainer&lt;T&gt;" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAIAAAACAQAAAAQAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>TeamContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab2.Logger" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAEAAAAAAIAIAAAAAAAAAAAAAQAAAACAAAA=</HashCode>
+      <FileName>Logger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab2.LeadFinishEventArgs" Collapsed="true">
+    <Position X="6" Y="5.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAEAIAAAACA=</HashCode>
+      <FileName>LeadFinishEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab2.WrongUserStoriesException" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WrongUserStoriesException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Lab2.IManageable" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IManageable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Lab2.IWorkable" Collapsed="true">
+    <Position X="0.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAgAAAAAAAQABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IWorkable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Delegate Name="Lab2.TechLeadFinishHandler" Collapsed="true">
+    <Position X="4" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>TechLead.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Lab2.QALeadFinishHandler" Collapsed="true">
+    <Position X="6.25" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>QALead.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Lab2.AnalyticsFinishHandler" Collapsed="true">
+    <Position X="8.5" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AnalyticsLead.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
